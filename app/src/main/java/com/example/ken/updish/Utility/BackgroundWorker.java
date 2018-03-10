@@ -1,9 +1,11 @@
-package com.example.ken.updish;
+package com.example.ken.updish.Utility;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.ken.updish.R;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +28,7 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
     Context context;
 
-    BackgroundWorker(Context con)
+    public BackgroundWorker(Context con)
     {
         context = con;
     }
@@ -107,8 +109,8 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPostExecute(String o) {
-        alertDialog.setMessage(o);
+    protected void onPostExecute(String result) {
+        alertDialog.setMessage(result);
         alertDialog.show();
     }
 
