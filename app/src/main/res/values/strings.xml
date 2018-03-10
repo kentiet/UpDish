@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">UpDish</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="txtTitle">My favorite dish in the world! </string>
+    <string name="imageView">Desc</string>
+    <string name="txt_postDate">Feburary 20, 2019</string>
 </resources>
