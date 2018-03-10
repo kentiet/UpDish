@@ -1,4 +1,4 @@
-package com.example.ken.updish;
+package com.example.ken.updish.Activity;
 
 import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.ken.updish.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,5 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startActivity(new Intent(MainActivity.this, DetailActivity.class));
+
+//        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
     }
 }

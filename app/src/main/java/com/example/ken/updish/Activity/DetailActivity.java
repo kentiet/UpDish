@@ -1,4 +1,4 @@
-package com.example.ken.updish;
+package com.example.ken.updish.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.ken.updish.R;
+import com.example.ken.updish.ViewPagerAdapter;
 
 public class DetailActivity extends AppCompatActivity {
 

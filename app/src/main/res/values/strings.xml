@@ -7,4 +7,5 @@
     <string name="txtTitle">My favorite dish in the world! </string>
     <string name="imageView">Desc</string>
     <string name="txt_postDate">Feburary 20, 2019</string>
+    <string name="title_activity_bottom">BottomActivity</string>
 </resources>
