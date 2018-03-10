@@ -1,8 +1,10 @@
-package com.example.ken.updish;
+package com.example.ken.updish.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.ken.updish.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
+
+//        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
     }
 }
