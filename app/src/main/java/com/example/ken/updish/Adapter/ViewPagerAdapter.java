@@ -1,4 +1,4 @@
-package com.example.ken.updish;
+package com.example.ken.updish.Adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.example.ken.updish.R;
 
 public class ViewPagerAdapter extends PagerAdapter{
 
