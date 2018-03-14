@@ -3,6 +3,7 @@ package com.example.ken.updish.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class PostFragment extends Fragment {
 
     public PostFragment() {
         // Required empty public constructor
+        Log.e("Updish", "Inside PostFragment constructor" );
     }
 
 
