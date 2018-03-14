@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.ken.updish.R;
 
@@ -16,6 +17,7 @@ public class ViewPagerAdapter extends PagerAdapter{
     private Context context;
     private LayoutInflater layoutInflater;
     private Integer [] images = {R.drawable.food1, R.drawable.food2, R.drawable.food3};
+    private String [] pageNumber = {"1/3", "2/3", "3/3"};
 
     public ViewPagerAdapter(Context context){
         this.context = context;
@@ -33,9 +35,13 @@ public class ViewPagerAdapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position){
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.custom_layout, null);
+        //View view_slideNum = layoutInflater.inflate(R.layout.activity_detail, null);
 
-        ImageView imageView = (ImageView)view.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView)view.findViewById(R.id.img_slides);
         imageView.setImageResource(images[position]);
+
+        //TextView txtView_SlideNum = (TextView)view_slideNum.findViewById(R.id.txtView_slideNum);
+        //txtView_SlideNum.setText(pageNumber[position]);
 
         ViewPager vp = (ViewPager)container;
         vp.addView(view, 0);

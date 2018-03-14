@@ -21,6 +21,7 @@
         app:itemTextColor="@color/nav_color"
         app:menu="@menu/navigation" />
 
+
     <FrameLayout
         android:id="@+id/frameLayoutMain"
         android:layout_width="match_parent"
@@ -33,3 +34,4 @@
     </FrameLayout>
 
 </RelativeLayout>
+

@@ -24,6 +24,9 @@ import com.example.ken.updish.R;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private ArrayList<String> foodTitle = new ArrayList<String>();
+    private ArrayList<String> foodDescription = new ArrayList<String>();
+    private ArrayList<Integer> foodPic = new ArrayList<Integer>();
 
     private BottomNagivationListener bottomNagivationListener;
     private BottomNavigationView bottomNavigationView;

@@ -9,4 +9,10 @@
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteTransparent">#80FFFFFF</color>
+
+    <color name="colorBg">#f6f2e8</color>
+    <color name="colorText">#9e984f</color>
+    <color name="colorText2">#6a6527</color>
+    <color name="colorButton">#e1da69</color>
+
 </resources>
