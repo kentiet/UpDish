@@ -8,4 +8,24 @@
     <string name="imageView">Desc</string>
     <string name="txt_postDate">Feburary 20, 2019</string>
     <string name="title_activity_bottom">BottomActivity</string>
+    <string name="txt_resName">Douglas College</string>
+    <string name="txt_address">700 Royal Ave, New Westminster, BC, Canada V3M 5Z5</string>
+    <string name="txt_comment">Comment</string>
+    <string name="txt_addComment">Add a comment</string>
+    <string name="btn_post">Post</string>
+    <string name="btn_back">Back to the main</string>
+    <string name="txt_title">Post title</string>
+    <string name="txt_description">Dish description</string>
+    <string name="img_foodDesc">Food Image description</string>
+    <string name="title_activity_post">PostActivity</string>
+    <string name="txt_postToolBar">New Post</string>
+    <string name="txt_nameOfDishes">Name of dishes</string>
+    <string name="img_picture">Picture Description</string>
+    <string name="img_mapPointer">Map Pointer Description</string>
+    <string name="txt_location">Add Location</string>
+    <string name="txt_picture">Add Picture</string>
+    <string name="btn_newPost">Post</string>
+    <string name="txt_newPostDescription">Description</string>
+    <string name="img_comment">Comment icon</string>
+    <string name="img_slidesDishes">Dishes Slide Image</string>
 </resources>

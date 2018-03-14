@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorMain">#e09f35</color>
     <color name="Title">#624310</color>
+    <color name="colorBg">#f6f2e8</color>
+    <color name="colorText">#9e984f</color>
+    <color name="colorText2">#6a6527</color>
+    <color name="colorButton">#e1da69</color>
 </resources>
