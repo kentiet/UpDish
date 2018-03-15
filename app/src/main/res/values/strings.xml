@@ -39,6 +39,11 @@
     <string name="img_comment">Comment icon</string>
     <string name="img_slidesDishes">Dishes Slide Image</string>
 
-    <string name="test">TEST</string>
+    <!-- KEN -->
+    <string name="txtUserNameLogin">Username</string>
+    <string name="btnLogin">LOGIN</string>
+    <string name="btnRegister">REGISTER</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="app_id">test-196819</string>
 
 </resources>

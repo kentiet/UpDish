@@ -15,4 +15,8 @@
     <color name="colorText2">#6a6527</color>
     <color name="colorButton">#e1da69</color>
 
+    <color name="buttonColor">#ffffff</color>
+    <color name="buttonFgColor">#e09f35</color>
+    <color name="buttonRegColor">#E7DCC9</color>
+    <color name="seperator">#000000</color>
 </resources>
