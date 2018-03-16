@@ -18,7 +18,7 @@ public class PostFragment extends Fragment {
 
     public PostFragment() {
         // Required empty public constructor
-        Log.e("Updish", "Inside PostFragment constructor" );
+//        Log.e("Updish", "Inside PostFragment constructor" );
     }
 
 
