@@ -8,10 +8,7 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
+    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -32,6 +29,15 @@
             android:label="@string/title_activity_detail" />
         <activity android:name=".Activity.TestLoginActivity" />
 
+        <activity android:name=".Activity.UserActivity" />
+        <activity
+            android:name=".Activity.PostActivity"
+            android:label="@string/title_activity_post" />
+        <activity android:name=".Activity.UserLoginActivity"></activity>
+        <activity
+            android:name=".Activity.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -41,15 +47,6 @@
         <meta-data
             android:name="com.google.android.gms.appstate.APP_ID"
             android:value="@string/app_id"/>
-
-        <activity android:name=".Activity.UserActivity" />
-        <activity
-            android:name=".Activity.PostActivity"
-            android:label="@string/title_activity_post" />
-        <activity android:name=".Activity.UserLoginActivity"></activity>
-        <activity
-            android:name=".Activity.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>
