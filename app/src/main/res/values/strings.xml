@@ -38,5 +38,12 @@
     <string name="txt_newPostDescription">Description</string>
     <string name="img_comment">Comment icon</string>
     <string name="img_slidesDishes">Dishes Slide Image</string>
+    <string name="txt_slideNum">Slide Number</string>
+    <string name="btn_signOut">Sign Out</string>
+    <string name="btn_Save">Save</string>
+    <string name="txt_userName">User name</string>
+    <string name="txt_userEmail">Email</string>
+    <string name="txt_userName">User name</string>
+    <string name="txt_userEmail">Email</string>
 
 </resources>

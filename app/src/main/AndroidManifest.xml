@@ -31,12 +31,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-
-        <activity android:name=".Activity.UserActivity"></activity>
-
+        <activity android:name=".Activity.UserActivity" />
         <activity
             android:name=".Activity.PostActivity"
-            android:label="@string/title_activity_post"></activity>
+            android:label="@string/title_activity_post" />
+        <!-- Test -->
+
+        <activity android:name=".Activity.SplashActivity"></activity>
     </application>
 
 </manifest>

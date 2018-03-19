@@ -42,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         init(); // Initialization
 
-//        startActivity(new Intent(MainActivity.this, DetailActivity.class));
+        startActivity(new Intent(MainActivity.this, PostActivity.class));
+        //Splash Activity
+        // startActivity(new Intent(MainActivity.this, DetailActivity.class));
+
 //        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
     }
 

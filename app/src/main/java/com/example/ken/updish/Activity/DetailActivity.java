@@ -1,79 +1,169 @@
 package com.example.ken.updish.Activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.ken.updish.Listener.BottomNagivationListener;
+import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.R;
-import com.example.ken.updish.Adapter.ViewPagerAdapter;
+import com.example.ken.updish.Adapter.imgSlideAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import static android.app.PendingIntent.getActivity;
+import static java.security.AccessController.getContext;
+
 public class DetailActivity extends AppCompatActivity {
-
-    private TextView mTextMessage;
-    ViewPager viewPager;
-    ArrayList<String> mapAddress = new ArrayList<String>();
-    Integer mapPointer = new Integer(R.drawable.mappointer);
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_main:
-                    mTextMessage.setText(R.string.title_main);
-                    return true;
-                case R.id.navigation_new_post:
-                    mTextMessage.setText(R.string.title_post);
-                    return true;
-                case R.id.navigation_user_control:
-                    mTextMessage.setText(R.string.title_setting);
-                    return true;
-            }
-            return false;
-        }
-    };
+    private ViewPager viewPager;
+    private String mapAddress;
+    private String mapRestaurant;
+    private Integer mapPointer;
+    private ArrayList<String> commentUserName = new ArrayList<>();
+    private ArrayList<String> commentDate = new ArrayList<>();
+    private ArrayList<String> commentDesc = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        /* Add */
-        mapAddress.add("Hello");
+        initPostTitle();
+        initMapItems();
+        addItemComment();
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        //Back button
+        ImageButton imgBtnBack = (ImageButton)findViewById(R.id.btn_back);
+        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Back to Main Activity---------------------------------------------------------
+                startActivity(new Intent(DetailActivity.this, MainActivity.class));
+                //------------------------------------------------------------------------------
+            }
+        });
         //Image slides
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
-        viewPager.setAdapter(viewPagerAdapter);
+        imgSlideAdapter slideAdapter = new imgSlideAdapter(this);
+        viewPager.setAdapter(slideAdapter);
 
-        //LISTVIEW
+        //Map
         ListView myListViewMap = (ListView)findViewById(R.id.listView_map);
-
-        MapAdapter mapAdapter = new MapAdapter(this, mapAddress, mapPointer);
-
+        MapAdapter mapAdapter = new MapAdapter(this, mapRestaurant, mapAddress, mapPointer);
         myListViewMap.setAdapter(mapAdapter);
         myListViewMap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                //Google map Activity
             }
+        });
 
+        //Comments
+        ListView myListViewComments = (ListView)findViewById(R.id.listView_comments);
+        CommentAdapter commentAdapter = new CommentAdapter(this, commentUserName, commentDesc, commentDate);
+        myListViewComments.setAdapter(commentAdapter);
+        setListViewHeightBasedOnItems(myListViewComments);
+        //Add Comments
+        Button btnComment = (Button)findViewById(R.id.btn_postComment);
+        EditText txtAddComment = (EditText)findViewById(R.id.txt_comment);
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //When comment button clicked
+            }
         });
     }
+    protected void initPostTitle(){
+        try {
+            //Get Title Data from MainActivity
+            Bundle bundle = getIntent().getExtras();
+            String postTitle = bundle.getString("postTitle");
+            String postDate = bundle.getString("postDate");
+            String postUser = bundle.getString("postUser");
+            String postDesc = bundle.getString("postDesc");
 
+
+            TextView pTitle = (TextView)findViewById(R.id.txt_postTitle);
+            pTitle.setText(postTitle);
+
+            TextView pDateUser = (TextView)findViewById(R.id.txt_postDate);
+            String colorMainString= "#" + Integer.toHexString(ContextCompat.getColor(DetailActivity.this, R.color.colorMain) & 0x00ffffff);
+            String colorDefaultString = "#" + Integer.toHexString(ContextCompat.getColor(DetailActivity.this, R.color.colorDefault) & 0x00ffffff);
+
+            String textMultiColor = "<font color="+colorDefaultString+">"+ postDate +" By</font> <font color="+ colorMainString + ">"+postUser+"</font>";
+            pDateUser.setText(Html.fromHtml(textMultiColor));
+
+            TextView pDesc = (TextView)findViewById(R.id.txt_description);
+            pDesc.setText(postDesc);
+
+        }catch(Exception ex){
+            //Toast
+        }
+    }
+    protected void initMapItems(){
+        mapRestaurant = "Douglas College";
+        mapAddress = "Royal Avenue, New Westminster, BC V3M 5Z5";
+        mapPointer = new Integer(R.drawable.mappointer);
+    }
+
+    protected void addItemComment(){
+
+        //Comment Information
+        commentUserName.add("helloworld123");
+        commentUserName.add("sdfew4332");
+
+        commentDesc.add("Not good at all");
+        commentDesc.add("Too sweet");
+
+        commentDate.add("03/08/18");
+        commentDate.add("04/05/18");
+    }
+
+    //https://stackoverflow.com/questions/1778485/android-listview-display-all-available-items-without-scroll-with-static-header
+    public static boolean setListViewHeightBasedOnItems(ListView listView) {
+
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null) {
+
+            int numberOfItems = listAdapter.getCount();
+
+            // Get total height of all items.
+            int totalItemsHeight = 0;
+            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
+                View item = listAdapter.getView(itemPos, null, listView);
+                item.measure(0, 0);
+                totalItemsHeight += item.getMeasuredHeight();
+            }
+
+            // Get total height of all item dividers.
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+
+        } else {
+            return false;
+        }
+
+    }
 }
