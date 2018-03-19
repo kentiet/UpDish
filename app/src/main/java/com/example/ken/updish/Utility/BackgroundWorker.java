@@ -109,13 +109,13 @@ public class BackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+    protected void onProgressUpdate(Void... values) {
+        super.onProgressUpdate(values);
     }
 
     @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+    protected void onPostExecute(String result) {
+        alertDialog.setMessage(result);
+        alertDialog.show();
     }
 }
