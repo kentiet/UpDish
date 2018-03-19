@@ -41,12 +41,17 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <meta-data
             android:name="com.google.android.gms.appstate.APP_ID"
             android:value="@string/app_id"/>
+        <!-- Test -->
+
+        <activity android:name=".Activity.SplashActivity"></activity>
+
     </application>
 
 </manifest>

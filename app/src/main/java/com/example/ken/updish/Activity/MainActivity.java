@@ -41,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init(); // Initialization
-
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
 //        startActivity(new Intent(MainActivity.this, DetailActivity.class));
+
         startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
+
+//        startActivity(new Intent(MainActivity.this, PostActivity.class));
     }
 
     private void init()

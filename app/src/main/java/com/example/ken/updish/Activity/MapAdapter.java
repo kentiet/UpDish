@@ -17,29 +17,32 @@ import java.util.ArrayList;
 
 public class MapAdapter extends BaseAdapter {
     Activity context;
-    private ArrayList<String> address;
+    private String name;
+    private String address;
     private Integer mapPointer;
 
-    public MapAdapter(Activity context, ArrayList<String> address, Integer mapPointer){
+    public MapAdapter(Activity context, String name, String address, Integer mapPointer){
+
         super();
         this.context = context;
+        this.name = name;
         this.address = address;
         this.mapPointer = mapPointer;
     }
 
     @Override
     public int getCount() {
-        return address.size();
+        return 1;
     }
 
     @Override
     public Object getItem(int i) {
-        return address.get(i);
+        return name;
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 1;
     }
 
     @Override
@@ -48,10 +51,13 @@ public class MapAdapter extends BaseAdapter {
         if(view == null){
             view = inflater.inflate(R.layout.map_layout, null);
         }
-        //TextView txtAddress= (TextView)view.findViewById(R.id.txt_address);
-        //txtAddress.setText(address.get(i));
         ImageView imgMapPointer = (ImageView)view.findViewById(R.id.img_mapPointer);
         imgMapPointer.setImageResource(mapPointer);
+        TextView resname = (TextView)view.findViewById(R.id.txtView_resName);
+        resname.setText(name);
+        TextView resAddress = (TextView)view.findViewById(R.id.txtView_address);
+        resAddress.setText(address);
+
         return view;
     }
 }

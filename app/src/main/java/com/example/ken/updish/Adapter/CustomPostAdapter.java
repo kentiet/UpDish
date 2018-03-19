@@ -26,11 +26,17 @@ public class CustomPostAdapter extends BaseAdapter {
 
     private Activity context;
     private ArrayList<String> postList;
+    private ArrayList<String> postDesc;
+    private ArrayList<String> postDate;
+    private ArrayList<String> postUser;
 
-    public CustomPostAdapter(Activity con, ArrayList<String> anyList)
+    public CustomPostAdapter(Activity con, ArrayList<String> anyList, ArrayList<String> anyDesc, ArrayList<String> anyDate, ArrayList<String> anyUser)
     {
         this.context = con;
         this.postList = anyList;
+        this.postDesc = anyDesc;
+        this.postDate = anyDate;
+        this.postUser = anyUser;
     }
 
     @Override
@@ -62,17 +68,17 @@ public class CustomPostAdapter extends BaseAdapter {
         TextView postTitle = (TextView)view.findViewById(R.id.textViewPostTitle);
         postTitle.setText(postList.get(i));
 
-        TextView postDesc = (TextView)view.findViewById(R.id.textViewPostDesc);
-        postDesc.setText("this is a very long text to test for the description this is a very long text to test for the description this is a very long text to test for the description");
+        TextView postD = (TextView)view.findViewById(R.id.textViewPostDesc);
+        postD.setText(postDesc.get(i));
 
-        TextView postDate = (TextView)view.findViewById(R.id.textViewPostDate);
-        postDate.setText("Posted on 03/05/2018");
+        TextView postDa = (TextView)view.findViewById(R.id.textViewPostDate);
+        postDa.setText(postDate.get(i));
 
         //String Color variables
         String colorMainString= "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorMain) & 0x00ffffff);
         String colorDefaultString = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorDefault) & 0x00ffffff);
 
-        String textMultiColor = "<font color="+colorDefaultString+">By</font> <font color="+ colorMainString + ">Tan Thinh</font>";
+        String textMultiColor = "<font color="+colorDefaultString+">By</font> <font color="+ colorMainString + ">"+postUser.get(i)+"</font>";
         TextView postUser = (TextView)view.findViewById(R.id.textViewPostUser);
         postUser.setText(Html.fromHtml(textMultiColor));
 
