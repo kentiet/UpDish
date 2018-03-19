@@ -29,10 +29,6 @@
             android:label="@string/title_activity_detail" />
         <activity android:name=".Activity.TestLoginActivity" />
 
-        <activity android:name=".Activity.UserActivity" />
-        <activity
-            android:name=".Activity.PostActivity"
-            android:label="@string/title_activity_post" />
         <activity android:name=".Activity.UserLoginActivity"></activity>
         <activity
             android:name=".Activity.MapsActivity"

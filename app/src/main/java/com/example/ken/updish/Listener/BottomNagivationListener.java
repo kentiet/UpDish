@@ -49,10 +49,10 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
 
         context.setFragment(homeFragment);
 
-        ActivityManager mActivityManager =(ActivityManager)context.getSystemService(context.ACTIVITY_SERVICE);
-        String mPackageName = mActivityManager.getRunningTasks(1).get(0).topActivity.getClassName();
-        String[] splitName = mPackageName.split(Pattern.quote("."));
-        currentTopActivityName = splitName[splitName.length - 1];
+//        ActivityManager mActivityManager =(ActivityManager)context.getSystemService(context.ACTIVITY_SERVICE);
+//        String mPackageName = mActivityManager.getRunningTasks(1).get(0).topActivity.getClassName();
+//        String[] splitName = mPackageName.split(Pattern.quote("."));
+//        currentTopActivityName = splitName[splitName.length - 1];
     }
 
     @Override
@@ -67,10 +67,11 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
 //                    context.startActivity(intent);
 //                }
 //                context.finish();
+
                 context.setFragment(homeFragment);
                 return true;
             case R.id.navigation_new_post:
-                Log.e("APP_NAME", "second dashboard");
+//                Log.e("APP_NAME", "second dashboard");
                 context.setFragment(postFragment);
                 return true;
             case R.id.navigation_user_control:

@@ -51,9 +51,8 @@ public class DetailActivity extends AppCompatActivity {
         imgBtnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Back to Main Activity---------------------------------------------------------
-                startActivity(new Intent(DetailActivity.this, MainActivity.class));
-                //------------------------------------------------------------------------------
+                //Back to Main Activity - destroy
+                finish();
             }
         });
         //Image slides

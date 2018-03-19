@@ -21,6 +21,8 @@ import com.example.ken.updish.Fragment.UserFragment;
 import com.example.ken.updish.Listener.BottomNagivationListener;
 import com.example.ken.updish.R;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,11 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         init(); // Initialization
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
-//        startActivity(new Intent(MainActivity.this, DetailActivity.class));
-
         startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
-
-//        startActivity(new Intent(MainActivity.this, PostActivity.class));
     }
 
     private void init()
