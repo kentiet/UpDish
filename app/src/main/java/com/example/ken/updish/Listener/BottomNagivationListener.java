@@ -53,7 +53,6 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
         String mPackageName = mActivityManager.getRunningTasks(1).get(0).topActivity.getClassName();
         String[] splitName = mPackageName.split(Pattern.quote("."));
         currentTopActivityName = splitName[splitName.length - 1];
-
     }
 
     @Override
