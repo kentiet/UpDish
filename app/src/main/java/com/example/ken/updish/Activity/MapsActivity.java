@@ -1,6 +1,7 @@
 package com.example.ken.updish.Activity;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,16 +11,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ken.updish.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.*;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,7 +36,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private GoogleMap mMap;
@@ -42,21 +49,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
 
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
-        //mGoogleApiClient.connect(SIGN_IN_MODE_REQUIRE);
     }
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+
+
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.map);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -66,6 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         buildGoogleApiClient();
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
 
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            // TODO: Consider calling
@@ -181,20 +192,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.setMyLocationEnabled(true);
             }
 
-//        // Add a marker in Sydney and move the camera
-////        LatLng myLat = new LatLng(currLatitude, currLongitude);
-////        mMap.addMarker(new MarkerOptions().position(myLat).title("Current Location"));
-////        mMap.moveCamera(CameraUpdateFactory.newLatLng(myLat));
-////
-////        mMap.setMyLocationEnabled(true);
-
-
 
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
+
         mLastLocation = location;
         if(mCurrentLocationMarker != null){
             mCurrentLocationMarker.remove();
@@ -207,23 +211,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 0));
     }
 
-//    @Override
-//    public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//    }
-//
-//    @Override
-//    public void onProviderEnabled(String provider) {
-//
-//    }
-//
-//    @Override
-//    public void onProviderDisabled(String provider) {
-//
-//    }
 
     @Override
     public void onConnected(Bundle bundle) {

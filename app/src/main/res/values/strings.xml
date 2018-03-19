@@ -45,5 +45,7 @@
     <string name="btnRegister">REGISTER</string>
     <string name="title_activity_maps">Map</string>
     <string name="app_id">test-196819</string>
+    <string name="btnMapSearch">SEARCH</string>
+    <string name="addressInput">Enter the search to be searched</string>
 
 </resources>
