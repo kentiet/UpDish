@@ -111,7 +111,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
                 currentLong = place.getLatLng().longitude;
                 currentLat = place.getLatLng().latitude;
             }
@@ -137,7 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         LatLng latLng = new LatLng(currentLat, currentLong);
-        Log.e("Map location changed", location.getLatitude() + " - " + location.getLongitude(), null);
+        //Log.e("Map location changed", location.getLatitude() + " - " + location.getLongitude(), null);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
