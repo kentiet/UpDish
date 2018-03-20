@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,8 +25,11 @@ import android.widget.Toast;
 import com.example.ken.updish.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.*;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,14 +45,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private GoogleMap mMap;
-    public static final int SIGN_IN_MODE_REQUIRE = 1;
     LocationManager mLocationManager;
-    private LocationListener mLocationListener;
     private Marker mCurrentLocationMarker;
     LocationRequest mLocationRequest;
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
+    PlaceAutocompleteFragment autocompleteFragment;
 
+    // Default current Latlng
+    private double currentLong = -122.084;
+    private double currentLat = 37.4219983;
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -56,17 +62,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+
     }
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Log.e("MAP", "Oncreate", null);
 
-
-
-
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.map);
+        // Add the autocompletefragmant UI into fragment
+        autocompleteFragment= (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_search_input);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -75,106 +81,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         buildGoogleApiClient();
 
+        //Call location service
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        if(mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new LocationListener() {
-//                @Override
-//                public void onLocationChanged(Location location) {
-//                    double latitude = location.getLatitude();
-//                    double longitude = location.getLongitude();
-//
-//                    LatLng latLng = new LatLng(latitude, longitude);
-//
-//                    Geocoder geocoder = new Geocoder(getApplicationContext());
-//                    try {
-//                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-//                        String str = addressList.get(0).getLocality();
-//                        str += addressList.get(0).getCountryName();
-//                        Toast myToast = Toast.makeText(MapsActivity.this, str, Toast.LENGTH_SHORT);
-//                        myToast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 20, 0);
-//                        myToast.show();
-//                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.2f));
-//                    } catch (IOException e) {
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//                }
-//
-//                @Override
-//                public void onProviderEnabled(String provider) {
-//
-//                }
-//
-//                @Override
-//                public void onProviderDisabled(String provider) {
-//
-//                }
-//            });
-//        }
-//        else if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
-//                @Override
-//                public void onLocationChanged(Location location) {
-//                    double latitude = location.getLatitude();
-//                    double longitude = location.getLongitude();
-//
-//                    LatLng latLng = new LatLng(latitude, longitude);
-//
-//                    Geocoder geocoder = new Geocoder(getApplicationContext());
-//                    try {
-//                        List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-//                        String str = addressList.get(0).getLocality();
-//                        str += addressList.get(0).getCountryName();
-//
-//                        mMap.addMarker(new MarkerOptions().position(latLng).title(str));
-//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
-//                    } catch (IOException e) {
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//                }
-//
-//                @Override
-//                public void onProviderEnabled(String provider) {
-//
-//                }
-//
-//                @Override
-//                public void onProviderDisabled(String provider) {
-//
-//                }
-//
-//
-//            });
-//        }
-//
-//        mMap.setMyLocationEnabled(true);
     }
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        Log.e("MAP", "OnRdy", null);
             mMap = googleMap;
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -192,6 +108,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.setMyLocationEnabled(true);
             }
 
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
+                currentLong = place.getLatLng().longitude;
+                currentLat = place.getLatLng().latitude;
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+        });
+
 
     }
 
@@ -204,14 +134,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrentLocationMarker.remove();
         }
 
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng latLng = new LatLng(currentLat, currentLong);
+        Log.e("Map location changed", location.getLatitude() + " - " + location.getLongitude(), null);
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 0));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.2f));
     }
 
 
