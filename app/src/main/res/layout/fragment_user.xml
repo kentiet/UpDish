@@ -5,108 +5,83 @@
     tools:context="com.example.ken.updish.Fragment.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:background="@color/colorWhite"
-        >
-
-        <Button
-            android:id="@+id/btn_signOut"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/colorMain"
-            android:text="@string/btn_signOut"
-            android:textColor="@color/colorBg"
-            android:textSize="26dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_userEmail"
-            app:layout_constraintVertical_bias="0.8" />
-
+        android:layout_height="match_parent">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:background="@color/colorMain"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:theme="?attr/actionBarTheme" />
 
         <TextView
             android:id="@+id/txt_userName"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginLeft="22dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="147dp"
             android:text="@string/txt_userName"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_signOut"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.37" />
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txt_userNameContext"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/txt_userName"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/txt_userName"
+            android:layout_toRightOf="@+id/txt_userName"
+            android:text="Mijeong Lee"
+            android:textColor="@color/colorMain"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_userEmail"
             android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/txt_userNameContext"
+            android:layout_marginTop="22dp"
+            android:layout_toLeftOf="@+id/txt_userNameContext"
+            android:layout_toStartOf="@+id/txt_userNameContext"
             android:text="@string/txt_userEmail"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_userName"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/txt_userNameContext"
-            android:layout_width="200dp"
-            android:layout_height="26dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Mijeong Lee"
-            android:textColor="@color/colorMain"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txt_userName"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.32999998" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/txt_userEmailContext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignBaseline="@+id/txt_userEmail"
+            android:layout_alignBottom="@+id/txt_userEmail"
+            android:layout_alignLeft="@+id/txt_userEmail"
+            android:layout_alignStart="@+id/txt_userEmail"
+            android:layout_marginLeft="125dp"
+            android:layout_marginStart="125dp"
+            android:layout_marginEnd="15dp"
             android:ellipsize="end"
             android:text="lemm39@student.douglascollege.ca"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txt_userEmail"
-            app:layout_constraintTop_toBottomOf="@+id/txt_userNameContext"
-            app:layout_constraintVertical_bias="0.00999999" />
+            android:layout_marginRight="10dp" />
 
-    </android.support.constraint.ConstraintLayout>
-
+        <Button
+            android:id="@+id/btn_signOut"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="111dp"
+            android:background="@color/colorMain"
+            android:text="@string/btn_signOut"
+            android:textColor="@color/colorBg"
+            android:textSize="26dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </FrameLayout>

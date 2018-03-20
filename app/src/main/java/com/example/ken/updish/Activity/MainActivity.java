@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         init(); // Initialization
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
-        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
+//        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
     }
 
     private void init()

@@ -51,7 +51,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //mGoogleApiClient.connect(SIGN_IN_MODE_REQUIRE);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
