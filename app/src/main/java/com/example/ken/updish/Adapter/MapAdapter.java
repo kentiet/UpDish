@@ -1,4 +1,4 @@
-package com.example.ken.updish.Activity;
+package com.example.ken.updish.Adapter;
 
 import android.app.Activity;
 import android.content.Context;

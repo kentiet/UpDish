@@ -1,7 +1,5 @@
 package com.example.ken.updish.Activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -18,15 +16,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
+import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.imgSlideAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import static android.app.PendingIntent.getActivity;
-import static java.security.AccessController.getContext;
 
 public class DetailActivity extends AppCompatActivity {
     private ViewPager viewPager;

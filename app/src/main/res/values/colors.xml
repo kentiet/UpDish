@@ -17,6 +17,7 @@
 
     <color name="buttonColor">#ffffff</color>
     <color name="buttonFgColor">#e09f35</color>
-    <color name="buttonRegColor">#E7DCC9</color>
+    <color name="buttonRegColor">#e7dcc9</color>
     <color name="seperator">#000000</color>
+    <color name="buttonPicture">#ffc76f</color>
 </resources>

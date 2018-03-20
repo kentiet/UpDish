@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
 //      startActivity(new Intent(MainActivity.this, MapsActivity.class));
        // startActivity(new Intent(MainActivity.this, DetailActivity.class));
-
     }
 
     private void init()

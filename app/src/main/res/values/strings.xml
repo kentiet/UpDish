@@ -50,7 +50,15 @@
     <string name="btnRegister">REGISTER</string>
     <string name="title_activity_maps">Map</string>
     <string name="app_id">test-196819</string>
+
     <string name="btnMapSearch">SEARCH</string>
     <string name="addressInput">Enter the search to be searched</string>
+
+    <string name="btn_picture">Add Picture</string>
+    <string name="txtView_likeCount">0</string>
+    <string name="imgBtn_likeDesc">Like Button</string>
+    <string name="imgBtn_dislikeDesc">Dislike Button</string>
+    <string name="txtView_dislikeCount">0</string>
+
 
 </resources>
