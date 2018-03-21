@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //start activity with each title data clicked
-                Intent intent = new Intent(getContext(), DetailActivity.class);
+                Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("postTitle", allPostList.get(i));
                 intent.putExtra("postDesc", allPostDescription.get(i));
                 intent.putExtra("postDate", allPostDate.get(i));
@@ -75,7 +76,7 @@ public class HomeFragment extends Fragment {
         allPostList.add("This delicious pizza is the one I am always looking for");
         allPostList.add("Cutest ice cream I have ever seen");
 
-        allPostDescription.add("TestDescription");
+        allPostDescription.add("One day I tried to look for my dog. I smelled a great food coming out of this place. So I stopped looking for my dog and went inside to eat. Great place !");
         allPostDescription.add("TestDescription2TestDescription2TestDescription2TestDescription2");
         allPostDescription.add("TestDescription3TestDescription3TestDescription3TestDescription3");
         allPostDescription.add("TestDescription2TestDescription2TestDescription2TestDescription2");
