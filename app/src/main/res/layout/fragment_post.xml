@@ -80,15 +80,21 @@
                     android:id="@+id/txt_description"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_margin="10dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorBg"
                     android:ems="10"
                     android:gravity="top"
                     android:hint="@string/txt_newPostDescription"
                     android:inputType="textMultiLine"
-                    android:textSize="14sp"
-                    android:layout_margin="10dp"/>
-
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/txtFeatureTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/txtFeatureTitle"
+                    android:textSize="32sp"
+                    android:gravity="center_horizontal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -102,7 +108,9 @@
                         android:layout_margin="3dp">
 
                         <ListView
-                            android:id="@+id/prosFeature"
+                            android:id="@+id/lvProsFeature"
+                            android:divider="@null"
+                            android:dividerHeight="0dp"
                             android:layout_width="185dp"
                             android:layout_height="150dp"
                             android:layout_weight="1">
@@ -125,7 +133,9 @@
                         android:layout_margin="3dp">
 
                         <ListView
-                            android:id="@+id/consFeature"
+                            android:id="@+id/lvConsFeature"
+                            android:divider="@null"
+                            android:dividerHeight="0dp"
                             android:layout_width="185dp"
                             android:layout_height="150dp"
                             android:layout_weight="1">

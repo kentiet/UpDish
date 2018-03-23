@@ -59,6 +59,30 @@
     <string name="imgBtn_likeDesc">Like Button</string>
     <string name="imgBtn_dislikeDesc">Dislike Button</string>
     <string name="txtView_dislikeCount">0</string>
+    <string name="txtFeatureTitle">Features</string>
 
+    <string-array name="featureType">
+        <item>" "</item>
+        <item>Price</item>
+        <item>Taste</item>
+        <item>Location</item>
+    </string-array>
 
+    <string-array name="feature_price">
+        <item>$ - Cheap</item>
+        <item>$$ - Acceptable</item>
+        <item>$$$ - Expensive</item>
+    </string-array>
+
+    <string-array name="feature_taste">
+        <item>Awful</item>
+        <item>Good</item>
+        <item>Fantastic</item>
+        <item>Very yummy!</item>
+    </string-array>
+
+    <string-array name="feature_location">
+        <item>Far - hard to find</item>
+        <item>Reachable - Easy to find</item>
+    </string-array>
 </resources>

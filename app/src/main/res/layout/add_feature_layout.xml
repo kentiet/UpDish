@@ -3,17 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtFeatureType"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/spnFeatureType"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="18sp" />
+        android:entries="@array/featureType" />
 
-    <TextView
-        android:id="@+id/txtFeatures"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/spnFeature"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="18sp" />
+        android:layout_weight="1" />
 </LinearLayout>

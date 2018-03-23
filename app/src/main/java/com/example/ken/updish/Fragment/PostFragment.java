@@ -23,12 +23,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ken.updish.Activity.MapsActivity;
+import com.example.ken.updish.Adapter.FeatureAdapter;
+import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -48,6 +53,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -55,9 +63,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     Activity context;
+    View view;
     private TextView mTextMessage;
-
-
 
     // Maps Related Variable
     PlaceAutocompleteFragment autocompleteFragment;
@@ -75,19 +82,36 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     private double currentLong = -122.084;
     private double currentLat = 37.4219983;
 
-
-
+    // Feature related
+    private AlertDialog.Builder spinnerDialogBuilder;
+    private View spinnerDialogView;
+    private AlertDialog b;
+    private ArrayList<Feature> myProFeatureList = new ArrayList<>();
+    private ArrayList<Feature> myConsFeatureList = new ArrayList<>();
+    private Spinner fType;
+    private Spinner feature;
+    private String sltFeatureType;
+    private String sltFeature;
+    private ListView lvProFeature;
+    private ListView lvConFeature;
+    FeatureAdapter proAdapter;
+    FeatureAdapter consAdapter;
 
     public PostFragment() {
         // Required empty public constructor
         Log.e("Updish", "Test fragment constructor", null);
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_post, container, false);
+        view = inflater.inflate(R.layout.fragment_post, container, false);
+
         context = (Activity)getActivity();
 
         Button btn_new = (Button)view.findViewById(R.id.btn_Newpost);
@@ -120,17 +144,181 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
         /* Features Part */
 
-        Button addPros = (Button)getActivity().findViewById(R.id.btnAddPros);
-        Button addCons = (Button)getActivity().findViewById(R.id.btnAddCons);
+        createDSpinnerDialog();
+
+        fType = (Spinner) spinnerDialogView.findViewById(R.id.spnFeatureType);
+        feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
 
 
+        final Button addPros = (Button)view.findViewById(R.id.btnAddPros);
+        final Button addCons = (Button)view.findViewById(R.id.btnAddCons);
+
+        buttonClickedHandler(addCons);
+        buttonClickedHandler(addPros);
+
+//        lvProFeature.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                myProFeatureList.remove(i);
+//            }
+//        });
         return view;
     }
 
 
 
     //------------ KEN -----------------//
+
+    /* Feature Part */
+    private void populateProList() {
+        addProFeature(sltFeatureType, sltFeature);
+        lvProFeature = (ListView)getActivity().findViewById(R.id.lvProsFeature);
+        proAdapter = new FeatureAdapter(context, myProFeatureList);
+        lvProFeature.setAdapter(proAdapter);
+    }
+
+    private void populateConsList() {
+        addConsFeature(sltFeatureType, sltFeature);
+        lvConFeature = (ListView)getActivity().findViewById(R.id.lvConsFeature);
+        consAdapter = new FeatureAdapter(context, myConsFeatureList);
+        lvConFeature.setAdapter(consAdapter);
+    }
+
+    private void proSpinnerDialogHandler() {
+        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                populateProList();
+            }
+        });
+        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        clearSpinnerDialogView();
+        b = spinnerDialogBuilder.create();
+        b.show();
+    }
+
+    private void consSpinnerDialogHandler() {
+        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                populateConsList();
+            }
+        });
+        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        clearSpinnerDialogView();
+        b = spinnerDialogBuilder.create();
+        b.show();
+    }
+
+    private void buttonClickedHandler(final Button b) {
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        setFeatureOnType();
+                        sltFeatureType = fType.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+                feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        sltFeature = feature.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+                switch (b.getId()) {
+                    case R.id.btnAddCons:
+                        consSpinnerDialogHandler();
+                        break;
+                    case R.id.btnAddPros:
+                        proSpinnerDialogHandler();
+                        break;
+                }
+
+            }
+        });
+    }
+
+    private void clearSpinnerDialogView(){
+        if(spinnerDialogView.getParent() != null) {
+            ((ViewGroup)spinnerDialogView.getParent()).removeView(spinnerDialogView);
+        }
+    }
+
+    private void addProFeature(String t, String f) {
+        Feature mFeature = new Feature(t, f);
+        myProFeatureList.add(mFeature);
+    }
+
+    private void addConsFeature(String t, String f) {
+        Feature mFeature = new Feature(t, f);
+        myConsFeatureList.add(mFeature);
+    }
+
+    private void createDSpinnerDialog() {
+        spinnerDialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater featureInflater = getLayoutInflater();
+        spinnerDialogView = featureInflater.inflate(R.layout.add_feature_layout, null);
+        spinnerDialogBuilder.setView(spinnerDialogView);
+        spinnerDialogBuilder.setTitle("Please tell us your feelings!");
+        spinnerDialogBuilder.setMessage("");
+    }
+
+    private void setFeatureOnType() {
+        sltFeatureType = fType.getSelectedItem().toString();
+        setFeatureSpinnerItem(sltFeatureType);
+
+    }
+
+    private void setFeatureSpinnerItem (String t){
+        String[] entry;
+        ArrayAdapter<String> spinnerAdapter;
+
+        switch (t) {
+            case "Price":
+                Log.e("Price", "Price selected");
+                //feature.getResources().getStringArray(R.array.feature_price);
+                entry = getResources().getStringArray(R.array.feature_price);
+                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+                feature.setAdapter(spinnerAdapter);
+                break;
+            case "Taste":
+                entry = getResources().getStringArray(R.array.feature_taste);
+                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+                feature.setAdapter(spinnerAdapter);
+                break;
+            case "Location":
+                entry = getResources().getStringArray(R.array.feature_location);
+                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+                feature.setAdapter(spinnerAdapter);
+                break;
+        }
+
+    }
 
 
 
@@ -214,6 +402,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
+
         if(mCurrentLocationMarker != null){
             mCurrentLocationMarker.remove();
         }
