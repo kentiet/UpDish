@@ -92,6 +92,61 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="6dp">
+
+                    <LinearLayout
+                        android:layout_width="185dp"
+                        android:layout_height="200dp"
+                        android:orientation="vertical"
+                        android:layout_margin="3dp">
+
+                        <ListView
+                            android:id="@+id/prosFeature"
+                            android:layout_width="185dp"
+                            android:layout_height="150dp"
+                            android:layout_weight="1">
+
+                        </ListView>
+
+                        <Button
+                            android:id="@+id/btnAddPros"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="right"
+                            android:background="@android:drawable/ic_input_add" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="185dp"
+                        android:layout_height="200dp"
+                        android:orientation="vertical"
+                        android:layout_margin="3dp">
+
+                        <ListView
+                            android:id="@+id/consFeature"
+                            android:layout_width="185dp"
+                            android:layout_height="150dp"
+                            android:layout_weight="1">
+
+                        </ListView>
+
+                        <Button
+                            android:id="@+id/btnAddCons"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="right"
+                            android:background="@android:drawable/ic_input_add" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -103,13 +158,11 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"/>
 
-                    <TextView
-                        android:id="@+id/txt_map"
+                    <fragment
+                        android:id="@+id/autocomplete_address"
+                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:gravity="fill_vertical"
-                        android:text="@string/txt_location"
-                        android:textSize="18sp" />
+                        android:layout_height="50dp" />
                 </LinearLayout>
 
                 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
