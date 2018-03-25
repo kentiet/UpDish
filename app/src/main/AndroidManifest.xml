@@ -27,7 +27,6 @@
         <activity
             android:name=".Activity.DetailActivity"
             android:label="@string/title_activity_detail" />
-        <activity android:name=".Activity.TestLoginActivity" />
 
         <activity android:name=".Activity.UserLoginActivity"></activity>
         <activity

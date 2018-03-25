@@ -1,28 +1,21 @@
 package com.example.ken.updish.Activity;
 
-import android.app.ActivityManager;
 import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.example.ken.updish.Adapter.CustomPostAdapter;
 import com.example.ken.updish.Fragment.HomeFragment;
 import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Fragment.UserFragment;
 import com.example.ken.updish.Listener.BottomNagivationListener;
 import com.example.ken.updish.R;
+import com.example.ken.updish.Utility.SharedResources;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,11 +38,8 @@ public class MainActivity extends AppCompatActivity {
         init(); // Initialization
 
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
-//        startActivity(new Intent(MainActivity.this, TestLoginActivity.class));
+        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
 
-
-//      startActivity(new Intent(MainActivity.this, MapsActivity.class));
-       // startActivity(new Intent(MainActivity.this, DetailActivity.class));
     }
 
     private void init()
@@ -63,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
         bottomNagivationListener = new BottomNagivationListener(this, mainFrame, homeFragment, postFragment, userFragment);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationMenuMain);
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNagivationListener);
+
+        // Set useful variables for the application
+        setUsefulResources();
+    }
+
+    private void setUsefulResources()
+    {
+        SharedResources sr = SharedResources.getInstance();
+        sr.addStringValue(this, "appName", "Updish");
+        sr.addStringValue(this, "loginUrl", "http://10.0.2.2:8888/updish/api/v1/login");
     }
 
     public void setFragment(Fragment fragment)
