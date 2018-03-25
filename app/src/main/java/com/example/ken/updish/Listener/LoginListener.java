@@ -12,14 +12,14 @@ import com.example.ken.updish.Utility.LoginBackgroundWorker;
  * Created by tanthinh on 3/25/18.
  */
 
-public class OnLoginListener implements View.OnClickListener {
+public class LoginListener implements View.OnClickListener {
 
     // Constructor
     Activity context;
     EditText editTextUsername, editTextPassword;
     String username, password, title;
 
-    public OnLoginListener(Activity context)
+    public LoginListener(Activity context)
     {
         this.context = context;
 

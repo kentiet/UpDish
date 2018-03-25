@@ -2,11 +2,9 @@ package com.example.ken.updish.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.example.ken.updish.Listener.OnLoginListener;
+import com.example.ken.updish.Listener.LoginListener;
 import com.example.ken.updish.R;
 
 public class UserLoginActivity extends AppCompatActivity {
@@ -22,7 +20,7 @@ public class UserLoginActivity extends AppCompatActivity {
         btnLogin = (Button)findViewById(R.id.btnLogin);
 
         //Set listener
-        OnLoginListener oll = new OnLoginListener(this);
+        LoginListener oll = new LoginListener(this);
         btnLogin.setOnClickListener(oll);
     }
 }
