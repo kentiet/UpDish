@@ -106,35 +106,46 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-        // Create Simple Dialog to show user's login information
+
         alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");
-        alertDialog.setMessage(result);
-        alertDialog.show();
 
         // If login successfully
-        if(result.equals("Login successfully."))
+        if(result == null)
         {
-            alertDialog.setCancelable(false); // Lock user's action
+            alertDialog.setTitle("Cannot connect to Updish server");
+            alertDialog.setMessage("Please try again later.");
+            alertDialog.show();
+        }else
+        {
+            // Create Simple Dialog to show user's login information
+            alertDialog.setTitle("Login Status");
+            alertDialog.setMessage(result);
+            alertDialog.show();
+
+            if(result.equals("Login successfully."))
+            {
+                alertDialog.setCancelable(false); // Lock user's action
 
             /* Create a task after X seconds to dismiss the dialog
                and jump to Main Activity
             */
-            TimerTask tsk = new TimerTask(){
+                TimerTask tsk = new TimerTask(){
 
-                @Override
-                public void run() {
-                    Intent intent = new Intent(context, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent);
-                    alertDialog.dismiss();
-                    context.finish();
-                }
-            };
-            Timer opening = new Timer();
-            opening.schedule(tsk, 2000);
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                        alertDialog.dismiss();
+                        context.finish();
+                    }
+                };
+                Timer opening = new Timer();
+                opening.schedule(tsk, 2000);
 
+            }
         }
+
 
     }
 }
