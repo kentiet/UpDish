@@ -1,12 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    tools:context="com.example.ken.updish.Fragment.PostFragment">
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+ <!-- TODO: Update blank fragment layout -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@android:color/background_light"
+        tools:context="com.example.ken.updish.Fragment.PostFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
@@ -50,31 +47,25 @@
                     android:inputType="textPersonName"
                     android:padding="15dp" />
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/btn_picture"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="-40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/buttonFgColor"
+                    android:text="@string/btn_picture"
+                    android:textColor="@color/colorBg"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/img_picture"
-                        android:layout_width="40dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:contentDescription="@string/img_picture"
-                        app:srcCompat="@drawable/picture" />
-
-                    <Button
-                        android:id="@+id/btn_picture"
-                        android:layout_width="match_parent"
-                        android:layout_height="-40dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@color/buttonFgColor"
-                        android:text="@string/btn_picture"
-                        android:textColor="@color/colorBg"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <GridView
+                    android:id="@+id/gridView_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:numColumns="5" />
 
                 <EditText
                     android:id="@+id/txt_description"
@@ -95,6 +86,7 @@
                     android:text="@string/txtFeatureTitle"
                     android:textSize="32sp"
                     android:gravity="center_horizontal"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -154,10 +146,20 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <!--<TextView-->
+                    <!--android:id="@+id/txt_map"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:gravity="fill_vertical"-->
+                    <!--android:text="@string/txt_location"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_marginRight="15dp"-->
+
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal" />-->
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/img_mapPointer"
@@ -172,10 +174,16 @@
                         android:id="@+id/autocomplete_address"
                         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp" />
-                </LinearLayout>
+                        android:layout_height="50dp"
+                        android:layout_toRightOf="@+id/img_mapPointer"/>
 
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                </RelativeLayout>
+
+
+
+
+
+               <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:map="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/map"
@@ -188,6 +196,7 @@
             </LinearLayout>
 
         </ScrollView>
+
         <Button
             android:id="@+id/btn_Newpost"
             android:layout_width="match_parent"
@@ -197,8 +206,3 @@
             android:textColor="@color/colorText2"
             android:textSize="20sp" />
     </LinearLayout>
-</FrameLayout>
-
-<!--
-
--->

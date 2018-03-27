@@ -59,7 +59,11 @@
     <string name="imgBtn_likeDesc">Like Button</string>
     <string name="imgBtn_dislikeDesc">Dislike Button</string>
     <string name="txtView_dislikeCount">0</string>
+
     <string name="txtFeatureTitle">Features</string>
+
+    <string name="imgView_picture">Image selected from gallery</string>
+
 
     <string-array name="featureType">
         <item>" "</item>

@@ -23,6 +23,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         Timer openning = new Timer();
-        openning.schedule(timer, 5000);
+        openning.schedule(timer, 500);
     }
 }
