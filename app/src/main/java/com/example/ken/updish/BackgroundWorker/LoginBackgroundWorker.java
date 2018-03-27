@@ -1,4 +1,4 @@
-package com.example.ken.updish.Utility;
+package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.R;
+import com.example.ken.updish.Utility.SharedResources;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -34,6 +35,11 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
     Activity context;
     String username, password, title;
+
+    @Override
+    protected void onPreExecute()
+    {
+    }
 
     public LoginBackgroundWorker(Activity con)
     {
@@ -95,11 +101,6 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPreExecute()
-    {
-    }
-
-    @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
     }
@@ -145,7 +146,6 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
             }
         }
-
 
     }
 }

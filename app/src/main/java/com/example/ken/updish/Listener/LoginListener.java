@@ -2,11 +2,10 @@ package com.example.ken.updish.Listener;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.ken.updish.R;
-import com.example.ken.updish.Utility.LoginBackgroundWorker;
+import com.example.ken.updish.BackgroundWorker.LoginBackgroundWorker;
 
 /**
  * Created by tanthinh on 3/25/18.
