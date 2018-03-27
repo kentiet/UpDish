@@ -1,6 +1,8 @@
 package com.example.ken.updish.Database;
 
 import com.example.ken.updish.Interface.DatabaseInterface;
+import com.example.ken.updish.Model.Post;
+import com.example.ken.updish.Model.User;
 
 import java.util.ArrayList;
 
@@ -8,24 +10,14 @@ import java.util.ArrayList;
  * Created by tanthinh on 3/19/18.
  */
 
-public class Database implements DatabaseInterface{
+public class Database
+{
+    private ArrayList<User> userList;
+    private ArrayList<Post> postList;
 
-    private static Database database = null;
-
-    private ArrayList<String> userList;
-
-
-    private Database(){} // Never instantiate
-
-    public static Database getInstance()
+    public Database()
     {
-        if(database == null)
-        {
-            database = new Database();
-        }
-        return database;
+        userList = new ArrayList<>();
+        postList = new ArrayList<>();
     }
-
-
-
 }

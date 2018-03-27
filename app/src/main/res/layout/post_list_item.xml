@@ -79,12 +79,51 @@
                 android:layout_height="20dp"
                 android:layout_weight="1"
                 android:layout_marginRight="@dimen/mainMarginRight"
+                android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:scrollHorizontally="false"
                 android:text="tanthinh"
                 android:textColor="@color/colorMain"
                 android:textSize="@dimen/text_desc_post_Size"></TextView>
+
+            <ImageView
+                android:id="@+id/imgBtn_like_post_item"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/background_light"
+                android:contentDescription="@string/imgBtn_likeDesc"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/like" ></ImageView>
+
+            <TextView
+                android:id="@+id/txtView_likeCount_post_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/txtView_likeCount"
+                android:layout_marginRight="8dp"></TextView>
+
+            <ImageView
+                android:id="@+id/imgBtn_dislike_post_item"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/background_light"
+                android:contentDescription="@string/imgBtn_dislikeDesc"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/dislike"></ImageView>
+
+            <TextView
+                android:id="@+id/txtView_dislikeCount_post_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/txtView_dislikeCount"
+                android:layout_marginRight="8dp" ></TextView>
         </TableRow>
     </TableLayout>
 </LinearLayout>

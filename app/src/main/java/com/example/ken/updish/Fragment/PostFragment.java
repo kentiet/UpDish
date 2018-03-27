@@ -94,7 +94,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
 
-    View view;
+//    View view;
 
     public static final int IMAGE_GALLERY_REQUEST = 20;
     private Activity context;
@@ -153,7 +153,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_post, container, false);
+        View view = inflater.inflate(R.layout.fragment_post, container, false);
 
         context = (Activity)getActivity();
         final Button btn_new = (Button)view.findViewById(R.id.btn_Newpost);

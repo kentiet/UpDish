@@ -19,9 +19,10 @@ public class Post
     private ArrayList<Comment> commentList;
     private Location location;
     private Date datePost;
+    private User user;
     private Calendar calendar = Calendar.getInstance();
 
-    public Post(String title)
+    public Post(String title, User user)
     {
         // Initializing
         int voteUp = 0;
@@ -32,5 +33,6 @@ public class Post
         negativeRate = new ArrayList<>();
         commentList = new ArrayList<>();
         location = new Location();
+        this.user = user;
     }
 }

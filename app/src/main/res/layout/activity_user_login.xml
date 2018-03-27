@@ -8,7 +8,7 @@ tools:context="com.example.ken.updish.Activity.UserLoginActivity">
 
 
 <EditText
-    android:id="@+id/txtUserNameLogin"
+    android:id="@+id/editTextUserNameLogin"
     android:layout_width="330dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -25,7 +25,7 @@ tools:context="com.example.ken.updish.Activity.UserLoginActivity">
     app:layout_constraintVertical_bias="0.13999999" />
 
 <EditText
-    android:id="@+id/txtPassword"
+    android:id="@+id/editTextPassword"
     android:layout_width="330dp"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -37,7 +37,7 @@ tools:context="com.example.ken.updish.Activity.UserLoginActivity">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txtUserNameLogin"
+    app:layout_constraintTop_toBottomOf="@+id/editTextUserNameLogin"
     app:layout_constraintVertical_bias="0.050000012" />
 
 <Button
@@ -56,7 +56,7 @@ tools:context="com.example.ken.updish.Activity.UserLoginActivity">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+    app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
     app:layout_constraintVertical_bias="0.0" />
 
 <Button
@@ -91,19 +91,19 @@ tools:context="com.example.ken.updish.Activity.UserLoginActivity">
     app:layout_constraintVertical_bias="0.0"
     app:srcCompat="@drawable/separator" />
 
-<ImageView
-    android:id="@+id/imageView2"
-    android:layout_width="355dp"
-    android:layout_height="50dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.858"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imgSepator"
-    app:srcCompat="@drawable/google_login" />
+    <ImageView
+        android:id="@+id/imgViewGoogleRegister"
+        android:layout_width="355dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgSepator"
+        app:srcCompat="@drawable/google_login" />
 
 </android.support.constraint.ConstraintLayout>
