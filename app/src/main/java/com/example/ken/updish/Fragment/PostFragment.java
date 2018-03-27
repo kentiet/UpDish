@@ -103,23 +103,18 @@ public class PostFragment extends Fragment {
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 100, 100, false);
                 bitmapArray.add(resizedBitmap);
                 //imgGallery.setImageBitmap(bitmapArray.get(bitmapArray.size()-1));
-
                 pictureAdapter = new PictureAdapter(getActivity(), bitmapArray);
                 gridViewPicture.setAdapter(pictureAdapter);
-
                 gridViewPicture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         //Picture selected for the main
                         bitmapArray.remove(bitmapArray.get(i));
                         gridViewPicture.setAdapter(pictureAdapter);
-                        Toast.makeText(getActivity(), "ButtonClicked", Toast.LENGTH_LONG);
                     }
                 });
-
             }catch(FileNotFoundException e){
                 e.printStackTrace();
-                Toast.makeText(getActivity(), "Unable to open image", Toast.LENGTH_LONG);
             }
         }
     }
