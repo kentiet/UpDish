@@ -1,12 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    tools:context="com.example.ken.updish.Fragment.PostFragment">
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+ <!-- TODO: Update blank fragment layout -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@android:color/background_light"
+        tools:context="com.example.ken.updish.Fragment.PostFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
@@ -50,31 +47,25 @@
                     android:inputType="textPersonName"
                     android:padding="15dp" />
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/btn_picture"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="-40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/buttonFgColor"
+                    android:text="@string/btn_picture"
+                    android:textColor="@color/colorBg"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/img_picture"
-                        android:layout_width="40dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:contentDescription="@string/img_picture"
-                        app:srcCompat="@drawable/picture" />
-
-                    <Button
-                        android:id="@+id/btn_picture"
-                        android:layout_width="match_parent"
-                        android:layout_height="-40dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@color/buttonFgColor"
-                        android:text="@string/btn_picture"
-                        android:textColor="@color/colorBg"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <GridView
+                    android:id="@+id/gridView_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:numColumns="5" />
 
                 <EditText
                     android:id="@+id/txt_description"
@@ -89,30 +80,17 @@
                     android:textSize="14sp"
                     android:layout_margin="10dp"/>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txt_map"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="50dp"
+                    android:gravity="fill_vertical"
+                    android:text="@string/txt_location"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
 
-                    <ImageView
-                        android:id="@+id/img_mapPointer"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:contentDescription="@string/img_mapPointer"
-                        app:srcCompat="@drawable/mappointer2"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"/>
-
-                    <TextView
-                        android:id="@+id/txt_map"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:gravity="fill_vertical"
-                        android:text="@string/txt_location"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:map="http://schemas.android.com/apk/res-auto"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/map"
@@ -120,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_margin="10dp"
-                    tools:context="com.example.ken.updish.Activity.MapsActivity" />
+                    tools:context="com.example.ken.updish.Activity.MapsActivity" />-->
 
             </LinearLayout>
 
@@ -134,8 +112,3 @@
             android:textColor="@color/colorText2"
             android:textSize="20sp" />
     </LinearLayout>
-</FrameLayout>
-
-<!--
-
--->
