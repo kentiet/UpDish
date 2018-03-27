@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -36,6 +37,8 @@ import com.example.ken.updish.Adapter.FeatureAdapter;
 import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.R;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
@@ -43,6 +46,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -76,6 +80,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
 
+    private final int PLACE_PICKER_REQUEST = 1;
+    PlacePicker.IntentBuilder pickerBuilder;
 
 
     // Default current Latlng
@@ -387,6 +393,10 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
                     mLocationRequest,
                     this);
         }
+
+
+
+
     }
 
     @Override
@@ -418,14 +428,25 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.2f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5.2f));
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
+
                 Toast.makeText(context, place.getAddress(), Toast.LENGTH_SHORT).show();
                 currentLong = place.getLatLng().longitude;
                 currentLat = place.getLatLng().latitude;
+
+                pickerBuilder = new PlacePicker.IntentBuilder();
+
+                try {
+                    startActivityForResult(pickerBuilder.build(context), PLACE_PICKER_REQUEST);
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -434,6 +455,26 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        boolean isRestaurant = false;
+        super.onActivityResult(requestCode, resultCode, data);
+
+//        if (requestCode == PLACE_PICKER_REQUEST) {
+//
+//            Place place = PlacePicker.getPlace(context, data);
+//            for (int i : place.getPlaceTypes()) {
+//                if(i == Place.TYPE_RESTAURANT) {
+//                    isRestaurant = true;
+//                    break;
+//                }
+//            }
+//            String toastMsg = String.format("Place: %s", place.getName());
+//            Toast.makeText(context, toastMsg, Toast.LENGTH_LONG).show();
+
+//        }
     }
 
     @Override
