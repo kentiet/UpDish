@@ -80,6 +80,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
 
+
     private final int PLACE_PICKER_REQUEST = 1;
     PlacePicker.IntentBuilder pickerBuilder;
 
@@ -166,7 +167,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 //        lvProFeature.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                myProFeatureList.remove(i);
+//                proAdapter.getItemId()
 //            }
 //        });
         return view;
@@ -190,6 +191,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         consAdapter = new FeatureAdapter(context, myConsFeatureList);
         lvConFeature.setAdapter(consAdapter);
     }
+
+
 
     private void proSpinnerDialogHandler() {
         spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
@@ -393,10 +396,6 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
                     mLocationRequest,
                     this);
         }
-
-
-
-
     }
 
     @Override
@@ -462,19 +461,19 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         boolean isRestaurant = false;
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == PLACE_PICKER_REQUEST) {
-//
-//            Place place = PlacePicker.getPlace(context, data);
+        if (requestCode == PLACE_PICKER_REQUEST) {
+
+            Place place = PlacePicker.getPlace(context, data);
 //            for (int i : place.getPlaceTypes()) {
 //                if(i == Place.TYPE_RESTAURANT) {
 //                    isRestaurant = true;
 //                    break;
 //                }
 //            }
-//            String toastMsg = String.format("Place: %s", place.getName());
-//            Toast.makeText(context, toastMsg, Toast.LENGTH_LONG).show();
+            String toastMsg = String.format("Place: %s", place.getName());
+            Toast.makeText(context, toastMsg, Toast.LENGTH_LONG).show();
 
-//        }
+        }
     }
 
     @Override
