@@ -63,6 +63,8 @@
     <string name="txtFeatureTitle">Features</string>
 
     <string name="imgView_picture">Image selected from gallery</string>
+    <string name="txtProLV">Pros:</string>
+    <string name="txtConLV">Cons:</string>
 
 
     <string-array name="featureType">

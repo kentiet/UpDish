@@ -25,5 +25,7 @@ public class DatabaseHelper implements DatabaseInterface {
         return databaseHelper;
     }
 
-
+    public static Database getDatabase() {
+        return database;
+    }
 }

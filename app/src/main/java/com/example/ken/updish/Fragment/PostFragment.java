@@ -119,11 +119,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     LocationRequest mLocationRequest;
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
-
-
-    private final int PLACE_PICKER_REQUEST = 1;
-    PlacePicker.IntentBuilder pickerBuilder;
-
+    View autocompleteView;
 
     // Default current Latlng
     private double currentLong = -122.084;
@@ -146,11 +142,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
     public PostFragment() {
         // Required empty public constructor
-        Log.e("Updish", "Test fragment constructor", null);
+//        Log.e("Updish", "Test fragment constructor", null);
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -158,18 +151,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
 
         // Inflate the layout for this fragment
-        if (view != null) {
-            ViewGroup parent = (ViewGroup) view.getParent();
-            if(parent != null) {
-                parent.removeView(view.findViewById(R.id.autocomplete_address));
-            }
-        }
-        try {
-            view = inflater.inflate(R.layout.fragment_post, container, false);
-        } catch (InflateException e) {
-
-        }
-
+        view = inflater.inflate(R.layout.fragment_post, container, false);
         context = (Activity)getActivity();
 
         final Button btn_new = (Button)view.findViewById(R.id.btn_Newpost);
@@ -206,36 +188,14 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
         /* Maps Part */
 
-
-
         buildGoogleApiClient();
 
-        View autocompleteView = (View) view.findViewById(R.id.place_autocomplete_search_button);
-
-        if(autocompleteFragment != null) {
-            FragmentManager fm = getActivity().getFragmentManager();
-            android.app.Fragment frg = (fm.findFragmentById(R.id.autocomplete_address));
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.remove(frg);
-
-            ft.commit();
-        } else {
-            autocompleteFragment = (PlaceAutocompleteFragment)context.getFragmentManager().findFragmentById(R.id.autocomplete_address);
-        }
-
-
-
-
+        autocompleteView = (View) view.findViewById(R.id.place_autocomplete_search_button);
+        autocompleteFragment = (PlaceAutocompleteFragment)getActivity().getFragmentManager().findFragmentById(R.id.autocomplete_address);
         autocompleteView.setVisibility(View.GONE);
-        if(mapFragment == null) {
-            android.support.v4.app.FragmentManager fragmentManager = getChildFragmentManager();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            mapFragment = SupportMapFragment.newInstance();
-            fragmentTransaction.replace(R.id.gMap, mapFragment).commit();
-        }
-//        mapFragment = (SupportMapFragment)this.getChildFragmentManager()
-//                .findFragmentById(R.id.gMap);
-        //Log.e("Map Fragment", mapFragment.toString());
+
+        mapFragment = (SupportMapFragment)this.getChildFragmentManager()
+                .findFragmentById(R.id.gMap);
         mapFragment.getMapAsync(this);
 
         // End maps
@@ -246,8 +206,6 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
         fType = (Spinner) spinnerDialogView.findViewById(R.id.spnFeatureType);
         feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
-
-
 
         final Button addPros = (Button)view.findViewById(R.id.btnAddPros);
         final Button addCons = (Button)view.findViewById(R.id.btnAddCons);
@@ -267,6 +225,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         lvProFeature = (ListView)getActivity().findViewById(R.id.lvProsFeature);
         proAdapter = new FeatureAdapter(context, myProFeatureList);
         lvProFeature.setAdapter(proAdapter);
+
+
     }
 
     private void populateConsList() {
@@ -331,6 +291,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
                     }
                 });
 
+
+
                 feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -351,7 +313,6 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
                         proSpinnerDialogHandler();
                         break;
                 }
-
             }
         });
     }
@@ -467,11 +428,16 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         mGoogleApiClient.connect();
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        mapFragment.onResume();
-//    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        FragmentManager fm = getActivity().getFragmentManager();
+        android.app.Fragment frg = (fm.findFragmentById(R.id.autocomplete_address));
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.remove(frg);
+
+        ft.commit();
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -527,15 +493,6 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
                 currentLong = place.getLatLng().longitude;
                 currentLat = place.getLatLng().latitude;
 
-//                pickerBuilder = new PlacePicker.IntentBuilder();
-//
-//                try {
-//                    startActivityForResult(pickerBuilder.build(context), PLACE_PICKER_REQUEST);
-//                } catch (GooglePlayServicesRepairableException e) {
-//                    e.printStackTrace();
-//                } catch (GooglePlayServicesNotAvailableException e) {
-//                    e.printStackTrace();
-//                }
             }
 
             @Override
@@ -551,20 +508,6 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         boolean isRestaurant = false;
         super.onActivityResult(requestCode, resultCode, data);
-
-//        if (requestCode == PLACE_PICKER_REQUEST) {
-//
-//            Place place = PlacePicker.getPlace(context, data);
-////            for (int i : place.getPlaceTypes()) {
-////                if(i == Place.TYPE_RESTAURANT) {
-////                    isRestaurant = true;
-////                    break;
-////                }
-////            }
-//            String toastMsg = String.format("Place: %s", place.getName());
-//            Toast.makeText(context, toastMsg, Toast.LENGTH_LONG).show();
-//
-//        }
 
         if(resultCode == RESULT_OK){
             Uri imageUri = data.getData();

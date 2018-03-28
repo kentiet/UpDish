@@ -45,7 +45,7 @@ public class FeatureAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if(convertView == null) {
             LayoutInflater inflater = context.getLayoutInflater();
@@ -57,6 +57,15 @@ public class FeatureAdapter extends BaseAdapter {
 
         featureTypes.setText(featureList.get(position).getType() + " :");
         features.setText(featureList.get(position).getFeature());
+
+        features.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                featureList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
 
         return convertView;
     }
