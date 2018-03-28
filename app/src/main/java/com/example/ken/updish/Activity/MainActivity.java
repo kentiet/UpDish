@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.FrameLayout;
 
+import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Fragment.HomeFragment;
 import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Fragment.UserFragment;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         init(); // Initialization
 
+        PostListBackgroundWorker postWorker = new PostListBackgroundWorker(this);
+        postWorker.execute();
+
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
 //        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
 
@@ -62,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     {
         SharedResources sr = SharedResources.getInstance();
         sr.addStringValue(this, "appName", "Updish");
-        sr.addStringValue(this, "loginUrl", "http://10.0.2.2:8888/updish/api/v1/login");
+        sr.addStringValue(this, "loginUrl","http://10.0.2.2:8888/updish/api/v1/login");
+        sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
     }
 
     public void setFragment(Fragment fragment)

@@ -141,7 +141,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
     public PostFragment() {
         // Required empty public constructor
-        Log.e("Updish", "Test fragment constructor", null);
+//        Log.e("Updish", "Test fragment constructor", null);
     }
 
 
