@@ -33,7 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by tanthinh on 3/27/18.
@@ -130,6 +132,11 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     byte[] bytes = Base64.decode(obj.getString("image_path"), Base64.DEFAULT);
                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     tempPost.getImageList().add(bm);
+
+                    //Date
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date tempDate = sdf.parse(obj.getString("date_posted"));
+                    tempPost.setDatePost(tempDate);
 
                     //Add to post List
                     postList.add(tempPost);

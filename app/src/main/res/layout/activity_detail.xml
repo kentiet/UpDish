@@ -230,7 +230,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_description"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/like" />
+            app:srcCompat="@drawable/thumb_up" />
 
         <TextView
             android:id="@+id/txtView_likeCount"
@@ -265,7 +265,7 @@
             app:layout_constraintStart_toEndOf="@+id/txtView_likeCount"
             app:layout_constraintTop_toBottomOf="@+id/txt_description"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/dislike" />
+            app:srcCompat="@drawable/thumb_down" />
 
         <TextView
             android:id="@+id/txtView_dislikeCount"

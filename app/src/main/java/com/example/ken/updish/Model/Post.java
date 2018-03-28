@@ -137,14 +137,6 @@ public class Post
         this.user = user;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
-
     public String getId() {
         return id;
     }
