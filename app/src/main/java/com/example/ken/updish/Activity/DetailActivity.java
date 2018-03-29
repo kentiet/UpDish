@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
+import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.imgSlideAdapter;
 
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import static android.app.PendingIntent.getActivity;
 
 public class DetailActivity extends AppCompatActivity {
+
     private ViewPager viewPager;
     private String mapAddress;
     private String mapRestaurant;
@@ -32,11 +36,19 @@ public class DetailActivity extends AppCompatActivity {
     private ArrayList<String> commentUserName = new ArrayList<>();
     private ArrayList<String> commentDate = new ArrayList<>();
     private ArrayList<String> commentDesc = new ArrayList<>();
+    private Post currentPostDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Bundle bundle = getIntent().getExtras();
+        int id = bundle.getInt("id");
+
+        DatabaseHelper.getDatabase().setCurrentDetailsPost(DatabaseHelper.getDatabase().getPostList().get(id));
+        currentPostDetails = DatabaseHelper.getDatabase().getCurrentDetailsPost();
+        mapPointer = new Integer(R.drawable.mappointer);
 
         initPostTitle();
         initMapItems();
@@ -51,14 +63,11 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //Image slides
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
-        imgSlideAdapter slideAdapter = new imgSlideAdapter(this);
-        viewPager.setAdapter(slideAdapter);
 
-        //Map
+        //Map Text
         ListView myListViewMap = (ListView)findViewById(R.id.listView_map);
-        MapAdapter mapAdapter = new MapAdapter(this, mapRestaurant, mapAddress, mapPointer);
+        MapAdapter mapAdapter = new MapAdapter(this,
+                mapRestaurant, mapAddress, mapPointer);
         myListViewMap.setAdapter(mapAdapter);
         myListViewMap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,11 +76,17 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        //Image slides
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
+        imgSlideAdapter slideAdapter = new imgSlideAdapter(this);
+        viewPager.setAdapter(slideAdapter);
+
         //Comments
         ListView myListViewComments = (ListView)findViewById(R.id.listView_comments);
         CommentAdapter commentAdapter = new CommentAdapter(this, commentUserName, commentDesc, commentDate);
         myListViewComments.setAdapter(commentAdapter);
         setListViewHeightBasedOnItems(myListViewComments);
+
         //Add Comments
         Button btnComment = (Button)findViewById(R.id.btn_postComment);
         EditText txtAddComment = (EditText)findViewById(R.id.txt_comment);
@@ -85,25 +100,19 @@ public class DetailActivity extends AppCompatActivity {
     protected void initPostTitle(){
         try {
             //Get Title Data from MainActivity
-            Bundle bundle = getIntent().getExtras();
-            String postTitle = bundle.getString("postTitle");
-            String postDate = bundle.getString("postDate");
-            String postUser = bundle.getString("postUser");
-            String postDesc = bundle.getString("postDesc");
-
 
             TextView pTitle = (TextView)findViewById(R.id.txt_postTitle);
-            pTitle.setText(postTitle);
+            pTitle.setText(currentPostDetails.getTitle());
 
             TextView pDateUser = (TextView)findViewById(R.id.txt_postDate);
             String colorMainString= "#" + Integer.toHexString(ContextCompat.getColor(DetailActivity.this, R.color.colorMain) & 0x00ffffff);
             String colorDefaultString = "#" + Integer.toHexString(ContextCompat.getColor(DetailActivity.this, R.color.colorDefault) & 0x00ffffff);
 
-            String textMultiColor = "<font color="+colorDefaultString+">"+ postDate +" By</font> <font color="+ colorMainString + ">"+postUser+"</font>";
+            String textMultiColor = "<font color="+colorDefaultString+">"+ currentPostDetails.getDatePost().toString() +" By</font> <font color="+ colorMainString + ">"+currentPostDetails.getUser().getUserName()+"</font>";
             pDateUser.setText(Html.fromHtml(textMultiColor));
 
             TextView pDesc = (TextView)findViewById(R.id.txt_description);
-            pDesc.setText(postDesc);
+            pDesc.setText(currentPostDetails.getDescription());
 
         }catch(Exception ex){
             //Toast
@@ -112,7 +121,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void initMapItems(){
         mapRestaurant = "Douglas College";
         mapAddress = "Royal Avenue, New Westminster, BC V3M 5Z5";
-        mapPointer = new Integer(R.drawable.mappointer);
     }
 
     protected void addItemComment(){

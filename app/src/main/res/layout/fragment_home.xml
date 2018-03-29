@@ -23,7 +23,8 @@
             android:id="@+id/listViewMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/stringArray" />
+            android:entries="@array/stringArray" >
+        </ListView>
     </LinearLayout>
 
 </FrameLayout>

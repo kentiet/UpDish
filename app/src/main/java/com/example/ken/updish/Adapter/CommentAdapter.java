@@ -1,19 +1,13 @@
 package com.example.ken.updish.Adapter;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
-import android.text.Html;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -54,7 +48,7 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null){
             LayoutInflater inflater = context.getLayoutInflater();
-            view = inflater.inflate(R.layout.layout_comments, null);
+            view = inflater.inflate(R.layout.comment_layout, null);
         }
         TextView txtViewCommentInfo = (TextView)view.findViewById(R.id.txt_commentInfo);
         TextView txtViewComment = (TextView)view.findViewById(R.id.txt_comment);

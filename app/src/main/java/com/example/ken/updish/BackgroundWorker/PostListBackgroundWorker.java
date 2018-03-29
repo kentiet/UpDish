@@ -1,13 +1,18 @@
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.ProgressBar;
 
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.Database.DatabaseHelper;
@@ -44,6 +49,7 @@ import java.util.Date;
 public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
 
     Activity context;
+    Dialog mdialog;
 
     public PostListBackgroundWorker(Activity con)
     {
@@ -53,12 +59,20 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute()
     {
+        mdialog = new Dialog(context);
+        mdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mdialog.setContentView(R.layout.custom_progress_dialog);
+        mdialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mdialog.setCancelable(false);
+        mdialog.show();
     }
 
     @Override
     protected String doInBackground(String... strings) {
         try
         {
+            SystemClock.sleep(1000);
+
             // Connection
             URL url = new URL(SharedResources.getInstance().getStringValue(this.context,"postUrl"));
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -99,6 +113,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result)
     {
+        mdialog.dismiss();
         MainActivity main = (MainActivity)context;
         Fragment currentFragment = (HomeFragment)main.getSupportFragmentManager().getFragments().get(0);
         ArrayList<Post> postList = new ArrayList<>();
@@ -156,8 +171,6 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 Log.e("Updish", "General Exception: " + ex.getMessage(), null);
             }
-
-
 
         }
 

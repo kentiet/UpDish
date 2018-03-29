@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.Adapter.CustomPostAdapter;
+import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.R;
 
@@ -50,8 +52,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
         context = (Activity)getActivity();
 
-//        addItems();
-
         // Using database
         customPostAdapter = new CustomPostAdapter(context,DatabaseHelper.getDatabase().getPostList());
         listPost = (ListView)view.findViewById(R.id.listViewMain);
@@ -62,10 +62,8 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //start activity with each title data clicked
                 Intent intent = new Intent(context, DetailActivity.class);
-//                intent.putExtra("postTitle", allPostList.get(i));
-//                intent.putExtra("postDesc", allPostDescription.get(i));
-//                intent.putExtra("postDate", allPostDate.get(i));
-//                intent.putExtra("postUser", allPostUser.get(i));
+                Log.e("Before pass id", String.valueOf(i), null);
+                intent.putExtra("id", i);
                 startActivity(intent);
             }
         });
@@ -113,5 +111,17 @@ public class HomeFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.e("Home FragMent", "Attached ", null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("Home FragMent", "Resumed ", null);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.e("Home FragMent", "Activity created ", null);
     }
 }

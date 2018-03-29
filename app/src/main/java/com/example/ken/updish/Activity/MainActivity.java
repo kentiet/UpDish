@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         init(); // Initialization
 
+        // Fetch data from server to Home fragment initially
         PostListBackgroundWorker postWorker = new PostListBackgroundWorker(this);
         postWorker.execute();
 
