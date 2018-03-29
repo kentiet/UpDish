@@ -96,7 +96,7 @@
 
                     <LinearLayout
                         android:layout_width="185dp"
-                        android:layout_height="200dp"
+                        android:layout_height="150dp"
                         android:orientation="vertical"
                         android:layout_margin="3dp">
                         <TextView
@@ -127,7 +127,7 @@
 
                     <LinearLayout
                         android:layout_width="185dp"
-                        android:layout_height="200dp"
+                        android:layout_height="150dp"
                         android:orientation="vertical"
                         android:layout_margin="3dp">
                         <TextView
@@ -137,6 +137,7 @@
                             android:gravity="center_horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
+
                         <ListView
                             android:id="@+id/lvConsFeature"
                             android:divider="@null"

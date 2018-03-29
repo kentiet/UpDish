@@ -69,6 +69,7 @@
     <string name="txtConsLvTitle">Cons:</string>
 
 
+
     <string-array name="feature_pros">
         <item>$ - Cheap</item>
         <item>$$ - Acceptable</item>

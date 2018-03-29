@@ -117,10 +117,6 @@ public class PostFragment extends Fragment {
     private GridView gridViewPicture;
 
 
-    private final int PLACE_PICKER_REQUEST = 1;
-    PlacePicker.IntentBuilder pickerBuilder;
-
-
     // Default current Latlng
     private double currentLong = -122.084;
     private double currentLat = 37.4219983;
@@ -145,7 +141,7 @@ public class PostFragment extends Fragment {
 
     public PostFragment() {
         // Required empty public constructor
-        Log.e("Updish", "Test fragment constructor", null);
+//        Log.e("Updish", "Test fragment constructor", null);
     }
 
 
@@ -155,8 +151,8 @@ public class PostFragment extends Fragment {
 
 
         // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragment_post, container, false);
+
 
         context = (Activity)getActivity();
 
@@ -191,10 +187,10 @@ public class PostFragment extends Fragment {
 
         /* Maps Part */
 
+
         StartMapsListener sMap = new StartMapsListener(context);
          sLocation = (EditText) view.findViewById(R.id.post_location);
         sLocation.setOnClickListener(sMap);
-
 
 
         // End maps
@@ -207,9 +203,9 @@ public class PostFragment extends Fragment {
         feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
 
-
         addPros = (Button)view.findViewById(R.id.btnAddPros);
         addCons = (Button)view.findViewById(R.id.btnAddCons);
+
 
         buttonClickedHandler(addCons);
         buttonClickedHandler(addPros);
@@ -226,6 +222,8 @@ public class PostFragment extends Fragment {
         lvProFeature = (ListView)getActivity().findViewById(R.id.lvProsFeature);
         proAdapter = new FeatureAdapter(context, myProFeatureList);
         lvProFeature.setAdapter(proAdapter);
+
+
     }
 
     private void populateConsList() {
@@ -279,6 +277,8 @@ public class PostFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
+
                 feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -300,7 +300,6 @@ public class PostFragment extends Fragment {
                         proSpinnerDialogHandler();
                         break;
                 }
-
             }
         });
     }

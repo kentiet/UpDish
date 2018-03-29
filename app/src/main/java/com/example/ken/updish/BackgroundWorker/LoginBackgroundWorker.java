@@ -2,6 +2,7 @@ package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -35,15 +36,17 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
     Activity context;
     String username, password, title;
-
-    @Override
-    protected void onPreExecute()
-    {
-    }
+    ProgressDialog loadingDialog;
 
     public LoginBackgroundWorker(Activity con)
     {
         context = con;
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+        loadingDialog = ProgressDialog.show(context, "Fetching data", "Please wait....",true, true);
     }
 
     @Override
@@ -54,6 +57,8 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
         try
         {
+            SystemClock.sleep(2000); // Pretend it's connecting to the server
+
             /* Create URL instance for Http connection with Post method */
             URL url = new URL(SharedResources.getInstance().getStringValue(context,"loginUrl"));
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -107,7 +112,7 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        loadingDialog.dismiss();
         alertDialog = new AlertDialog.Builder(context).create();
 
         // If login successfully
