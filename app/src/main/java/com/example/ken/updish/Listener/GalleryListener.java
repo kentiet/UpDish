@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * Created by 300260935 on 3/29/2018.
+ * Created by mijeong on 3/29/2018.
  */
 public class GalleryListener implements View.OnClickListener{
 
@@ -54,7 +54,6 @@ public class GalleryListener implements View.OnClickListener{
         String pictureDirectoryPath = pictureDirectory.getPath();
         data = Uri.parse(pictureDirectoryPath);
         photoPickerIntent.setDataAndType(data, "image/*");
-        PostFragment postfragment = new PostFragment();
         context.startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
     }
 

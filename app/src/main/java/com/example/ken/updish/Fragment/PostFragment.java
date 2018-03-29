@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ken.updish.Activity.MapsActivity;
+import com.example.ken.updish.ActivityResultBus;
 import com.example.ken.updish.Adapter.FeatureAdapter;
 import com.example.ken.updish.Listener.GalleryListener;
 import com.example.ken.updish.Model.Feature;
@@ -103,6 +104,7 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     private PictureAdapter pictureAdapter;
     private GridView gridViewPicture;
     GalleryListener galleryListener;
+    ActivityResultBus ActivityResultBus = new ActivityResultBus();
 
     // Maps Related Variable
     PlaceAutocompleteFragment autocompleteFragment;
@@ -499,6 +501,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("TEST", "onActivityResult, requestCode: " + requestCode + ", resultCode: " + resultCode);
+        super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             Uri imageUri = data.getData();
             InputStream inputStream;

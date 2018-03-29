@@ -16,7 +16,6 @@ public class ActivityResultBus extends Bus {
             instance = new ActivityResultBus();
         return instance;
     }
-
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public void postQueue(final Object obj) {
@@ -27,5 +26,4 @@ public class ActivityResultBus extends Bus {
             }
         });
     }
-
 }
