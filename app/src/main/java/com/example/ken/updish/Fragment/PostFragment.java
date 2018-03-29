@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.example.ken.updish.Activity.MapsActivity;
 import com.example.ken.updish.Adapter.FeatureAdapter;
+import com.example.ken.updish.Listener.GalleryListener;
 import com.example.ken.updish.Model.Feature;
 
 import android.widget.Button;
@@ -95,15 +96,13 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
 
 //    View view;
-
-    public static final int IMAGE_GALLERY_REQUEST = 20;
     private Activity context;
-
     private TextView mTextMessage;
+
     private ArrayList<Bitmap> bitmapArray = new ArrayList<>();
-    private ImageView imgGallery;
     private PictureAdapter pictureAdapter;
     private GridView gridViewPicture;
+    GalleryListener galleryListener;
 
     // Maps Related Variable
     PlaceAutocompleteFragment autocompleteFragment;
@@ -145,8 +144,6 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -174,17 +171,8 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
             }
         });
 
-
-
-        //New Picture Button
-        btn_picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Gallery button clicked", Toast.LENGTH_LONG).show();
-                onImageGalleryClicked(btn_picture);
-            }
-        });
-
+        galleryListener = new GalleryListener(context);
+        btn_picture.setOnClickListener(galleryListener);
 
         /* KEN */
 
@@ -241,16 +229,12 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
         proAdapter = new FeatureAdapter(context, myProFeatureList);
         lvProFeature.setAdapter(proAdapter);
     }
-
     private void populateConsList() {
         addConsFeature(sltFeatureType, sltFeature);
         lvConFeature = (ListView)getActivity().findViewById(R.id.lvConsFeature);
         consAdapter = new FeatureAdapter(context, myConsFeatureList);
         lvConFeature.setAdapter(consAdapter);
     }
-
-
-
     private void proSpinnerDialogHandler() {
         spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
             @Override
@@ -515,28 +499,11 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        boolean isRestaurant = false;
-        super.onActivityResult(requestCode, resultCode, data);
-
-//        if (requestCode == PLACE_PICKER_REQUEST) {
-//
-//            Place place = PlacePicker.getPlace(context, data);
-////            for (int i : place.getPlaceTypes()) {
-////                if(i == Place.TYPE_RESTAURANT) {
-////                    isRestaurant = true;
-////                    break;
-////                }
-////            }
-//            String toastMsg = String.format("Place: %s", place.getName());
-//            Toast.makeText(context, toastMsg, Toast.LENGTH_LONG).show();
-//
-//        }
-
         if(resultCode == RESULT_OK){
             Uri imageUri = data.getData();
             InputStream inputStream;
             try{
-                inputStream = getActivity().getContentResolver().openInputStream(imageUri);
+                inputStream = context.getContentResolver().openInputStream(imageUri);
                 Bitmap image = BitmapFactory.decodeStream(inputStream);
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 100, 100, false);
                 bitmapArray.add(resizedBitmap);
@@ -590,43 +557,5 @@ public class PostFragment extends Fragment implements OnMapReadyCallback, Google
 
     }
     //------------ KEN -----------------//
-
-
-
-    public void onImageGalleryClicked(View view){
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-        Uri data = Uri.parse(pictureDirectoryPath);
-        photoPickerIntent.setDataAndType(data, "image/*");
-        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
-    }
-
-  //  @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data){
-//        if(resultCode == RESULT_OK){
-//            Uri imageUri = data.getData();
-//            InputStream inputStream;
-//            try{
-//                inputStream = getActivity().getContentResolver().openInputStream(imageUri);
-//                Bitmap image = BitmapFactory.decodeStream(inputStream);
-//                Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 100, 100, false);
-//                bitmapArray.add(resizedBitmap);
-//                //imgGallery.setImageBitmap(bitmapArray.get(bitmapArray.size()-1));
-//                pictureAdapter = new PictureAdapter(getActivity(), bitmapArray);
-//                gridViewPicture.setAdapter(pictureAdapter);
-//                gridViewPicture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                        //Picture selected for the main
-//                        bitmapArray.remove(bitmapArray.get(i));
-//                        gridViewPicture.setAdapter(pictureAdapter);
-//                    }
-//                });
-//            }catch(FileNotFoundException e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }
 
