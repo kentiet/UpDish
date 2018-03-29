@@ -125,6 +125,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 //Convert to JSONArray
                 JSONArray jsonArray = new JSONArray(result);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
                 //Iterating through JSON array
@@ -149,7 +150,6 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     tempPost.getImageList().add(bm);
 
                     //Date
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date tempDate = sdf.parse(obj.getString("date_posted"));
                     tempPost.setDatePost(tempDate);
 

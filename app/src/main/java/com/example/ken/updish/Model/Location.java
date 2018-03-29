@@ -6,23 +6,29 @@ package com.example.ken.updish.Model;
 
 public class Location
 {
+    private int id;
     private String name;
     private String streetNumber;
     private String streetName;
     private String postalCode;
     private String city;
     private String province;
+    private long longtitude;
+    private long latitude;
 
     /**
      * Empty Location - user hasn't set yet
      */
     public Location()
     {
+        this.id = 0;
         this.streetNumber = "";
         this.streetName = "";
         this.postalCode = "";
         this.city = "";
         this.province = "";
+        this.longtitude = 0;
+        this.latitude = 0;
     }
     /**
      * Location constructor
@@ -33,15 +39,18 @@ public class Location
      * @param city
      * @param province
      */
-    public Location(String name, String streetNumber, String streetName,
-                    String postalCode, String city, String province)
+    public Location(int id, String name, String streetNumber, String streetName,
+                    String postalCode, String city, String province, long lo, long la)
     {
+        this.id = id;
         this.name = name;
         this.streetNumber = streetNumber;
         this.streetName = streetName;
         this.postalCode = postalCode;
         this.city = city;
         this.province = province;
+        this.longtitude = lo;
+        this.latitude = la;
     }
 
     /**
@@ -99,5 +108,29 @@ public class Location
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public long getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(long longtitude) {
+        this.longtitude = longtitude;
+    }
+
+    public long getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(long latitude) {
+        this.latitude = latitude;
     }
 }

@@ -21,7 +21,7 @@ import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
-import com.example.ken.updish.Adapter.imgSlideAdapter;
+import com.example.ken.updish.Adapter.ImgSlideAdapter;
 
 import java.util.ArrayList;
 
@@ -43,10 +43,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        Log.e("Updish", "onCreate Details Activity", null);
+
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt("id");
 
-        DatabaseHelper.getInstance().setCurrentDetailsPost(DatabaseHelper.getInstance().getPostById(id));
         currentPostDetails = DatabaseHelper.getInstance().getCurrentDetailsPost();
         mapPointer = new Integer(R.drawable.mappointer);
 
@@ -78,7 +79,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //Image slides
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-        imgSlideAdapter slideAdapter = new imgSlideAdapter(this);
+        ImgSlideAdapter slideAdapter = new ImgSlideAdapter(this);
         viewPager.setAdapter(slideAdapter);
 
         //Comments
