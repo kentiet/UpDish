@@ -10,4 +10,5 @@
     <dimen name="mainMarginTop">15dp</dimen>
     <dimen name="mainMarginRight">20dp</dimen>
     <dimen name="mainMarginBottom">15dp</dimen>
+    <dimen name="commentMarginTop">10dp</dimen>
 </resources>

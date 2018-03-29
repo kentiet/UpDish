@@ -68,7 +68,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected String doInBackground(String... params) {
         try
         {
             SystemClock.sleep(1000);
@@ -113,7 +113,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result)
     {
-        mdialog.dismiss();
+        mdialog.dismiss(); // Dismiss loading
         MainActivity main = (MainActivity)context;
         Fragment currentFragment = (HomeFragment)main.getSupportFragmentManager().getFragments().get(0);
         ArrayList<Post> postList = new ArrayList<>();
@@ -133,7 +133,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     // Define new post
                     Post tempPost = new Post();
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    tempPost.setId(obj.getString("id"));
+                    tempPost.setId(Integer.parseInt(obj.getString("id")));
                     tempPost.setTitle(obj.getString("title"));
                     tempPost.setDescription(obj.getString("description"));
                     tempPost.setVoteUp(Integer.parseInt(obj.getString("voteup")));
@@ -156,7 +156,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     //Add to post List
                     postList.add(tempPost);
                 }
-                DatabaseHelper.getDatabase().setPostList(postList);
+                DatabaseHelper.getInstance().setNewPostList(postList);
 
                 //Refresh Fragment
                 FragmentTransaction fragTransaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();

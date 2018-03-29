@@ -1,6 +1,7 @@
 package com.example.ken.updish.Database;
 
 import com.example.ken.updish.Interface.DatabaseInterface;
+import com.example.ken.updish.Model.Post;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,53 @@ public class DatabaseHelper implements DatabaseInterface {
         return databaseHelper;
     }
 
-    public static Database getDatabase() {
-        return database;
+    // Return postList
+    public ArrayList<Post> getPostList()
+    {
+        return database.getPostList();
+    }
+
+    /* GET */
+
+    // Get current details post
+    public Post getCurrentDetailsPost()
+    {
+        return database.getCurrentDetailsPost();
+    }
+
+    // Return Post at specific index
+    public Post getPostAtPosition(int index)
+    {
+        return database.getPostList().get(index);
+    }
+
+    // Return post by post id
+    public Post getPostById(int id)
+    {
+        Post returnPost = null;
+        for(int i = 0; i < database.getPostList().size(); i++)
+        {
+            if(database.getPostList().get(i).getId() == id)
+            {
+                returnPost = database.getPostList().get(i);
+                break;
+            }
+        }
+
+        return returnPost;
+    }
+
+    /* SET */
+
+    // Set current details post
+    public void setCurrentDetailsPost(Post newPost)
+    {
+        database.setCurrentDetailsPost(newPost);
+    }
+
+    // Set new postList
+    public void setNewPostList(ArrayList<Post> newList)
+    {
+        database.setPostList(newList);
     }
 }

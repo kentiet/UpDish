@@ -51,6 +51,7 @@ public class CommentAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.comment_layout, null);
         }
         TextView txtViewCommentInfo = (TextView)view.findViewById(R.id.txt_commentInfo);
+        TextView txtViewCommentDate = (TextView)view.findViewById(R.id.txt_commentDate);
         TextView txtViewComment = (TextView)view.findViewById(R.id.txt_comment);
 /*
         String colorMainString= "#" + Integer.toHexString(ContextCompat.getColor(, R.color.colorMain) & 0x00ffffff);
@@ -59,7 +60,8 @@ public class CommentAdapter extends BaseAdapter {
         String textMultiColor = "<font color="+colorMainString+">"+ userName.get(i) +"</font> <font color="+ colorMainString + "> Posted on "+ commentDate +"</font>";
         txtViewCommentInfo.setText(Html.fromHtml(textMultiColor));
  */
-        txtViewCommentInfo.setText(userName.get(i) + " posted on " + commentDate.get(i));
+        txtViewCommentInfo.setText(userName.get(i));
+        txtViewCommentDate.setText(commentDate.get(i));
         txtViewComment.setText(commentDesc.get(i));
 
         return view;

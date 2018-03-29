@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 
@@ -31,10 +32,10 @@ public class CustomPostAdapter extends BaseAdapter {
     private ArrayList<Post> postList;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public CustomPostAdapter(Activity con, ArrayList<Post> anyList)
+    public CustomPostAdapter(Activity con)
     {
         this.context = con;
-        this.postList = anyList;
+        postList = DatabaseHelper.getInstance().getPostList();
     }
 
     @Override

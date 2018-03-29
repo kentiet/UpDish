@@ -46,8 +46,8 @@ public class DetailActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt("id");
 
-        DatabaseHelper.getDatabase().setCurrentDetailsPost(DatabaseHelper.getDatabase().getPostList().get(id));
-        currentPostDetails = DatabaseHelper.getDatabase().getCurrentDetailsPost();
+        DatabaseHelper.getInstance().setCurrentDetailsPost(DatabaseHelper.getInstance().getPostById(id));
+        currentPostDetails = DatabaseHelper.getInstance().getCurrentDetailsPost();
         mapPointer = new Integer(R.drawable.mappointer);
 
         initPostTitle();
