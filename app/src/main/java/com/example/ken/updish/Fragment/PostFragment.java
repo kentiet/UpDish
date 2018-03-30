@@ -51,6 +51,10 @@ import android.widget.Toast;
 
 import com.example.ken.updish.Activity.MapsActivity;
 import com.example.ken.updish.Adapter.FeatureAdapter;
+
+import com.example.ken.updish.Listener.FeatureConsClickListener;
+import com.example.ken.updish.Listener.FeatureProClickListener;
+import com.example.ken.updish.Listener.FeatureSpinnerSelectedListener;
 import com.example.ken.updish.Listener.StartMapsListener;
 import com.example.ken.updish.Model.Feature;
 
@@ -63,27 +67,6 @@ import android.widget.Toast;
 import com.example.ken.updish.Adapter.PictureAdapter;
 
 import com.example.ken.updish.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,7 +172,7 @@ public class PostFragment extends Fragment {
 
 
         StartMapsListener sMap = new StartMapsListener(context);
-         sLocation = (EditText) view.findViewById(R.id.post_location);
+        sLocation = (EditText) view.findViewById(R.id.post_location);
         sLocation.setOnClickListener(sMap);
 
 
@@ -197,18 +180,26 @@ public class PostFragment extends Fragment {
 
         /* Features Part */
 
-        createDSpinnerDialog();
+        //createDSpinnerDialog();
+//        lvProFeature = (ListView)context.findViewById(R.id.lvProsFeature);
+//        proAdapter = new FeatureAdapter(context, myProFeatureList);
+//        lvProFeature.setAdapter(proAdapter);
 
-        //fType = (Spinner) spinnerDialogView.findViewById(R.id.spnFeatureType);
-        feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
+        lvConFeature = (ListView)context.findViewById(R.id.lvConsFeature);
+//        consAdapter = new FeatureAdapter(context, myConsFeatureList);
+//        lvConFeature.setAdapter(consAdapter);
+
+        //feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
         addPros = (Button)view.findViewById(R.id.btnAddPros);
         addCons = (Button)view.findViewById(R.id.btnAddCons);
 
 
-        buttonClickedHandler(addCons);
-        buttonClickedHandler(addPros);
+
+
+//        buttonClickedHandler(addCons);
+//        buttonClickedHandler(addPros);
 
         return view;
     }
@@ -217,141 +208,139 @@ public class PostFragment extends Fragment {
     //------------ KEN -----------------//
 
     /* Feature Part */
-    private void populateProList() {
-        addProFeature(sltFeature);
-        lvProFeature = (ListView)getActivity().findViewById(R.id.lvProsFeature);
-        proAdapter = new FeatureAdapter(context, myProFeatureList);
-        lvProFeature.setAdapter(proAdapter);
-
-
-    }
-
-    private void populateConsList() {
-        addConsFeature(sltFeature);
-        lvConFeature = (ListView)getActivity().findViewById(R.id.lvConsFeature);
-        consAdapter = new FeatureAdapter(context, myConsFeatureList);
-        lvConFeature.setAdapter(consAdapter);
-    }
-
-
-
-    private void proSpinnerDialogHandler() {
-
-        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                populateProList();
-            }
-        });
-        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        clearSpinnerDialogView();
-        b = spinnerDialogBuilder.create();
-        b.show();
-    }
-
-    private void consSpinnerDialogHandler() {
-        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                populateConsList();
-            }
-        });
-        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        clearSpinnerDialogView();
-        b = spinnerDialogBuilder.create();
-        b.show();
-    }
-
-    private void buttonClickedHandler(final Button btn) {
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sltFeature = feature.getSelectedItem().toString();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-                setFeatureSpinnerItem(btn);
-                switch (btn.getId()) {
-                    case R.id.btnAddCons:
-
-                        consSpinnerDialogHandler();
-                        break;
-                    case R.id.btnAddPros:
-                        proSpinnerDialogHandler();
-                        break;
-                }
-            }
-        });
-    }
-
-    private void clearSpinnerDialogView(){
-        if(spinnerDialogView.getParent() != null) {
-            ((ViewGroup)spinnerDialogView.getParent()).removeView(spinnerDialogView);
-        }
-    }
-
-    private void addProFeature(String f) {
-        Feature mFeature = new Feature(f);
-        myProFeatureList.add(mFeature);
-    }
-
-    private void addConsFeature(String f) {
-        Feature mFeature = new Feature(f);
-        myConsFeatureList.add(mFeature);
-    }
-
-    private void createDSpinnerDialog() {
-        spinnerDialogBuilder = new AlertDialog.Builder(context);
-        LayoutInflater featureInflater = getLayoutInflater();
-        spinnerDialogView = featureInflater.inflate(R.layout.add_feature_layout, null);
-        spinnerDialogBuilder.setView(spinnerDialogView);
-        spinnerDialogBuilder.setTitle("Please tell us your feelings!");
-        spinnerDialogBuilder.setMessage("");
-    }
-
-//    private void setFeatureOnCall() {
-//        sltFeatureType = fType.getSelectedItem().toString();
-//        setFeatureSpinnerItem(sltFeatureType);
+//    private void populateProList() {
+//        addProFeature(sltFeature);
+//
+//
 //
 //    }
+//
+//    private void populateConsList() {
+//        addConsFeature(sltFeature);
+//
+//    }
+//
+//
+//
+//    private void proSpinnerDialogHandler() {
+//
+//        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                populateProList();
+//            }
+//        });
+//        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//        clearSpinnerDialogView();
+//        b = spinnerDialogBuilder.create();
+//        b.show();
+//    }
+//
+//    private void consSpinnerDialogHandler() {
+//        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                populateConsList();
+//            }
+//        });
+//        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//        clearSpinnerDialogView();
+//        b = spinnerDialogBuilder.create();
+//        b.show();
+//    }
+//
+//    private void buttonClickedHandler(final Button btn) {
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//
+//                feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                        sltFeature = feature.getSelectedItem().toString();
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                    }
+//                });
+//                setFeatureSpinnerItem(btn);
+//                switch (btn.getId()) {
+//                    case R.id.btnAddCons:
+//                        consSpinnerDialogHandler();
+//                        break;
+//                    case R.id.btnAddPros:
+//                        proSpinnerDialogHandler();
+//                        break;
+//                }
+//            }
+//        });
+//    }
+//
+//    private void clearSpinnerDialogView(){
+//        if(spinnerDialogView.getParent() != null) {
+//            ((ViewGroup)spinnerDialogView.getParent()).removeView(spinnerDialogView);
+//        }
+//    }
+//
+//    private void addProFeature(String f) {
+//        Feature mFeature = new Feature(f);
+//        myProFeatureList.add(mFeature);
+//    }
+//
+//    private void addConsFeature(String f) {
+//        Feature mFeature = new Feature(f);
+//        myConsFeatureList.add(mFeature);
+//    }
+//
+//    private void createDSpinnerDialog() {
+//        spinnerDialogBuilder = new AlertDialog.Builder(context);
+//        LayoutInflater featureInflater = getLayoutInflater();
+//        spinnerDialogView = featureInflater.inflate(R.layout.add_feature_layout, null);
+//        spinnerDialogBuilder.setView(spinnerDialogView);
+//        spinnerDialogBuilder.setTitle("Please tell us your feelings!");
+//        spinnerDialogBuilder.setMessage("");
+//    }
+//
+//    private void setFeatureSpinnerItem (Button button){
+//        String[] entry;
+//        ArrayAdapter<String> spinnerAdapter;
+//        switch (button.getId()) {
+//            case R.id.btnAddPros:
+//                entry = getResources().getStringArray(R.array.feature_pros);
+//                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+//                feature.setAdapter(spinnerAdapter);
+//                break;
+//            case R.id.btnAddCons:
+//                entry = getResources().getStringArray(R.array.feature_cons);
+//                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+//                feature.setAdapter(spinnerAdapter);
+//                break;
+//        }
+//    }
 
-    private void setFeatureSpinnerItem (Button button){
-        String[] entry;
-        ArrayAdapter<String> spinnerAdapter;
-        switch (button.getId()) {
-            case R.id.btnAddPros:
-                entry = getResources().getStringArray(R.array.feature_pros);
-                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
-                feature.setAdapter(spinnerAdapter);
-                break;
-            case R.id.btnAddCons:
-                entry = getResources().getStringArray(R.array.feature_cons);
-                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
-                feature.setAdapter(spinnerAdapter);
-                break;
-        }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FeatureProClickListener mProClick = new FeatureProClickListener(context, addPros);
+        FeatureConsClickListener mConsClick = new FeatureConsClickListener(context, addCons);
+        addPros.setOnClickListener(mProClick);
+        addCons.setOnClickListener(mConsClick);
     }
-
 
     @Override
     public void onResume() {
@@ -395,7 +384,6 @@ public class PostFragment extends Fragment {
     }
 
     //------------ KEN -----------------//
-
 
 
     public void onImageGalleryClicked(View view){
