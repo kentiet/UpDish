@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
@@ -23,6 +24,7 @@ import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.ImgSlideAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static android.app.PendingIntent.getActivity;
@@ -37,6 +39,7 @@ public class DetailActivity extends AppCompatActivity {
     private ArrayList<String> commentDate = new ArrayList<>();
     private ArrayList<String> commentDesc = new ArrayList<>();
     private Post currentPostDetails;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,52 +54,10 @@ public class DetailActivity extends AppCompatActivity {
         currentPostDetails = DatabaseHelper.getInstance().getCurrentDetailsPost();
         mapPointer = new Integer(R.drawable.mappointer);
 
+        displayBackButton(); //Back button
         initPostTitle();
-        initMapItems();
-        addItemComment();
-
-        //Back button
-        ImageButton imgBtnBack = (ImageButton)findViewById(R.id.btn_back);
-        imgBtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Back to Main Activity - destroy
-                finish();
-            }
-        });
-
-        //Map Text
-        ListView myListViewMap = (ListView)findViewById(R.id.listView_map);
-        MapAdapter mapAdapter = new MapAdapter(this,
-                mapRestaurant, mapAddress, mapPointer);
-        myListViewMap.setAdapter(mapAdapter);
-        myListViewMap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Google map Activity
-            }
-        });
-
-        //Image slides
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
-        ImgSlideAdapter slideAdapter = new ImgSlideAdapter(this);
-        viewPager.setAdapter(slideAdapter);
-
-        //Comments
-        ListView myListViewComments = (ListView)findViewById(R.id.listView_comments);
-        CommentAdapter commentAdapter = new CommentAdapter(this, commentUserName, commentDesc, commentDate);
-        myListViewComments.setAdapter(commentAdapter);
-        setListViewHeightBasedOnItems(myListViewComments);
-
-        //Add Comments
-        Button btnComment = (Button)findViewById(R.id.btn_postComment);
-        EditText txtAddComment = (EditText)findViewById(R.id.txt_comment);
-        btnComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //When comment button clicked
-            }
-        });
+        displayMapAndImageSlides();
+        displayCommentArea();
     }
     protected void initPostTitle(){
         try {
@@ -109,32 +70,73 @@ public class DetailActivity extends AppCompatActivity {
             String colorMainString= "#" + Integer.toHexString(ContextCompat.getColor(DetailActivity.this, R.color.colorMain) & 0x00ffffff);
             String colorDefaultString = "#" + Integer.toHexString(ContextCompat.getColor(DetailActivity.this, R.color.colorDefault) & 0x00ffffff);
 
-            String textMultiColor = "<font color="+colorDefaultString+">"+ currentPostDetails.getDatePost().toString() +" By</font> <font color="+ colorMainString + ">"+currentPostDetails.getUser().getUserName()+"</font>";
+            String formatedDate = sdf.format(currentPostDetails.getDatePost());
+            String textMultiColor = "<font color="+colorDefaultString+">"+ formatedDate +"&nbsp;&nbsp;&nbsp;By</font> <font color="+ colorMainString + ">"+currentPostDetails.getUser().getUserName()+"</font>";
             pDateUser.setText(Html.fromHtml(textMultiColor));
 
             TextView pDesc = (TextView)findViewById(R.id.txt_description);
             pDesc.setText(currentPostDetails.getDescription());
 
+            TextView txtLike = (TextView)findViewById(R.id.txtView_likeCount);
+            TextView txtDislike = (TextView)findViewById(R.id.txtView_dislikeCount);
+
+            txtLike.setText(String.valueOf(currentPostDetails.getVoteUp()));
+            txtDislike.setText(String.valueOf(currentPostDetails.getVoteDown()));
+
         }catch(Exception ex){
-            //Toast
+            Log.e("Updish", "Crashed in initPostTitle - Detail Activity", null);
         }
     }
-    protected void initMapItems(){
-        mapRestaurant = "Douglas College";
-        mapAddress = "Royal Avenue, New Westminster, BC V3M 5Z5";
+
+    private void displayBackButton()
+    {
+        ImageButton imgBtnBack = (ImageButton)findViewById(R.id.btn_back);
+        imgBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Back to Main Activity - destroy
+                finish();
+            }
+        });
     }
 
-    protected void addItemComment(){
+    private void displayMapAndImageSlides()
+    {
+        //Map Text
+        ListView myListViewMap = (ListView)findViewById(R.id.listView_map);
+        MapAdapter mapAdapter = new MapAdapter(this);
+        myListViewMap.setAdapter(mapAdapter);
+        myListViewMap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Google map Activity
+                Toast.makeText(DetailActivity.this, "Display Map Dialog", Toast.LENGTH_LONG);
+            }
+        });
 
-        //Comment Information
-        commentUserName.add("helloworld123");
-        commentUserName.add("sdfew4332");
+        //Image slides
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
+        ImgSlideAdapter slideAdapter = new ImgSlideAdapter(this);
+        viewPager.setAdapter(slideAdapter);
+    }
 
-        commentDesc.add("Not good at all");
-        commentDesc.add("Too sweet");
+    private void displayCommentArea()
+    {
+        //Comments
+        ListView myListViewComments = (ListView)findViewById(R.id.listView_comments);
+        CommentAdapter commentAdapter = new CommentAdapter(this);
+        myListViewComments.setAdapter(commentAdapter);
+        setListViewHeightBasedOnItems(myListViewComments);
 
-        commentDate.add("03/08/18");
-        commentDate.add("04/05/18");
+        //Add Comments
+        Button btnComment = (Button)findViewById(R.id.btn_postComment);
+        EditText txtAddComment = (EditText)findViewById(R.id.txt_comment);
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //When comment button clicked
+            }
+        });
     }
 
     //https://stackoverflow.com/questions/1778485/android-listview-display-all-available-items-without-scroll-with-static-header
@@ -168,6 +170,5 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             return false;
         }
-
     }
 }

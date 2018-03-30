@@ -1,6 +1,7 @@
 package com.example.ken.updish.Database;
 
 import com.example.ken.updish.Interface.DatabaseInterface;
+import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
 
 import java.util.ArrayList;
@@ -16,6 +17,11 @@ public class DatabaseHelper implements DatabaseInterface {
     private static Database database = new Database();
 
     private DatabaseHelper(){} // Never instantiate
+
+    public static Database getDatabase() {
+        return database;
+
+    }
 
     public static DatabaseHelper getInstance()
     {
@@ -62,6 +68,17 @@ public class DatabaseHelper implements DatabaseInterface {
         return returnPost;
     }
 
+    // Return full address
+    public String getCurrentPostFullAddress()
+    {
+        Location tempLoc = this.database.getCurrentDetailsPost().getLocation();
+        String output = "";
+        output += tempLoc.getStreetNumber() + " " + tempLoc.getStreetName() +
+            ", " + tempLoc.getCity() + ", " + tempLoc.getProvince() + " " +
+        tempLoc.getPostalCode();
+        return output;
+    }
+
     /* SET */
 
     // Set current details post
@@ -73,11 +90,6 @@ public class DatabaseHelper implements DatabaseInterface {
     // Set new postList
     public void setNewPostList(ArrayList<Post> newList) {
         database.setPostList(newList);
-
-    }
-
-    public static Database getDatabase() {
-        return database;
 
     }
 }

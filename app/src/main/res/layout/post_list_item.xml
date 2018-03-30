@@ -21,7 +21,7 @@
         android:layout_height="150dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="10dp">
         <TableRow android:gravity="left"
             android:layout_width="match_parent">
 

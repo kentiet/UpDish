@@ -10,24 +10,24 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 
 import java.util.ArrayList;
 
 
 public class MapAdapter extends BaseAdapter {
-    Activity context;
-    private String name;
-    private String address;
-    private Integer mapPointer;
 
-    public MapAdapter(Activity context, String name, String address, Integer mapPointer){
+    Activity context;
+    private Post currentPostDetail;
+    private Integer mapPointer = new Integer(R.drawable.mappointer);
+
+    public MapAdapter(Activity context){
 
         super();
         this.context = context;
-        this.name = name;
-        this.address = address;
-        this.mapPointer = mapPointer;
+        currentPostDetail = DatabaseHelper.getInstance().getCurrentDetailsPost();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MapAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return name;
+        return currentPostDetail.getLocation().getName();
     }
 
     @Override
@@ -54,9 +54,9 @@ public class MapAdapter extends BaseAdapter {
         ImageView imgMapPointer = (ImageView)view.findViewById(R.id.img_mapPointer);
         imgMapPointer.setImageResource(mapPointer);
         TextView resname = (TextView)view.findViewById(R.id.txtView_resName);
-        resname.setText(name);
+        resname.setText(currentPostDetail.getLocation().getName());
         TextView resAddress = (TextView)view.findViewById(R.id.txtView_address);
-        resAddress.setText(address);
+        resAddress.setText(DatabaseHelper.getInstance().getCurrentPostFullAddress());
 
         return view;
     }

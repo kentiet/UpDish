@@ -1,12 +1,17 @@
 package com.example.ken.updish.Activity;
 
 import android.content.Intent;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
@@ -15,6 +20,7 @@ import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Fragment.UserFragment;
 import com.example.ken.updish.Listener.BottomNagivationListener;
 import com.example.ken.updish.R;
+import com.example.ken.updish.Utility.BottomNavigationViewHelper;
 import com.example.ken.updish.Utility.SharedResources;
 
 import java.util.ArrayList;
@@ -57,10 +63,22 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNagivationListener = new BottomNagivationListener(this, mainFrame, homeFragment, postFragment, userFragment);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationMenuMain);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView, 10, 10, 10, 10);
+        BottomNavigationViewHelper.resizeItems(this, bottomNavigationView, 30, 30);
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNagivationListener);
 
         // Set useful variables for the application
         setUsefulResources();
+    }
+
+    public void setFragment(Fragment fragment)
+    {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
+        fragmentTransaction.commit();
     }
 
     private void setUsefulResources()
@@ -71,10 +89,4 @@ public class MainActivity extends AppCompatActivity {
         sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
     }
 
-    public void setFragment(Fragment fragment)
-    {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
-        fragmentTransaction.commit();
-    }
 }

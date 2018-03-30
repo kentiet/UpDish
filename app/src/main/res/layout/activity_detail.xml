@@ -52,8 +52,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
             android:text="@string/txt_postDate"
             android:textColor="@color/colorDefault"
             android:textSize="18sp"
@@ -132,13 +133,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listView_comments"
+            app:layout_constraintTop_toBottomOf="@+id/txt_commentName"
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/btn_postComment"
-            android:layout_width="65dp"
-            android:layout_height="36dp"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
@@ -152,7 +153,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@+id/txt_comment"
-            app:layout_constraintTop_toBottomOf="@+id/listView_comments"
+            app:layout_constraintTop_toBottomOf="@+id/txt_commentName"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
@@ -178,10 +179,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:text="Default description to test"
+            android:background="@drawable/border_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +214,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_commentName"
+            app:layout_constraintTop_toBottomOf="@+id/txt_comment"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
@@ -220,8 +222,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:background="@android:color/background_light"
             android:contentDescription="@string/imgBtn_likeDesc"
@@ -255,8 +257,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:background="@android:color/background_light"
             android:contentDescription="@string/imgBtn_dislikeDesc"

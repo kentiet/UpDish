@@ -77,7 +77,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     protected String doInBackground(String... params) {
         try
         {
-            SystemClock.sleep(1000);
+//            SystemClock.sleep(1000);
             // Connection
             URL url = new URL(SharedResources.getInstance().getStringValue(this.context,"postUrl"));
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
