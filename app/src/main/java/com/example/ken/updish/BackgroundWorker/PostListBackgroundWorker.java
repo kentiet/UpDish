@@ -1,15 +1,18 @@
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
+
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
+
 import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
+
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
@@ -38,9 +41,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 
 /**
  * Created by tanthinh on 3/27/18.
@@ -68,11 +73,11 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
+
     protected String doInBackground(String... params) {
         try
         {
             SystemClock.sleep(1000);
-
             // Connection
             URL url = new URL(SharedResources.getInstance().getStringValue(this.context,"postUrl"));
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -134,7 +139,9 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     // Define new post
                     Post tempPost = new Post();
                     JSONObject obj = jsonArray.getJSONObject(i);
+
                     tempPost.setId(Integer.parseInt(obj.getString("id")));
+
                     tempPost.setTitle(obj.getString("title"));
                     tempPost.setDescription(obj.getString("description"));
                     tempPost.setVoteUp(Integer.parseInt(obj.getString("voteup")));
@@ -171,7 +178,6 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 Log.e("Updish", "General Exception: " + ex.getMessage(), null);
             }
-
         }
 
     }

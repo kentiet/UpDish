@@ -17,9 +17,13 @@ import android.widget.Toast;
 import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.Adapter.CustomPostAdapter;
+
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Listener.PostDetailsClickListener;
+
+import com.example.ken.updish.Database.DatabaseHelper;
+
 import com.example.ken.updish.R;
 
 import java.lang.reflect.Array;
@@ -36,7 +40,6 @@ public class HomeFragment extends Fragment {
 
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override

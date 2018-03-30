@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:background="@android:color/background_light"
         tools:context="com.example.ken.updish.Fragment.PostFragment"
+
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
@@ -95,10 +96,16 @@
 
                     <LinearLayout
                         android:layout_width="185dp"
-                        android:layout_height="200dp"
+                        android:layout_height="150dp"
                         android:orientation="vertical"
                         android:layout_margin="3dp">
-
+                        <TextView
+                            android:id="@+id/txtProLvTitle"
+                            android:text="@string/txtProLvTitle"
+                            android:textSize="18sp"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                         <ListView
                             android:id="@+id/lvProsFeature"
                             android:divider="@null"
@@ -120,9 +127,16 @@
 
                     <LinearLayout
                         android:layout_width="185dp"
-                        android:layout_height="200dp"
+                        android:layout_height="150dp"
                         android:orientation="vertical"
                         android:layout_margin="3dp">
+                        <TextView
+                            android:id="@+id/txtConsLvTitle"
+                            android:text="@string/txtConsLvTitle"
+                            android:textSize="18sp"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
                         <ListView
                             android:id="@+id/lvConsFeature"
@@ -146,23 +160,11 @@
 
                 </LinearLayout>
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txt_map"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:gravity="fill_vertical"-->
-                    <!--android:text="@string/txt_location"-->
-                    <!--android:textSize="18sp"-->
-                    <!--android:layout_marginLeft="15dp"-->
-                    <!--android:layout_marginRight="15dp"-->
-
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal" />-->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <ImageView
-                        android:id="@+id/img_mapPointer"
+                        android:id="@+id/img_mapLogo"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:contentDescription="@string/img_mapPointer"
@@ -170,28 +172,15 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginLeft="10dp"/>
 
-                    <fragment
-                        android:id="@+id/autocomplete_address"
-                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    <EditText
+                        android:id="@+id/post_location"
+                        android:focusable="false"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_toRightOf="@+id/img_mapPointer"/>
+                        android:hint="@string/post_location"
+                        android:layout_toRightOf="@+id/img_mapLogo"/>
 
                 </RelativeLayout>
-
-
-
-
-
-               <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:map="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="10dp"
-                    tools:context="com.example.ken.updish.Activity.MapsActivity" />
 
             </LinearLayout>
 

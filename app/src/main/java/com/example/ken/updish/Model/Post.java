@@ -28,6 +28,7 @@ public class Post
 
 
     public Post(){
+
         this.id = 0;
         int voteUp = 0;
         int voteDown = 0;

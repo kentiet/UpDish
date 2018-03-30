@@ -5,17 +5,17 @@ package com.example.ken.updish.Model;
  */
 
 public class Feature {
-    private String type;
+    //private String type;
     private String feature;
 
-    public Feature(String _type, String _feature){
-        this.type = _type;
+    public Feature(String _feature){
+        //this.type = _type;
         this.feature = _feature;
     }
 
-    public String getType(){
-        return type;
-    }
+//    public String getType(){
+//        return type;
+//    }
 
     public String getFeature(){
         return feature;

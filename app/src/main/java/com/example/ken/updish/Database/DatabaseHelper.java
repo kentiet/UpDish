@@ -71,8 +71,13 @@ public class DatabaseHelper implements DatabaseInterface {
     }
 
     // Set new postList
-    public void setNewPostList(ArrayList<Post> newList)
-    {
+    public void setNewPostList(ArrayList<Post> newList) {
         database.setPostList(newList);
+
+    }
+
+    public static Database getDatabase() {
+        return database;
+
     }
 }

@@ -3,12 +3,14 @@ package com.example.ken.updish.Activity;
 import android.Manifest;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -19,8 +21,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.ken.updish.Listener.MapsDoneButtonListener;
 
 import com.example.ken.updish.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -44,14 +50,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
+    PlaceAutocompleteFragment autocompleteFragment;
     private GoogleMap mMap;
     LocationManager mLocationManager;
     private Marker mCurrentLocationMarker;
+    SupportMapFragment mapFragment;
     LocationRequest mLocationRequest;
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
-    PlaceAutocompleteFragment autocompleteFragment;
-
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    Button mapsDone;
     // Default current Latlng
     private double currentLong = -122.084;
     private double currentLat = 37.4219983;
@@ -70,18 +79,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         Log.e("MAP", "Oncreate", null);
 
+        mapsDone = (Button) findViewById(R.id.btnLocationSearch);
+        MapsDoneButtonListener mDone = new MapsDoneButtonListener(this);
+        mapsDone.setOnClickListener(mDone);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+        //Call location service
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
         // Add the autocompletefragmant UI into fragment
         autocompleteFragment= (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_search_input);
+        View autocompleteView = autocompleteFragment.getView();
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         buildGoogleApiClient();
 
-        //Call location service
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
     }
 
@@ -89,37 +107,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //.e("MAP", "OnRdy", null);
-            mMap = googleMap;
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        mMap = googleMap;
 
-                    mMap.setMyLocationEnabled(true);
-                } else {
+        Log.e("onRdy", "Map Ready");
 
-                    Toast myToast = Toast.makeText(this, "error", Toast.LENGTH_SHORT);
-                    myToast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 20, 0);
-                    myToast.show();
-                    checkLocationPermission();
-                }
-            } else {
-                //buildGoogleApiClient();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Log.e("onRdy", "Map Ready 1st");
                 mMap.setMyLocationEnabled(true);
-            }
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                //Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
-                currentLong = place.getLatLng().longitude;
-                currentLat = place.getLatLng().latitude;
-            }
+                LatLng latLng = new LatLng(currentLat, currentLong);
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title("Current position");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-            @Override
-            public void onError(Status status) {
+            } else {
 
+                Toast myToast = Toast.makeText(this, "error", Toast.LENGTH_SHORT);
+                myToast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 20, 0);
+                myToast.show();
+                checkLocationPermission();
             }
-        });
+        } else {
+            //buildGoogleApiClient();
+            Log.e("onRdy", "Map Ready else");
+            mMap.setMyLocationEnabled(true);
+        }
+
+//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                //Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
+//                currentLong = place.getLatLng().longitude;
+//                currentLat = place.getLatLng().latitude;
+//            }
+//
+//            @Override
+//            public void onError(Status status) {
+//
+//            }
+//        });
 
 
     }
@@ -127,16 +157,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-
         mLastLocation = location;
+
         if(mCurrentLocationMarker != null){
             mCurrentLocationMarker.remove();
         }
 
+        Log.e("location changed", "Map changed");
 
-//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
         LatLng latLng = new LatLng(currentLat, currentLong);
-        //Log.e("Map location changed", location.getLatitude() + " - " + location.getLongitude(), null);
 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
@@ -144,7 +174,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20.2f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+
+                Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
+                currentLong = place.getLatLng().longitude;
+                currentLat = place.getLatLng().latitude;
+                editor.putString("GoogleSearchName", place.getName().toString());
+                editor.commit();
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+
+
+        });
     }
 
 
@@ -154,7 +203,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
+        Log.e("on connect", "onconnected called");
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
@@ -213,20 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+        Log.e("ON START", "Connected");
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 }
