@@ -181,8 +181,9 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
                 for(int j = 0; j < jcarray.length(); j++)
                 {
                     JSONObject coObj = jcarray.getJSONObject(j);
+                    User comUser = new User(coObj.getString("username"), "", new String[10]);
                     Comment tempCo = new Comment();
-                    tempCo.setUser(tempUser);
+                    tempCo.setUser(comUser);
                     tempCo.setId(Integer.parseInt(coObj.getString("comment_id")));
                     tempCo.setContent(coObj.getString("content"));
                     tempCo.setDate_comment(sdf.parse(coObj.getString("date_comment")));
