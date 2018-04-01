@@ -24,6 +24,7 @@ import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
 import com.example.ken.updish.R;
 
+import com.example.ken.updish.Utility.ConnectionHelper;
 import com.example.ken.updish.Utility.SharedResources;
 
 import org.json.JSONArray;
@@ -64,6 +65,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute()
     {
+        super.onPreExecute();
         mdialog = new Dialog(context);
         mdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mdialog.setContentView(R.layout.custom_progress_dialog);
@@ -73,41 +75,15 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-
     protected String doInBackground(String... params) {
-        try
-        {
-//            SystemClock.sleep(1000);
-            // Connection
-            URL url = new URL(SharedResources.getInstance().getStringValue(this.context,"postUrl"));
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setDoInput(true);
+//        SystemClock.sleep(1000);
 
-            /* Create inputStream to receive data return back from the PHP script */
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            String result = "";
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-            {
-                result += line;
-            }
+        // Connection
+        String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl");
+        ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"GET");
 
-            bufferedReader.close();
-            inputStream.close();
-
-            httpURLConnection.disconnect(); // Disconnect HTTP URL connection
-
-            return result;
-
-        }catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        String result = connection.connect("", ConnectionHelper.SEND_REQUEST_NO_PARAMETER);
+        return result;
     }
 
     @Override
@@ -118,6 +94,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result)
     {
+        super.onPostExecute(result);
         mdialog.dismiss(); // Dismiss loading
         MainActivity main = (MainActivity)context;
         Fragment currentFragment = (HomeFragment)main.getSupportFragmentManager().getFragments().get(0);

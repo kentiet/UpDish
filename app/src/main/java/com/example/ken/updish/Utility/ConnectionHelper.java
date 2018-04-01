@@ -3,8 +3,17 @@ package com.example.ken.updish.Utility;
 import android.app.Activity;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by tanthinh on 3/27/18.
@@ -12,36 +21,69 @@ import java.net.URL;
 
 public class ConnectionHelper {
 
+    public static int SEND_REQUEST_NO_PARAMETER = 1;
+    public static int SEND_REQUEST_WITH_PARAMETERS = 2;
+
     SharedResources sr = SharedResources.getInstance();
     Activity context;
     HttpURLConnection connection;
+    String urlString;
+    String requestMethod;
 
-    public ConnectionHelper(Activity context, URL url, String requestMethod){
+    public ConnectionHelper(Activity context, String urlString, String requestMethod){
         this.context = context;
-        init(url, requestMethod);
+        this.urlString = urlString;
+        this.requestMethod = requestMethod;
     }
 
-    private void init(URL url, String requestMethod)
+    public String connect(String post_data, int typeRequest)
     {
         try
         {
-            connection = (HttpURLConnection)url.openConnection();
+            /* Create URL instance for Http connection with Post method */
+            URL url = new URL(this.urlString);
+            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+            httpURLConnection.setRequestMethod(this.requestMethod);
 
-            if(requestMethod.equalsIgnoreCase("POST") ||
-                    requestMethod.equalsIgnoreCase("GET") )
+            httpURLConnection.setDoInput(true);
+            if(typeRequest == SEND_REQUEST_WITH_PARAMETERS)
             {
-                connection.setRequestMethod(requestMethod);
-                connection.setDoOutput(true);
-                connection.setDoInput(true);
-            }
-        }catch(Exception ex)
-        {
-            Log.e(sr.getStringValue(context, "appName"), "Error in init() ConnectionHelper", null);
-        }
-    }
+                httpURLConnection.setDoOutput(true);
 
-    public String doConnect(String dataSent)
-    {
-        return "A";
+                /* Create outputStream from httpURLConnection*/
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                /* Create buffered writer to write to the outputStream */
+                    BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                    bufferedWriter.write(post_data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    outputStream.close();
+            }
+
+            /* Create inputStream to receive data return back from the PHP script */
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line = "";
+            while((line = bufferedReader.readLine()) != null)
+            {
+                result += line;
+            }
+
+            bufferedReader.close();
+            inputStream.close();
+
+
+            httpURLConnection.disconnect(); // Disconnect HTTP URL connection
+
+            return result;
+        }catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

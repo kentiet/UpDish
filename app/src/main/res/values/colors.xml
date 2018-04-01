@@ -8,6 +8,9 @@
     <color name="Title">#624310</color>
 
     <color name="colorWhite">#ffffff</color>
+    <color name="colorWhiteGray">#f2f2f2</color>
+    <color name="colorLightGray">#cccccc</color>
+    <color name="colorGrayish">#bfbfbf</color>
     <color name="colorWhiteTransparent">#80FFFFFF</color>
 
     <color name="colorBg">#f6f2e8</color>

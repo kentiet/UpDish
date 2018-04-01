@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Listener.PostCommentClickListener;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.ImgSlideAdapter;
@@ -124,19 +125,22 @@ public class DetailActivity extends AppCompatActivity {
     {
         //Comments
         ListView myListViewComments = (ListView)findViewById(R.id.listView_comments);
+        myListViewComments.setClickable(false);
+        myListViewComments.setLongClickable(false);
+
         CommentAdapter commentAdapter = new CommentAdapter(this);
         myListViewComments.setAdapter(commentAdapter);
+
+        commentAdapter.notifyDataSetChanged();
         setListViewHeightBasedOnItems(myListViewComments);
 
         //Add Comments
+
+        PostCommentClickListener postCommentClickListener =
+                new PostCommentClickListener(this);
         Button btnComment = (Button)findViewById(R.id.btn_postComment);
-        EditText txtAddComment = (EditText)findViewById(R.id.txt_comment);
-        btnComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //When comment button clicked
-            }
-        });
+
+        btnComment.setOnClickListener(postCommentClickListener);
     }
 
     //https://stackoverflow.com/questions/1778485/android-listview-display-all-available-items-without-scroll-with-static-header
@@ -152,6 +156,7 @@ public class DetailActivity extends AppCompatActivity {
             for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
                 View item = listAdapter.getView(itemPos, null, listView);
                 item.measure(0, 0);
+
                 totalItemsHeight += item.getMeasuredHeight();
             }
 
@@ -162,6 +167,7 @@ public class DetailActivity extends AppCompatActivity {
             // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
             params.height = totalItemsHeight + totalDividersHeight;
+            listView.setVerticalScrollBarEnabled(false);
             listView.setLayoutParams(params);
             listView.requestLayout();
 

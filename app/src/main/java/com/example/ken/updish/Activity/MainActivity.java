@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         sr.addStringValue(this, "appName", "Updish");
         sr.addStringValue(this, "loginUrl","http://10.0.2.2:8888/updish/api/v1/login");
         sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
+        sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8888/updish/api/v1/comment");
     }
 
 }

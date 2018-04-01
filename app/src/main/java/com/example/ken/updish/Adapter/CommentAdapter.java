@@ -1,6 +1,8 @@
 package com.example.ken.updish.Adapter;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +23,12 @@ import java.util.ArrayList;
 
 public class CommentAdapter extends BaseAdapter {
     private Activity context;
-    private ArrayList<Comment> listComment;
+    private ArrayList<Comment> listComment = DatabaseHelper.getInstance().getCurrentDetailsPost().getCommentList();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public CommentAdapter(Activity context){
         super();
         this.context = context;
-        listComment = DatabaseHelper.getInstance().getCurrentDetailsPost().getCommentList();
     }
 
     @Override
@@ -63,8 +64,9 @@ public class CommentAdapter extends BaseAdapter {
  */
         txtViewCommentInfo.setText(listComment.get(i).getUser().getUserName());
         txtViewCommentDate.setText(sdf.format(listComment.get(i).getDate_comment()));
-        txtViewComment.setText(listComment.get(i).getContent());
 
+        txtViewComment.setText(listComment.get(i).getContent());
+        txtViewComment.setHeight(155);
         return view;
     }
 }

@@ -18,6 +18,7 @@ import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
 import com.example.ken.updish.R;
+import com.example.ken.updish.Utility.ConnectionHelper;
 import com.example.ken.updish.Utility.SharedResources;
 
 import org.json.JSONArray;
@@ -56,6 +57,7 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
     @Override
     protected void onPreExecute()
     {
+        super.onPreExecute();
         mdialog = new Dialog(context);
         mdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mdialog.setContentView(R.layout.custom_progress_dialog);
@@ -66,48 +68,16 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
 
     @Override
     protected String doInBackground(String... params) {
-        try
-        {
-            String idParam = params[0];
-            currentId = idParam;
 
-            // Connection
-            String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl") + "/" + idParam;
-            Log.e("NewPostBW doInBG", urlWithId, null);
+        String idParam = params[0];
+        currentId = idParam;
 
-            URL url = new URL(urlWithId);
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setDoInput(true);
+        // Connection
+        String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl") + "/" + idParam;
+        ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"GET");
 
-            /* Create inputStream to receive data return back from the PHP script */
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            String result = "";
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-            {
-                result += line;
-            }
-
-            bufferedReader.close();
-            inputStream.close();
-
-            httpURLConnection.disconnect(); // Disconnect HTTP URL connection
-
-            return result;
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(Exception ex)
-        {
-
-        }
-
-        return null;
+        String result = connection.connect("", ConnectionHelper.SEND_REQUEST_NO_PARAMETER);
+        return result;
     }
 
     @Override
