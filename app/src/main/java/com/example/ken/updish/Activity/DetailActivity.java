@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -27,8 +26,6 @@ import com.example.ken.updish.Adapter.ImgSlideAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import static android.app.PendingIntent.getActivity;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -112,6 +109,8 @@ public class DetailActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //Google map Activity
                 Toast.makeText(DetailActivity.this, "Display Map Dialog", Toast.LENGTH_LONG);
+                Log.e("Updish Details Activity", "Resume", null);
+
             }
         });
 
@@ -131,11 +130,11 @@ public class DetailActivity extends AppCompatActivity {
         CommentAdapter commentAdapter = new CommentAdapter(this);
         myListViewComments.setAdapter(commentAdapter);
 
-        commentAdapter.notifyDataSetChanged();
+//        commentAdapter.notifyDataSetChanged();
+
         setListViewHeightBasedOnItems(myListViewComments);
 
-        //Add Comments
-
+        //Add Comments Button
         PostCommentClickListener postCommentClickListener =
                 new PostCommentClickListener(this);
         Button btnComment = (Button)findViewById(R.id.btn_postComment);
@@ -155,14 +154,17 @@ public class DetailActivity extends AppCompatActivity {
             int totalItemsHeight = 0;
             for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
                 View item = listAdapter.getView(itemPos, null, listView);
-                item.measure(0, 0);
+                item.measure(0,0);
 
-                totalItemsHeight += item.getMeasuredHeight();
+                Log.e("item measured", item.getMeasuredHeight() + "");
+                totalItemsHeight += item.getMeasuredHeight()+10;
             }
 
             // Get total height of all item dividers.
             int totalDividersHeight = listView.getDividerHeight() *
-                    (numberOfItems - 1);
+                    (numberOfItems-1);
+
+            Log.e("Total divider height", totalDividersHeight + "");
 
             // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
@@ -176,5 +178,11 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("Details activity", "Resume" + "", null);
     }
 }

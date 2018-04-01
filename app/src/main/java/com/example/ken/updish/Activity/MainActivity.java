@@ -1,17 +1,10 @@
 package com.example.ken.updish.Activity;
 
-import android.content.Intent;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
@@ -26,9 +19,6 @@ import com.example.ken.updish.Utility.SharedResources;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> foodTitle = new ArrayList<String>();
-    private ArrayList<String> foodDescription = new ArrayList<String>();
-    private ArrayList<Integer> foodPic = new ArrayList<Integer>();
 
     private BottomNagivationListener bottomNagivationListener;
     private BottomNavigationView bottomNavigationView;
