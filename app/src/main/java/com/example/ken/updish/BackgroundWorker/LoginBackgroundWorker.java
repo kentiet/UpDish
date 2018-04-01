@@ -49,7 +49,8 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     protected void onPreExecute()
     {
         super.onPreExecute();
-        loadingDialog = ProgressDialog.show(context, "Fetching data", "Please wait....",true, true);
+        loadingDialog = ProgressDialog.show(
+                context, "Fetching data", "Please wait....",true, false);
     }
 
     @Override

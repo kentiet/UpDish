@@ -2,34 +2,20 @@ package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Comment;
-import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Utility.ConnectionHelper;
 import com.example.ken.updish.Utility.SharedResources;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,7 +42,7 @@ public class PostCommentBackgroundWorker extends AsyncTask<String, Void, String>
         super.onPreExecute();
 
         loadingDialog = ProgressDialog.show(
-                context, "Fetching data", "Please wait....",true, true);
+                context, "Posting comment.", "Please wait....",true, false);
 
     }
 
@@ -70,7 +56,7 @@ public class PostCommentBackgroundWorker extends AsyncTask<String, Void, String>
 
         try
         {
-            SystemClock.sleep(1500); // Pretend it's connecting to the server
+//            SystemClock.sleep(1500); // Pretend it's connecting to the server
 
             String post_data =
                     URLEncoder.encode("content", "UTF-8" ) + "=" + URLEncoder.encode(postContent, "UTF-8" )
@@ -125,12 +111,13 @@ public class PostCommentBackgroundWorker extends AsyncTask<String, Void, String>
             CommentAdapter cmadapter = (CommentAdapter)myListViewComments.getAdapter();
             cmadapter.notifyDataSetChanged();
 
-            //Reload Details activity
-            DetailActivity detailActivity = (DetailActivity)context;
-            Intent intent = context.getIntent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            detailActivity.startActivity(intent);
-            detailActivity.finish();
+            //Reload Details activity - NO NEED TO RELOAD ACTIVITY
+//            DetailActivity detailActivity = (DetailActivity)context;
+//            detailActivity.recreate();
+//            Intent intent = context.getIntent();
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            detailActivity.startActivity(intent);
+//            detailActivity.finish();
 
         }catch(ParseException pe)
         {

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private ListView myListViewComments;
     private String mapAddress;
     private String mapRestaurant;
     private Integer mapPointer;
@@ -123,7 +124,7 @@ public class DetailActivity extends AppCompatActivity {
     private void displayCommentArea()
     {
         //Comments
-        ListView myListViewComments = (ListView)findViewById(R.id.listView_comments);
+        myListViewComments = (ListView)findViewById(R.id.listView_comments);
         myListViewComments.setClickable(false);
         myListViewComments.setLongClickable(false);
 
@@ -180,9 +181,19 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    public ListView getMyListViewComments() {
+        return myListViewComments;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         Log.e("Details activity", "Resume" + "", null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }
