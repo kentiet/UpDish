@@ -2,6 +2,7 @@ package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +11,7 @@ import android.util.Log;
 
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.R;
+import com.example.ken.updish.Utility.ConnectionHelper;
 import com.example.ken.updish.Utility.SharedResources;
 
 import java.io.BufferedReader;
@@ -19,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,11 +38,7 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     AlertDialog alertDialog;
     Activity context;
     String username, password, title;
-
-    @Override
-    protected void onPreExecute()
-    {
-    }
+    ProgressDialog loadingDialog;
 
     public LoginBackgroundWorker(Activity con)
     {
@@ -47,54 +46,37 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected void onPreExecute()
+    {
+        super.onPreExecute();
+        loadingDialog = ProgressDialog.show(
+                context, "Fetching data", "Please wait....",true, false);
+    }
+
+    @Override
+    protected String doInBackground(String... params)
+    {
         title = params[0];
         username = params[1];
         password = params[2];
 
         try
         {
-            /* Create URL instance for Http connection with Post method */
-            URL url = new URL(SharedResources.getInstance().getStringValue(context,"loginUrl"));
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setDoInput(true);
+            SystemClock.sleep(1500); // Pretend it's connecting to the server
 
-            /* Create outputStream from httpURLConnection*/
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-
-            /* Create buffered writer to write to the outputStream */
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             String post_data =  URLEncoder.encode("username", "UTF-8" ) + "=" + URLEncoder.encode(username, "UTF-8" ) + "&" +
                     URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
-            bufferedWriter.write(post_data);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
 
-            /* Create inputStream to receive data return back from the PHP script */
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            String result = "";
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-            {
-                result += line;
-            }
+            // Connection
+            String urlWithId = SharedResources.getInstance().getStringValue(context,"loginUrl");
+            ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"POST");
 
-            bufferedReader.close();
-            inputStream.close();
-
-
-            httpURLConnection.disconnect(); // Disconnect HTTP URL connection
-
+            String result = connection.connect(post_data, ConnectionHelper.SEND_REQUEST_WITH_PARAMETERS);
             return result;
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch(UnsupportedEncodingException uee)
+        {
+            uee.printStackTrace();
         }
 
         return null;
@@ -107,7 +89,8 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        super.onPostExecute(result);
+        loadingDialog.dismiss();
         alertDialog = new AlertDialog.Builder(context).create();
 
         // If login successfully

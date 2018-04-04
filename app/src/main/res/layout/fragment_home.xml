@@ -13,18 +13,18 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarMain"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/colorMain"
+            android:layout_height="45dp"
+            android:background="@drawable/border_shape_top_header"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme">
 
         </android.support.v7.widget.Toolbar>
-
         <ListView
             android:id="@+id/listViewMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/stringArray" />
+            android:entries="@array/stringArray" >
+        </ListView>
     </LinearLayout>
 
 </FrameLayout>

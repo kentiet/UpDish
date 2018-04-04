@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Activity.MainActivity;
+import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Fragment.HomeFragment;
 import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Fragment.UserFragment;
@@ -69,6 +70,11 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
 //                context.finish();
 
                 context.setFragment(homeFragment);
+
+                // Fetch data from server to Home fragment
+                PostListBackgroundWorker postWorker = new PostListBackgroundWorker(context);
+                postWorker.execute();
+
                 return true;
             case R.id.navigation_new_post:
 //                Log.e("APP_NAME", "second dashboard");

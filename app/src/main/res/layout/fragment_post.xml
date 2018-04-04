@@ -1,208 +1,217 @@
- <!-- TODO: Update blank fragment layout -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="@android:color/background_light"
-        tools:context="com.example.ken.updish.Fragment.PostFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+<!-- TODO: Update blank fragment layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/background_light"
+    tools:context="com.example.ken.updish.Fragment.PostFragment"
 
-        <ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/border_shape_top_header"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:fillViewport="true">
-            <!-- Your Scrollview content goes here -->
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txt_postToolBar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:text="@string/txt_postToolBar"
+                android:textColor="@color/colorMain"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_Newpost"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawableLeft="@drawable/ic_post_new_24dp"
+                android:text="@string/btn_newPost"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite"
+                android:background="@android:color/transparent"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <!-- Your Scrollview content goes here -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <EditText
+                android:id="@+id/txt_nameOfDishes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:ems="10"
+                android:hint="@string/txt_nameOfDishes"
+                android:inputType="textPersonName"
+                android:padding="15dp" />
+
+            <Button
+                android:id="@+id/btn_picture"
+                android:layout_width="match_parent"
+                android:layout_height="-40dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@color/buttonFgColor"
+                android:text="@string/btn_picture"
+                android:textColor="@color/colorBg"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <GridView
+                android:id="@+id/gridView_picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:numColumns="5" />
+
+            <EditText
+                android:id="@+id/txt_description"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorBg"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="@string/txt_newPostDescription"
+                android:inputType="textMultiLine"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txtFeatureTitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/txtFeatureTitle"
+                android:textSize="32sp"
+                android:gravity="center_horizontal"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/colorMain"
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme" />
-
-                <TextView
-                    android:id="@+id/txt_postToolBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="-40dp"
-                    android:gravity="center"
-                    android:text="@string/txt_postToolBar"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/txt_nameOfDishes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="13dp"
-                    android:ems="10"
-                    android:hint="@string/txt_nameOfDishes"
-                    android:inputType="textPersonName"
-                    android:padding="15dp" />
-
-                <Button
-                    android:id="@+id/btn_picture"
-                    android:layout_width="match_parent"
-                    android:layout_height="-40dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@color/buttonFgColor"
-                    android:text="@string/btn_picture"
-                    android:textColor="@color/colorBg"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <GridView
-                    android:id="@+id/gridView_picture"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:numColumns="5" />
-
-                <EditText
-                    android:id="@+id/txt_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorBg"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="@string/txt_newPostDescription"
-                    android:inputType="textMultiLine"
-                    android:textSize="14sp" />
-                <TextView
-                    android:id="@+id/txtFeatureTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/txtFeatureTitle"
-                    android:textSize="32sp"
-                    android:gravity="center_horizontal"/>
+                android:orientation="horizontal"
+                android:layout_margin="6dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="6dp">
-
-                    <LinearLayout
+                    android:layout_width="185dp"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:layout_margin="3dp">
+                    <TextView
+                        android:id="@+id/txtProLvTitle"
+                        android:text="@string/txtProLvTitle"
+                        android:textSize="18sp"
+                        android:gravity="center_horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <ListView
+                        android:id="@+id/lvProsFeature"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
                         android:layout_width="185dp"
-                        android:layout_height="200dp"
-                        android:orientation="vertical"
-                        android:layout_margin="3dp">
+                        android:layout_height="150dp"
+                        android:layout_weight="1">
 
-                        <ListView
-                            android:id="@+id/lvProsFeature"
-                            android:divider="@null"
-                            android:dividerHeight="0dp"
-                            android:layout_width="185dp"
-                            android:layout_height="150dp"
-                            android:layout_weight="1">
+                    </ListView>
 
-                        </ListView>
-
-                        <Button
-                            android:id="@+id/btnAddPros"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="right"
-                            android:background="@android:drawable/ic_input_add" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="185dp"
-                        android:layout_height="200dp"
-                        android:orientation="vertical"
-                        android:layout_margin="3dp">
-
-                        <ListView
-                            android:id="@+id/lvConsFeature"
-                            android:divider="@null"
-                            android:dividerHeight="0dp"
-                            android:layout_width="185dp"
-                            android:layout_height="150dp"
-                            android:layout_weight="1">
-
-                        </ListView>
-
-                        <Button
-                            android:id="@+id/btnAddCons"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="right"
-                            android:background="@android:drawable/ic_input_add" />
-
-                    </LinearLayout>
-
+                    <Button
+                        android:id="@+id/btnAddPros"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:background="@android:drawable/ic_input_add" />
 
                 </LinearLayout>
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txt_map"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:gravity="fill_vertical"-->
-                    <!--android:text="@string/txt_location"-->
-                    <!--android:textSize="18sp"-->
-                    <!--android:layout_marginLeft="15dp"-->
-                    <!--android:layout_marginRight="15dp"-->
-
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="horizontal" />-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/img_mapPointer"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:contentDescription="@string/img_mapPointer"
-                        app:srcCompat="@drawable/mappointer2"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"/>
-
-                    <fragment
-                        android:id="@+id/autocomplete_address"
-                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                <LinearLayout
+                    android:layout_width="185dp"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    android:layout_margin="3dp">
+                    <TextView
+                        android:id="@+id/txtConsLvTitle"
+                        android:text="@string/txtConsLvTitle"
+                        android:textSize="18sp"
+                        android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_toRightOf="@+id/img_mapPointer"/>
+                        android:layout_height="wrap_content" />
 
-                </RelativeLayout>
+                    <ListView
+                        android:id="@+id/lvConsFeature"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        android:layout_width="185dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1">
 
+                    </ListView>
 
+                    <Button
+                        android:id="@+id/btnAddCons"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:background="@android:drawable/ic_input_add" />
 
+                </LinearLayout>
 
-
-               <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:map="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_margin="10dp"
-                    tools:context="com.example.ken.updish.Activity.MapsActivity" />
 
             </LinearLayout>
 
-        </ScrollView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_mapLogo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/img_mapPointer"
+                    app:srcCompat="@drawable/mappointer2"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"/>
 
-        <Button
-            android:id="@+id/btn_Newpost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
-            android:text="@string/btn_newPost"
-            android:textColor="@color/colorText2"
-            android:textSize="20sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/post_location"
+                    android:focusable="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="@string/post_location"
+                    android:layout_toRightOf="@+id/img_mapLogo"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

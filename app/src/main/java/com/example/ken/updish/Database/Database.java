@@ -12,12 +12,37 @@ import java.util.ArrayList;
 
 public class Database
 {
-    private ArrayList<User> userList;
+    private User currentUser;
+    private Post currentDetailsPost;
     private ArrayList<Post> postList;
 
     public Database()
     {
-        userList = new ArrayList<>();
         postList = new ArrayList<>();
+        currentDetailsPost = null;
+    }
+
+    public Post getCurrentDetailsPost() {
+        return currentDetailsPost;
+    }
+
+    public void setCurrentDetailsPost(Post currentDetailsPost) {
+        this.currentDetailsPost = currentDetailsPost;
+    }
+
+    public ArrayList<Post> getPostList() {
+        return postList;
+    }
+
+    public void setPostList(ArrayList<Post> postList) {
+        this.postList = postList;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

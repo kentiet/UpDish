@@ -21,7 +21,7 @@
         android:layout_height="150dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="10dp">
         <TableRow android:gravity="left"
             android:layout_width="match_parent">
 
@@ -91,10 +91,11 @@
                 android:id="@+id/imgBtn_like_post_item"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@android:color/background_light"
+                android:layout_marginTop="3dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/imgBtn_likeDesc"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/like" ></ImageView>
+                app:srcCompat="@drawable/thumb_up"></ImageView>
 
             <TextView
                 android:id="@+id/txtView_likeCount_post_item"
@@ -102,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="7dp"
                 android:text="@string/txtView_likeCount"
                 android:layout_marginRight="8dp"></TextView>
 
@@ -110,10 +111,11 @@
                 android:id="@+id/imgBtn_dislike_post_item"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@android:color/background_light"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/imgBtn_dislikeDesc"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/dislike"></ImageView>
+                app:srcCompat="@drawable/thumb_down"></ImageView>
 
             <TextView
                 android:id="@+id/txtView_dislikeCount_post_item"
@@ -121,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="7dp"
                 android:text="@string/txtView_dislikeCount"
                 android:layout_marginRight="8dp" ></TextView>
         </TableRow>

@@ -28,7 +28,7 @@
     <string name="txt_description">Dish description</string>
     <string name="img_foodDesc">Food Image description</string>
     <string name="title_activity_post">PostActivity</string>
-    <string name="txt_postToolBar">New Post</string>
+    <string name="txt_postToolBar">NEW POST</string>
     <string name="txt_nameOfDishes">Name of dishes</string>
     <string name="img_picture">Picture Description</string>
     <string name="img_mapPointer">Map Pointer Description</string>
@@ -63,30 +63,28 @@
     <string name="txtFeatureTitle">Features</string>
 
     <string name="imgView_picture">Image selected from gallery</string>
+    <string name="post_location">Search your location</string>
+    <string name="btnLocationSearch">DONE</string>
+    <string name="txtProLvTitle">Pros:</string>
+    <string name="txtConsLvTitle">Cons:</string>
 
 
-    <string-array name="featureType">
-        <item>" "</item>
-        <item>Price</item>
-        <item>Taste</item>
-        <item>Location</item>
-    </string-array>
 
-    <string-array name="feature_price">
+    <string-array name="feature_pros">
         <item>$ - Cheap</item>
         <item>$$ - Acceptable</item>
-        <item>$$$ - Expensive</item>
+        <item>Yummy</item>
+        <item>Closed</item>
+        <item>Well Services</item>
+        <item>Take reservations</item>
     </string-array>
 
-    <string-array name="feature_taste">
-        <item>Awful</item>
-        <item>Good</item>
-        <item>Fantastic</item>
-        <item>Very yummy!</item>
+    <string-array name="feature_cons">
+        <item>Awful Food</item>
+        <item>Too Far</item>
+        <item>Low Services</item>
+        <item>So Crowded</item>
     </string-array>
 
-    <string-array name="feature_location">
-        <item>Far - hard to find</item>
-        <item>Reachable - Easy to find</item>
-    </string-array>
+
 </resources>
