@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Database
 {
+    private User currentUser;
     private Post currentDetailsPost;
     private ArrayList<Post> postList;
 
@@ -35,5 +36,13 @@ public class Database
 
     public void setPostList(ArrayList<Post> postList) {
         this.postList = postList;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }

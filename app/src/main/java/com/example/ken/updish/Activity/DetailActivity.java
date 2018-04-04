@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -18,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
+import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
@@ -31,6 +34,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private ListView myListViewComments;
+    private EditText editTextComment;
     private String mapAddress;
     private String mapRestaurant;
     private Integer mapPointer;
@@ -55,10 +59,11 @@ public class DetailActivity extends AppCompatActivity {
 
         displayBackButton(); //Back button
         initPostTitle();
+        initLikePostButton();
         displayMapAndImageSlides();
         displayCommentArea();
     }
-    protected void initPostTitle(){
+    private void initPostTitle(){
         try {
             //Get Title Data from MainActivity
 
@@ -85,6 +90,18 @@ public class DetailActivity extends AppCompatActivity {
         }catch(Exception ex){
             Log.e("Updish", "Crashed in initPostTitle - Detail Activity", null);
         }
+    }
+
+    private void initLikePostButton()
+    {
+        ImageButton likePostImgBtn = (ImageButton)findViewById(R.id.imgBtn_like);
+        ImageButton dislikePostImgBtn = (ImageButton)findViewById(R.id.imgBtn_dislike);
+
+        LikePostListener lpbgLike = new LikePostListener(this, "like");
+        LikePostListener lpbgDislike = new LikePostListener(this, "dislike");
+
+        likePostImgBtn.setOnClickListener(lpbgLike);
+        dislikePostImgBtn.setOnClickListener(lpbgDislike);
     }
 
     private void displayBackButton()
@@ -130,10 +147,9 @@ public class DetailActivity extends AppCompatActivity {
 
         CommentAdapter commentAdapter = new CommentAdapter(this);
         myListViewComments.setAdapter(commentAdapter);
-
-//        commentAdapter.notifyDataSetChanged();
-
         setListViewHeightBasedOnItems(myListViewComments);
+
+        editTextComment = (EditText)findViewById(R.id.txt_comment);
 
         //Add Comments Button
         PostCommentClickListener postCommentClickListener =
@@ -158,7 +174,7 @@ public class DetailActivity extends AppCompatActivity {
                 item.measure(0,0);
 
                 Log.e("item measured", item.getMeasuredHeight() + "");
-                totalItemsHeight += item.getMeasuredHeight()+10;
+                totalItemsHeight += item.getMeasuredHeight()+100;
             }
 
             // Get total height of all item dividers.
@@ -194,6 +210,11 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+//        overridePendingTransition(0, 0);
+    }
+
+
+    public EditText getEditTextComment() {
+        return editTextComment;
     }
 }

@@ -2,11 +2,13 @@ package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Comment;
@@ -109,15 +111,17 @@ public class PostCommentBackgroundWorker extends AsyncTask<String, Void, String>
             //Notify
             ListView myListViewComments = (ListView)context.findViewById(R.id.listView_comments);
             CommentAdapter cmadapter = (CommentAdapter)myListViewComments.getAdapter();
-            cmadapter.notifyDataSetChanged();
+//            DetailActivity.setListViewHeightBasedOnItems(myListViewComments);
+//            cmadapter.notifyDataSetChanged();
 
             //Reload Details activity - NO NEED TO RELOAD ACTIVITY
-//            DetailActivity detailActivity = (DetailActivity)context;
+            DetailActivity detailActivity = (DetailActivity)context;
+//            detailActivity.getEditTextComment().setText("");
 //            detailActivity.recreate();
-//            Intent intent = context.getIntent();
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//            detailActivity.startActivity(intent);
-//            detailActivity.finish();
+            Intent intent = context.getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            detailActivity.startActivity(intent);
+            detailActivity.finish();
 
         }catch(ParseException pe)
         {

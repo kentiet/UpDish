@@ -3,6 +3,7 @@ package com.example.ken.updish.Database;
 import com.example.ken.updish.Interface.DatabaseInterface;
 import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
+import com.example.ken.updish.Model.User;
 
 import java.util.ArrayList;
 
@@ -79,6 +80,11 @@ public class DatabaseHelper implements DatabaseInterface {
         return output;
     }
 
+    public User getCurrentUser()
+    {
+        return database.getCurrentUser();
+    }
+
     /* SET */
 
     // Set current details post
@@ -90,6 +96,11 @@ public class DatabaseHelper implements DatabaseInterface {
     // Set new postList
     public void setNewPostList(ArrayList<Post> newList) {
         database.setPostList(newList);
+    }
 
+    public void setCurrentUser(String name, String email, String[] plist)
+    {
+        User u = new User(name, email, plist);
+        this.database.setCurrentUser(u);
     }
 }

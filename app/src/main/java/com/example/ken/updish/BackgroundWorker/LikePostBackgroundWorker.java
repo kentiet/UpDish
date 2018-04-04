@@ -21,9 +21,10 @@ public class LikePostBackgroundWorker extends AsyncTask<String, Void, String> {
     ProgressDialog loadingDialog;
     String postId, username, type;
 
-    public LikePostBackgroundWorker(Activity con)
+    public LikePostBackgroundWorker(Activity con, String type)
     {
         this.context = con;
+        this.type = type;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class LikePostBackgroundWorker extends AsyncTask<String, Void, String> {
                             URLEncoder.encode("post_id", "UTF-8") + "=" + URLEncoder.encode(postId, "UTF-8");
 
             // Connection
-            String urlWithId = SharedResources.getInstance().getStringValue(context,"commentUrl");
+            String urlWithId = SharedResources.getInstance().getStringValue(context,"likeUrl");
             ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"POST");
 
             String result = connection.connect(post_data, ConnectionHelper.SEND_REQUEST_WITH_PARAMETERS);

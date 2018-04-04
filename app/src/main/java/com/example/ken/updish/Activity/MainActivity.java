@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
+import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Fragment.HomeFragment;
 import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Fragment.UserFragment;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         PostListBackgroundWorker postWorker = new PostListBackgroundWorker(this);
         postWorker.execute();
 
+        // Set currentUser
+        DatabaseHelper.getInstance().setCurrentUser("tan", "", new String[10]);
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
 //        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
 
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         sr.addStringValue(this, "loginUrl","http://10.0.2.2:8888/updish/api/v1/login");
         sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
         sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8888/updish/api/v1/comment");
+        sr.addStringValue(this, "likeUrl", "http://10.0.2.2:8888/updish/api/v1/like");
     }
 
 }

@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -72,12 +73,25 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
         String idParam = params[0];
         currentId = idParam;
 
-        // Connection
-        String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl") + "/" + idParam;
-        ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"GET");
+        try
+        {
+            // Connection
+            String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl") + "/" + idParam;
+            ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"POST");
 
-        String result = connection.connect("", ConnectionHelper.SEND_REQUEST_NO_PARAMETER);
-        return result;
+            String post_data =
+                    URLEncoder.encode("username", "UTF-8" ) + "=" +
+                            URLEncoder.encode(DatabaseHelper.getInstance().getCurrentUser().getUserName(), "UTF-8" );
+
+            String result = connection.connect(post_data, ConnectionHelper.SEND_REQUEST_NO_PARAMETER);
+            return result;
+        }catch(UnsupportedEncodingException uee)
+        {
+            uee.printStackTrace();
+        }
+
+        return null;
+
     }
 
     @Override
