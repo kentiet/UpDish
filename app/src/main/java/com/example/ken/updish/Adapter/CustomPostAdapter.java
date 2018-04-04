@@ -13,11 +13,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ken.updish.Database.DatabaseHelper;
+
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -28,19 +31,12 @@ public class CustomPostAdapter extends BaseAdapter {
 
     private Activity context;
     private ArrayList<Post> postList;
-//    private ArrayList<String> postList;
-//    private ArrayList<String> postDesc;
-//    private ArrayList<String> postDate;
-//    private ArrayList<String> postUser;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public CustomPostAdapter(Activity con, ArrayList<Post> anyList)
+    public CustomPostAdapter(Activity con)
     {
         this.context = con;
-        this.postList = anyList;
-//        this.postList = anyList;
-//        this.postDesc = anyDesc;
-//        this.postDate = anyDate;
-//        this.postUser = anyUser;
+        postList = DatabaseHelper.getInstance().getPostList();
     }
 
     @Override
@@ -65,6 +61,7 @@ public class CustomPostAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.post_list_item, null);
         }
 
+        // If image List has size greater than 0
         if(this.postList.get(i).getImageList().size() > 0)
         {
             ImageView imageViewPostItem =
@@ -87,7 +84,13 @@ public class CustomPostAdapter extends BaseAdapter {
         postD.setText(this.postList.get(i).getDescription());
 
         TextView postDa = (TextView)view.findViewById(R.id.textViewPostDate);
-        postDa.setText(this.postList.get(i).getCalendar().getTime().toString());
+        postDa.setText(sdf.format(this.postList.get(i).getDatePost()));
+
+        //Like - Dislike count
+        TextView likeCount = (TextView)view.findViewById(R.id.txtView_likeCount_post_item);
+        TextView dislikeCount = (TextView)view.findViewById(R.id.txtView_dislikeCount_post_item);
+        likeCount.setText(String.valueOf(this.postList.get(i).getVoteUp()));
+        dislikeCount.setText(String.valueOf(this.postList.get(i).getVoteDown()));
 
         //String Color variables
         String colorMainString= "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorMain) & 0x00ffffff);

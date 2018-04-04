@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class Post
 {
-    private String id;
+    private int id;
     private String title;
     private String description;
     private int voteUp;
@@ -28,7 +28,8 @@ public class Post
 
 
     public Post(){
-        this.id = "";
+
+        this.id = 0;
         int voteUp = 0;
         int voteDown = 0;
         this.imageList = new ArrayList<>();
@@ -41,7 +42,7 @@ public class Post
         this.user = new User("","",new String[10]);
     }
 
-    public Post(String id, String title, User user, String description)
+    public Post(int id, String title, User user, String description)
     {
         // Initializing
         this.id = id;
@@ -137,19 +138,11 @@ public class Post
         this.user = user;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

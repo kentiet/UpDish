@@ -1,29 +1,40 @@
 package com.example.ken.updish.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.R;
 
-public class imgSlideAdapter extends PagerAdapter{
+import java.util.ArrayList;
+
+public class ImgSlideAdapter extends PagerAdapter{
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.food1, R.drawable.food2, R.drawable.food3};
-    private String [] pageNumber = {"1/3", "2/3", "3/3"};
+    private ArrayList<Bitmap> imageList;
+    private ArrayList<String> pageNumber = new ArrayList<>();
 
-    public imgSlideAdapter(Context context){
+    public ImgSlideAdapter(Context context){
         this.context = context;
+        imageList= DatabaseHelper.getInstance().getCurrentDetailsPost().getImageList();
+
+        for(int i = 1; i <= imageList.size(); i++)
+        {
+            pageNumber.add(i + " / " + imageList.size());
+        }
     }
     @Override
     public int getCount() {
-        return images.length;
+        return imageList.size();
     }
 
     @Override
@@ -37,11 +48,11 @@ public class imgSlideAdapter extends PagerAdapter{
 
         //Image
         ImageView img_slide = (ImageView)view.findViewById(R.id.img_slides);
-        img_slide.setImageResource(images[position]);
+        img_slide.setImageBitmap(imageList.get(position));
 
         //Slide number
         TextView txtView_SlideNum = (TextView)view.findViewById(R.id.txtView_slides);
-        txtView_SlideNum.setText(pageNumber[position]);
+        txtView_SlideNum.setText(pageNumber.get(position));
 
         ViewPager vp = (ViewPager)container;
         vp.addView(view, 0);

@@ -1,13 +1,21 @@
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;
+
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
+
 import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.util.Log;
+
+import android.view.View;
+import android.view.Window;
+import android.widget.ProgressBar;
 
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.Database.DatabaseHelper;
@@ -16,6 +24,7 @@ import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
 import com.example.ken.updish.R;
 
+import com.example.ken.updish.Utility.ConnectionHelper;
 import com.example.ken.updish.Utility.SharedResources;
 
 import org.json.JSONArray;
@@ -33,7 +42,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 /**
  * Created by tanthinh on 3/27/18.
@@ -42,6 +55,7 @@ import java.util.ArrayList;
 public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
 
     Activity context;
+    Dialog mdialog;
 
     public PostListBackgroundWorker(Activity con)
     {
@@ -51,42 +65,25 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPreExecute()
     {
+        super.onPreExecute();
+        mdialog = new Dialog(context);
+        mdialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mdialog.setContentView(R.layout.custom_progress_dialog);
+        mdialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        mdialog.setCancelable(false);
+        mdialog.show();
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        try
-        {
-            // Connection
-            URL url = new URL(SharedResources.getInstance().getStringValue(this.context,"postUrl"));
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setDoInput(true);
+    protected String doInBackground(String... params) {
+//        SystemClock.sleep(1000);
 
-            /* Create inputStream to receive data return back from the PHP script */
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            String result = "";
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-            {
-                result += line;
-            }
+        // Connection
+        String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl");
+        ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"GET");
 
-            bufferedReader.close();
-            inputStream.close();
-
-            httpURLConnection.disconnect(); // Disconnect HTTP URL connection
-
-            return result;
-
-        }catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        String result = connection.connect("", ConnectionHelper.SEND_REQUEST_NO_PARAMETER);
+        return result;
     }
 
     @Override
@@ -97,6 +94,8 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result)
     {
+        super.onPostExecute(result);
+        mdialog.dismiss(); // Dismiss loading
         MainActivity main = (MainActivity)context;
         Fragment currentFragment = (HomeFragment)main.getSupportFragmentManager().getFragments().get(0);
         ArrayList<Post> postList = new ArrayList<>();
@@ -108,6 +107,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 //Convert to JSONArray
                 JSONArray jsonArray = new JSONArray(result);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
                 //Iterating through JSON array
@@ -116,7 +116,9 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     // Define new post
                     Post tempPost = new Post();
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    tempPost.setId(obj.getString("id"));
+
+                    tempPost.setId(Integer.parseInt(obj.getString("id")));
+
                     tempPost.setTitle(obj.getString("title"));
                     tempPost.setDescription(obj.getString("description"));
                     tempPost.setVoteUp(Integer.parseInt(obj.getString("voteup")));
@@ -131,10 +133,14 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
                     Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     tempPost.getImageList().add(bm);
 
+                    //Date
+                    Date tempDate = sdf.parse(obj.getString("date_posted"));
+                    tempPost.setDatePost(tempDate);
+
                     //Add to post List
                     postList.add(tempPost);
                 }
-                DatabaseHelper.getDatabase().setPostList(postList);
+                DatabaseHelper.getInstance().setNewPostList(postList);
 
                 //Refresh Fragment
                 FragmentTransaction fragTransaction = ((MainActivity) context).getSupportFragmentManager().beginTransaction();
@@ -149,9 +155,6 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
             {
                 Log.e("Updish", "General Exception: " + ex.getMessage(), null);
             }
-
-
-
         }
 
     }
