@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         init(); // Initialization
 
         PostListBackgroundWorker postWorker = new PostListBackgroundWorker(this);
-        postWorker.execute();
+        //postWorker.execute();
 
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
-//        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
+        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
 
     }
 

@@ -67,7 +67,10 @@
     <string name="btnLocationSearch">DONE</string>
     <string name="txtProLvTitle">Pros:</string>
     <string name="txtConsLvTitle">Cons:</string>
-
+    <string name="editTextPasswordReg1">Please Enter Your Password</string>
+    <string name="editTextPasswordReg2">Retype your password</string>
+    <string name="txtRegTitle">Account Registration</string>
+    <string name="editTextEmail">Please Enter Your Email</string>
 
 
     <string-array name="feature_pros">
