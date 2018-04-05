@@ -101,7 +101,7 @@ public class PostListBackgroundWorker extends AsyncTask<String,Void,String> {
         ArrayList<Post> postList = new ArrayList<>();
 
         if (currentFragment instanceof HomeFragment) {
-            Log.e("Updish", "Inside Post Execute", null);
+//            Log.e("Updish Post list", result, null);
 
             try
             {

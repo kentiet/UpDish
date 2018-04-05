@@ -117,11 +117,11 @@ public class PostCommentBackgroundWorker extends AsyncTask<String, Void, String>
             //Reload Details activity - NO NEED TO RELOAD ACTIVITY
             DetailActivity detailActivity = (DetailActivity)context;
 //            detailActivity.getEditTextComment().setText("");
-//            detailActivity.recreate();
-            Intent intent = context.getIntent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            detailActivity.startActivity(intent);
-            detailActivity.finish();
+            detailActivity.recreate();
+//            Intent intent = context.getIntent();
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            detailActivity.startActivity(intent);
+//            detailActivity.finish();
 
         }catch(ParseException pe)
         {

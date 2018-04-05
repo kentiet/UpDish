@@ -24,6 +24,7 @@ public class Post
     private Date datePost;
     private User user;
     private ArrayList<Bitmap> imageList;
+    private String likeStatus;
     private Calendar calendar = Calendar.getInstance();
 
 
@@ -40,6 +41,7 @@ public class Post
         commentList = new ArrayList<>();
         location = new Location();
         this.user = new User("","",new String[10]);
+        likeStatus = "None";
     }
 
     public Post(int id, String title, User user, String description)
@@ -56,6 +58,7 @@ public class Post
         commentList = new ArrayList<>();
         location = new Location();
         this.user = user;
+        likeStatus = "None";
     }
 
     public String getTitle() {
@@ -152,5 +155,13 @@ public class Post
 
     public void setImageList(ArrayList<Bitmap> imageList) {
         this.imageList = imageList;
+    }
+
+    public String getLikeStatus() {
+        return likeStatus;
+    }
+
+    public void setLikeStatus(String likeStatus) {
+        this.likeStatus = likeStatus;
     }
 }

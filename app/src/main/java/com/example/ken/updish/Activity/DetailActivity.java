@@ -1,5 +1,7 @@
 package com.example.ken.updish.Activity;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.example.ken.updish.Adapter.CommentAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
+import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
@@ -35,12 +38,15 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ListView myListViewComments;
     private EditText editTextComment;
-    private String mapAddress;
-    private String mapRestaurant;
+    private ImageButton likePostImgBtn;
+    private ImageButton dislikePostImgBtn;
+    private TextView txtLike;
+    private TextView txtDislike;
+    private Drawable thumbup;
+    private Drawable thumbupCor;
+    private Drawable thumbdown;
+    private Drawable thumbdownCor;
     private Integer mapPointer;
-    private ArrayList<String> commentUserName = new ArrayList<>();
-    private ArrayList<String> commentDate = new ArrayList<>();
-    private ArrayList<String> commentDesc = new ArrayList<>();
     private Post currentPostDetails;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -81,8 +87,8 @@ public class DetailActivity extends AppCompatActivity {
             TextView pDesc = (TextView)findViewById(R.id.txt_description);
             pDesc.setText(currentPostDetails.getDescription());
 
-            TextView txtLike = (TextView)findViewById(R.id.txtView_likeCount);
-            TextView txtDislike = (TextView)findViewById(R.id.txtView_dislikeCount);
+            txtLike = (TextView)findViewById(R.id.txtView_likeCount);
+            txtDislike = (TextView)findViewById(R.id.txtView_dislikeCount);
 
             txtLike.setText(String.valueOf(currentPostDetails.getVoteUp()));
             txtDislike.setText(String.valueOf(currentPostDetails.getVoteDown()));
@@ -94,8 +100,23 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initLikePostButton()
     {
-        ImageButton likePostImgBtn = (ImageButton)findViewById(R.id.imgBtn_like);
-        ImageButton dislikePostImgBtn = (ImageButton)findViewById(R.id.imgBtn_dislike);
+
+        thumbup = this.getResources().getDrawable(R.drawable.thumb_up);
+        thumbupCor = this.getResources().getDrawable(R.drawable.thumb_up_colored);
+        thumbdown = this.getResources().getDrawable(R.drawable.thumb_down);
+        thumbdownCor = this.getResources().getDrawable(R.drawable.thumb_down_colored);
+
+        likePostImgBtn = (ImageButton)findViewById(R.id.imgBtn_like);
+        dislikePostImgBtn = (ImageButton)findViewById(R.id.imgBtn_dislike);
+
+        //Set appropriate Drawable
+        if(currentPostDetails.getLikeStatus().equalsIgnoreCase("like"))
+        {
+            likePostImgBtn.setImageDrawable(thumbupCor);
+        }else if(currentPostDetails.getLikeStatus().equalsIgnoreCase("dislike"))
+        {
+            dislikePostImgBtn.setImageDrawable(thumbdownCor);
+        }
 
         LikePostListener lpbgLike = new LikePostListener(this, "like");
         LikePostListener lpbgDislike = new LikePostListener(this, "dislike");
@@ -174,7 +195,7 @@ public class DetailActivity extends AppCompatActivity {
                 item.measure(0,0);
 
                 Log.e("item measured", item.getMeasuredHeight() + "");
-                totalItemsHeight += item.getMeasuredHeight()+100;
+                totalItemsHeight += item.getMeasuredHeight()+10 ;
             }
 
             // Get total height of all item dividers.
@@ -197,6 +218,26 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    public void setThumbUpImageNormal()
+    {
+        likePostImgBtn.setImageDrawable(thumbup);
+    }
+
+    public void setThumbUpImageColor()
+    {
+        likePostImgBtn.setImageDrawable(thumbupCor);
+    }
+
+    public void setThumbDownImageNormal()
+    {
+        dislikePostImgBtn.setImageDrawable(thumbdown);
+    }
+
+    public void setThumbDownImageColor()
+    {
+        dislikePostImgBtn.setImageDrawable(thumbdownCor);
+    }
+
     public ListView getMyListViewComments() {
         return myListViewComments;
     }
@@ -213,8 +254,36 @@ public class DetailActivity extends AppCompatActivity {
 //        overridePendingTransition(0, 0);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     public EditText getEditTextComment() {
         return editTextComment;
+    }
+
+    public ImageButton getLikePostImgBtn() {
+        return likePostImgBtn;
+    }
+
+    public ImageButton getDislikePostImgBtn() {
+        return dislikePostImgBtn;
+    }
+
+    public TextView getTxtLike() {
+        return txtLike;
+    }
+
+    public void setTxtLike(TextView txtLike) {
+        this.txtLike = txtLike;
+    }
+
+    public TextView getTxtDislike() {
+        return txtDislike;
+    }
+
+    public void setTxtDislike(TextView txtDislike) {
+        this.txtDislike = txtDislike;
     }
 }

@@ -76,14 +76,16 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
         try
         {
             // Connection
-            String urlWithId = SharedResources.getInstance().getStringValue(this.context,"postUrl") + "/" + idParam;
+            String urlWithId = SharedResources.getInstance().getStringValue(this.context,"detailsUrl");
             ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"POST");
 
             String post_data =
                     URLEncoder.encode("username", "UTF-8" ) + "=" +
-                            URLEncoder.encode(DatabaseHelper.getInstance().getCurrentUser().getUserName(), "UTF-8" );
+                            URLEncoder.encode(DatabaseHelper.getInstance().getCurrentUser().getUserName(), "UTF-8" )
+                            + "&" +
+                            URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(idParam, "UTF-8");
 
-            String result = connection.connect(post_data, ConnectionHelper.SEND_REQUEST_NO_PARAMETER);
+            String result = connection.connect(post_data, ConnectionHelper.SEND_REQUEST_WITH_PARAMETERS);
             return result;
         }catch(UnsupportedEncodingException uee)
         {
@@ -127,6 +129,10 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
 
             User tempUser = new User(obj.getString("username"), "", new String[10]);
             tempPost.setUser(tempUser);
+
+            // Like
+            Log.e("Drawable get from php", obj.getString("userLikePost"), null);
+            tempPost.setLikeStatus(obj.getString("userLikePost"));
 
             // Date
             Date tempDate = sdf.parse(obj.getString("date_posted"));
