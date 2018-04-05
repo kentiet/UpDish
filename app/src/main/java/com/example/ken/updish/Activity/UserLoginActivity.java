@@ -48,13 +48,15 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private void setUsefulResources()
     {
+        String host = "10.0.2.2:8888";
+
         SharedResources sr = SharedResources.getInstance();
         sr.addStringValue(this, "appName", "Updish");
-        sr.addStringValue(this, "loginUrl","http://10.0.2.2:8888/updish/api/v1/login");
-        sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
-        sr.addStringValue(this, "detailsUrl", "http://10.0.2.2:8888/updish/api/v1/post");
-        sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8888/updish/api/v1/comment");
-        sr.addStringValue(this, "likeUrl", "http://10.0.2.2:8888/updish/api/v1/like");
+        sr.addStringValue(this, "loginUrl","http://" + host + "/updish/api/v1/login");
+        sr.addStringValue(this, "postUrl", "http://" + host + "/updish/api/v1/posts");
+        sr.addStringValue(this, "detailsUrl", "http://" + host + "/updish/api/v1/post");
+        sr.addStringValue(this, "commentUrl", "http://" + host + "/updish/api/v1/comment");
+        sr.addStringValue(this, "likeUrl", "http://" + host + "/updish/api/v1/like");
 
     }
 }
