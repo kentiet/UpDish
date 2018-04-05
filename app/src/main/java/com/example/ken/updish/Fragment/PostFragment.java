@@ -1,42 +1,22 @@
 package com.example.ken.updish.Fragment;
 
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -49,49 +29,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ken.updish.Activity.MapsActivity;
 import com.example.ken.updish.Adapter.FeatureAdapter;
+
 import com.example.ken.updish.Listener.StartMapsListener;
 import com.example.ken.updish.Model.Feature;
 
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.PictureAdapter;
 
 import com.example.ken.updish.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -129,7 +83,7 @@ public class PostFragment extends Fragment {
     private ArrayList<Feature> myConsFeatureList = new ArrayList<>();
     private Spinner fType;
     private Spinner feature;
-    //private String sltFeatureType;
+    private String sltFeatureType;
     private String sltFeature;
     private ListView lvProFeature;
     private ListView lvConFeature;
@@ -186,25 +140,28 @@ public class PostFragment extends Fragment {
 
 
         /* Maps Part */
-
-
         StartMapsListener sMap = new StartMapsListener(context);
-         sLocation = (EditText) view.findViewById(R.id.post_location);
+        sLocation = (EditText) view.findViewById(R.id.post_location);
         sLocation.setOnClickListener(sMap);
-
-
         // End maps
 
         /* Features Part */
 
         createDSpinnerDialog();
 
-        //fType = (Spinner) spinnerDialogView.findViewById(R.id.spnFeatureType);
-        feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
+
+
+
+
+
+
+        feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
         addPros = (Button)view.findViewById(R.id.btnAddPros);
         addCons = (Button)view.findViewById(R.id.btnAddCons);
+
+
 
 
         buttonClickedHandler(addCons);
@@ -219,16 +176,14 @@ public class PostFragment extends Fragment {
     /* Feature Part */
     private void populateProList() {
         addProFeature(sltFeature);
-        lvProFeature = (ListView)getActivity().findViewById(R.id.lvProsFeature);
+        lvProFeature = (ListView)context.findViewById(R.id.lvProsFeature);
         proAdapter = new FeatureAdapter(context, myProFeatureList);
         lvProFeature.setAdapter(proAdapter);
-
-
     }
 
     private void populateConsList() {
         addConsFeature(sltFeature);
-        lvConFeature = (ListView)getActivity().findViewById(R.id.lvConsFeature);
+        lvConFeature = (ListView)context.findViewById(R.id.lvConsFeature);
         consAdapter = new FeatureAdapter(context, myConsFeatureList);
         lvConFeature.setAdapter(consAdapter);
     }
@@ -293,7 +248,6 @@ public class PostFragment extends Fragment {
                 setFeatureSpinnerItem(btn);
                 switch (btn.getId()) {
                     case R.id.btnAddCons:
-
                         consSpinnerDialogHandler();
                         break;
                     case R.id.btnAddPros:
@@ -329,12 +283,6 @@ public class PostFragment extends Fragment {
         spinnerDialogBuilder.setMessage("");
     }
 
-//    private void setFeatureOnCall() {
-//        sltFeatureType = fType.getSelectedItem().toString();
-//        setFeatureSpinnerItem(sltFeatureType);
-//
-//    }
-
     private void setFeatureSpinnerItem (Button button){
         String[] entry;
         ArrayAdapter<String> spinnerAdapter;
@@ -352,6 +300,15 @@ public class PostFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+//        FeatureProClickListener mProClick = new FeatureProClickListener(context, addPros);
+//        FeatureConsClickListener mConsClick = new FeatureConsClickListener(context, addCons);
+//        addPros.setOnClickListener(mProClick);
+//        addCons.setOnClickListener(mConsClick);
+    }
 
     @Override
     public void onResume() {
@@ -395,7 +352,6 @@ public class PostFragment extends Fragment {
     }
 
     //------------ KEN -----------------//
-
 
 
     public void onImageGalleryClicked(View view){

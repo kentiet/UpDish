@@ -1,7 +1,9 @@
 package com.example.ken.updish.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,6 +14,7 @@ import com.example.ken.updish.Utility.SharedResources;
 public class UserLoginActivity extends AppCompatActivity {
 
     Button btnLogin;
+    Button btnReg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
         // Declare
         btnLogin = (Button)findViewById(R.id.btnLogin);
+        btnReg = (Button) findViewById(R.id.btnRegister);
 
         //Set listener
         LoginListener oll = new LoginListener(this);
@@ -27,6 +31,13 @@ public class UserLoginActivity extends AppCompatActivity {
 
         // Set useful variables for the application
         setUsefulResources();
+
+        btnReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserLoginActivity.this, UserRegActivity.class));
+            }
+        });
 
         //Hard code username password for dev
         EditText usernameLogin = (EditText)findViewById(R.id.editTextUserNameLogin);
@@ -44,5 +55,6 @@ public class UserLoginActivity extends AppCompatActivity {
         sr.addStringValue(this, "detailsUrl", "http://10.0.2.2:8888/updish/api/v1/post");
         sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8888/updish/api/v1/comment");
         sr.addStringValue(this, "likeUrl", "http://10.0.2.2:8888/updish/api/v1/like");
+
     }
 }

@@ -1,9 +1,12 @@
 package com.example.ken.updish.Database;
 
+import android.util.Log;
+
 import com.example.ken.updish.Interface.DatabaseInterface;
 import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -79,6 +82,13 @@ public class DatabaseHelper implements DatabaseInterface {
         tempLoc.getPostalCode();
         return output;
     }
+
+    public LatLng getLatlng() {
+        Location tempLoc = this.database.getCurrentDetailsPost().getLocation();
+        Log.e("dbhelpder", tempLoc.getLatitude() + " " +  tempLoc.getLongtitude());
+        return  new LatLng(tempLoc.getLatitude(), tempLoc.getLongtitude());
+    }
+
 
     public User getCurrentUser()
     {

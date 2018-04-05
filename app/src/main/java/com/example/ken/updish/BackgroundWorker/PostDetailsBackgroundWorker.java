@@ -161,6 +161,10 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
             loc.setPostalCode(obj.getString("postalcode"));
             loc.setCity(obj.getString("city"));
             loc.setProvince(obj.getString("province"));
+            // Ken
+            loc.setLatitude(obj.getLong("latitude"));
+            loc.setLongtitude(obj.getLong("longtitude"));
+
             tempPost.setLocation(loc);
 
             // Comment

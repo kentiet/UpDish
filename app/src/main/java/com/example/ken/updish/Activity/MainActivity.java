@@ -1,5 +1,6 @@
 package com.example.ken.updish.Activity;
 
+import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;

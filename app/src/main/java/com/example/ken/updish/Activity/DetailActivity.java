@@ -24,6 +24,7 @@ import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Listener.DetailMapDialogListener;
 import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
 import com.example.ken.updish.Model.Post;
@@ -140,18 +141,20 @@ public class DetailActivity extends AppCompatActivity {
     private void displayMapAndImageSlides()
     {
         //Map Text
+        DetailMapDialogListener mapDialogListener = new DetailMapDialogListener(this);
         ListView myListViewMap = (ListView)findViewById(R.id.listView_map);
         MapAdapter mapAdapter = new MapAdapter(this);
         myListViewMap.setAdapter(mapAdapter);
-        myListViewMap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Google map Activity
-                Toast.makeText(DetailActivity.this, "Display Map Dialog", Toast.LENGTH_LONG);
-                Log.e("Updish Details Activity", "Resume", null);
-
-            }
-        });
+        myListViewMap.setOnItemClickListener(mapDialogListener);
+//        myListViewMap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                //Google map Activity
+//                Toast.makeText(DetailActivity.this, "Display Map Dialog", Toast.LENGTH_LONG);
+//                Log.e("Updish Details Activity", "Resume", null);
+//
+//            }
+//        });
 
         //Image slides
         viewPager = (ViewPager)findViewById(R.id.viewPager);

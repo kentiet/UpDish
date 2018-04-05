@@ -85,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sharedPreferences.edit();
+
         //Call location service
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -136,22 +137,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("onRdy", "Map Ready else");
             mMap.setMyLocationEnabled(true);
         }
-
-//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(Place place) {
-//                //Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
-//                currentLong = place.getLatLng().longitude;
-//                currentLat = place.getLatLng().latitude;
-//            }
-//
-//            @Override
-//            public void onError(Status status) {
-//
-//            }
-//        });
-
-
     }
 
 
