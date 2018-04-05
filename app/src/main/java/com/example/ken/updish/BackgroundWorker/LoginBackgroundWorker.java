@@ -10,9 +10,13 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.example.ken.updish.Activity.MainActivity;
+import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Utility.ConnectionHelper;
 import com.example.ken.updish.Utility.SharedResources;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -62,7 +66,7 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
         try
         {
-            SystemClock.sleep(1500); // Pretend it's connecting to the server
+            SystemClock.sleep(1200); // Pretend it's connecting to the server
 
             String post_data =  URLEncoder.encode("username", "UTF-8" ) + "=" + URLEncoder.encode(username, "UTF-8" ) + "&" +
                     URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
@@ -97,37 +101,54 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
         if(result == null)
         {
             alertDialog.setTitle("Cannot connect to Updish server");
-            alertDialog.setMessage("Please try again later.");
+            alertDialog.setMessage("Please check your connection and try again.");
             alertDialog.show();
         }else
         {
             // Create Simple Dialog to show user's login information
-            alertDialog.setTitle("Login Status");
-            alertDialog.setMessage(result);
-            alertDialog.show();
-
-            if(result.equals("Login successfully."))
+            try
             {
-                alertDialog.setCancelable(false); // Lock user's action
+                JSONObject obj = new JSONObject(result);
+                String successMsg = obj.getString("success");
+                String usernameLogin = obj.getString("username");
+                alertDialog.setTitle("Login Status");
 
-            /* Create a task after X seconds to dismiss the dialog
-               and jump to Main Activity
-            */
-                TimerTask tsk = new TimerTask(){
+                if(successMsg.equalsIgnoreCase("true"))
+                {
+                    alertDialog.setCancelable(false); // Lock user's action
+                    alertDialog.setMessage("Login successfully");
+                    alertDialog.show();
 
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(intent);
-                        alertDialog.dismiss();
-                        context.finish();
-                    }
-                };
-                Timer opening = new Timer();
-                opening.schedule(tsk, 2000);
+                    //Set user
+                    DatabaseHelper.getInstance().setCurrentUser(usernameLogin, "noEmailyet@changeinLoginbackgroundworker.com", new String[10]);
 
+                    /* Create a task after X seconds to dismiss the dialog
+                       and jump to Main Activity
+                    */
+                    TimerTask tsk = new TimerTask(){
+
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(intent);
+                            alertDialog.dismiss();
+                            context.finish();
+                        }
+                    };
+                    Timer opening = new Timer();
+                    opening.schedule(tsk, 1000);
+
+                }else
+                {
+                    alertDialog.setMessage("Login failed. Please try again later.");
+                    alertDialog.show();
+                }
+            }catch(JSONException jsonex)
+            {
+                Log.e("JSONex postex loginbgwk", jsonex.getMessage());
             }
+
         }
 
     }

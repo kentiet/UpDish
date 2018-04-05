@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         postWorker.execute();
 
         // Set currentUser
-        DatabaseHelper.getInstance().setCurrentUser("tan", "", new String[10]);
+//        DatabaseHelper.getInstance().setCurrentUser("tan", "", new String[10]);
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
 //        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
 
@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNagivationListener);
-
-        // Set useful variables for the application
-        setUsefulResources();
     }
 
     public void setFragment(Fragment fragment)
@@ -73,17 +70,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
         fragmentTransaction.commit();
-    }
-
-    private void setUsefulResources()
-    {
-        SharedResources sr = SharedResources.getInstance();
-        sr.addStringValue(this, "appName", "Updish");
-        sr.addStringValue(this, "loginUrl","http://10.0.2.2:8888/updish/api/v1/login");
-        sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
-        sr.addStringValue(this, "detailsUrl", "http://10.0.2.2:8888/updish/api/v1/post");
-        sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8888/updish/api/v1/comment");
-        sr.addStringValue(this, "likeUrl", "http://10.0.2.2:8888/updish/api/v1/like");
     }
 
     @Override
