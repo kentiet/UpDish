@@ -148,6 +148,7 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
             // location_id, name, streetNumber, streetName,
             // postalcode, city, province, longtitude, latitude
             Location loc = new Location();
+
             loc.setId(Integer.parseInt(obj.getString("votedown")));
             loc.setName(obj.getString("name"));
             loc.setStreetNumber(obj.getString("streetNumber"));
@@ -187,7 +188,6 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
 ////            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //            finish();
 //            startActivity(intent);
-
 
         }catch(JSONException jsonex)
         {

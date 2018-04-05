@@ -1,5 +1,6 @@
 package com.example.ken.updish.Activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -150,6 +151,8 @@ public class DetailActivity extends AppCompatActivity {
         setListViewHeightBasedOnItems(myListViewComments);
 
         editTextComment = (EditText)findViewById(R.id.txt_comment);
+
+//        txt_commenteditTextComment.setCompoundDrawables(R.drawable.comment, 0,0,0);
 
         //Add Comments Button
         PostCommentClickListener postCommentClickListener =

@@ -40,18 +40,18 @@ public class Location
      * @param province
      */
     public Location(int id, String name, String streetNumber, String streetName,
-                    String postalCode, String city, String province, long lo, long la)
-    {
-        this.id = id;
-        this.name = name;
-        this.streetNumber = streetNumber;
-        this.streetName = streetName;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.province = province;
-        this.longtitude = lo;
-        this.latitude = la;
-    }
+                     String postalCode, String city, String province, long lo, long la)
+{
+    this.id = id;
+    this.name = name;
+    this.streetNumber = streetNumber;
+    this.streetName = streetName;
+    this.postalCode = postalCode;
+    this.city = city;
+    this.province = province;
+    this.longtitude = lo;
+    this.latitude = la;
+}
 
     /**
      * Get full address from a location
