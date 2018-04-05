@@ -110,10 +110,12 @@ public class LikePostBackgroundWorker extends AsyncTask<String, Void, String> {
                     if(typeChoice.equalsIgnoreCase("like"))
                     {
                         incrementThumbUpAction(currentPostDt, voteUp, detailActivity);
+                        decrementThumbDownAction(currentPostDt, voteDown, detailActivity);
 
                     }else if(typeChoice.equalsIgnoreCase("dislike"))
                     {
                         incrementThumbDownAction(currentPostDt, voteDown, detailActivity);
+                        decrementThumbUpAction(currentPostDt, voteUp, detailActivity);
                     }
 
                 // Modify or delete
