@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
@@ -59,12 +60,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView, 10, 10, 10, 10);
         BottomNavigationViewHelper.resizeItems(this, bottomNavigationView, 30, 30);
 
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNagivationListener);
 
-        // Set useful variables for the application
-        setUsefulResources();
     }
 
     public void setFragment(Fragment fragment)
@@ -72,17 +69,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutMain, fragment);
         fragmentTransaction.commit();
-    }
-
-    private void setUsefulResources()
-    {
-        String localip = "140.161.82.8";
-        SharedResources sr = SharedResources.getInstance();
-        sr.addStringValue(this, "appName", "Updish");
-        sr.addStringValue(this, "loginUrl","http://10.0.2.2:8080/updish/api/v1/login");
-        sr.addStringValue(this, "postUrl", "http://10.0.2.2:8080/updish/api/v1/posts");
-        sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8080/updish/api/v1/comment");
-        sr.addStringValue(this, "likeUrl", "http://10.0.2.2:8080/updish/api/v1/like");
     }
 
 }

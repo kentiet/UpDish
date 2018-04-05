@@ -60,6 +60,8 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
         username = params[1];
         password = params[2];
 
+        Log.e("Updish test", title + username + password);
+
         try
         {
             SystemClock.sleep(1500); // Pretend it's connecting to the server
@@ -69,6 +71,7 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
 
             // Connection
             String urlWithId = SharedResources.getInstance().getStringValue(context,"loginUrl");
+            Log.e("Updish url ID",  urlWithId, null);
             ConnectionHelper connection = new ConnectionHelper(context,urlWithId,"POST");
 
             String result = connection.connect(post_data, ConnectionHelper.SEND_REQUEST_WITH_PARAMETERS);
