@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         sr.addStringValue(this, "postUrl", "http://10.0.2.2:8888/updish/api/v1/posts");
         sr.addStringValue(this, "commentUrl", "http://10.0.2.2:8888/updish/api/v1/comment");
         sr.addStringValue(this, "likeUrl", "http://10.0.2.2:8888/updish/api/v1/like");
+        sr.addStringValue(this, "regUrl", "http://10.0.2.2:8888/updish/api/v1/register");
+
     }
 
 }

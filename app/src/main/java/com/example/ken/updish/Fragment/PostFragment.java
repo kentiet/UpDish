@@ -1,42 +1,22 @@
 package com.example.ken.updish.Fragment;
 
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.InflateException;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -49,32 +29,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ken.updish.Activity.MapsActivity;
 import com.example.ken.updish.Adapter.FeatureAdapter;
 
-import com.example.ken.updish.Listener.FeatureConsClickListener;
-import com.example.ken.updish.Listener.FeatureProClickListener;
-import com.example.ken.updish.Listener.FeatureSpinnerSelectedListener;
 import com.example.ken.updish.Listener.StartMapsListener;
 import com.example.ken.updish.Model.Feature;
 
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.PictureAdapter;
 
 import com.example.ken.updish.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -112,7 +83,7 @@ public class PostFragment extends Fragment {
     private ArrayList<Feature> myConsFeatureList = new ArrayList<>();
     private Spinner fType;
     private Spinner feature;
-    //private String sltFeatureType;
+    private String sltFeatureType;
     private String sltFeature;
     private ListView lvProFeature;
     private ListView lvConFeature;
@@ -169,28 +140,23 @@ public class PostFragment extends Fragment {
 
 
         /* Maps Part */
-
-
         StartMapsListener sMap = new StartMapsListener(context);
         sLocation = (EditText) view.findViewById(R.id.post_location);
         sLocation.setOnClickListener(sMap);
-
-
         // End maps
 
         /* Features Part */
 
-        //createDSpinnerDialog();
-//        lvProFeature = (ListView)context.findViewById(R.id.lvProsFeature);
-//        proAdapter = new FeatureAdapter(context, myProFeatureList);
-//        lvProFeature.setAdapter(proAdapter);
+        createDSpinnerDialog();
 
 
-        lvConFeature = (ListView)context.findViewById(R.id.lvConsFeature);
-//        consAdapter = new FeatureAdapter(context, myConsFeatureList);
-//        lvConFeature.setAdapter(consAdapter);
 
-        //feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
+
+
+
+
+
+        feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
         addPros = (Button)view.findViewById(R.id.btnAddPros);
         addCons = (Button)view.findViewById(R.id.btnAddCons);
@@ -198,8 +164,8 @@ public class PostFragment extends Fragment {
 
 
 
-//        buttonClickedHandler(addCons);
-//        buttonClickedHandler(addPros);
+        buttonClickedHandler(addCons);
+        buttonClickedHandler(addPros);
 
         return view;
     }
@@ -208,138 +174,140 @@ public class PostFragment extends Fragment {
     //------------ KEN -----------------//
 
     /* Feature Part */
-//    private void populateProList() {
-//        addProFeature(sltFeature);
-//
-//
-//
-//    }
-//
-//    private void populateConsList() {
-//        addConsFeature(sltFeature);
-//
-//    }
-//
-//
-//
-//    private void proSpinnerDialogHandler() {
-//
-//        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                populateProList();
-//            }
-//        });
-//        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        });
-//        clearSpinnerDialogView();
-//        b = spinnerDialogBuilder.create();
-//        b.show();
-//    }
-//
-//    private void consSpinnerDialogHandler() {
-//        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                populateConsList();
-//            }
-//        });
-//        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        });
-//        clearSpinnerDialogView();
-//        b = spinnerDialogBuilder.create();
-//        b.show();
-//    }
-//
-//    private void buttonClickedHandler(final Button btn) {
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//
-//                feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                        sltFeature = feature.getSelectedItem().toString();
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                    }
-//                });
-//                setFeatureSpinnerItem(btn);
-//                switch (btn.getId()) {
-//                    case R.id.btnAddCons:
-//                        consSpinnerDialogHandler();
-//                        break;
-//                    case R.id.btnAddPros:
-//                        proSpinnerDialogHandler();
-//                        break;
-//                }
-//            }
-//        });
-//    }
-//
-//    private void clearSpinnerDialogView(){
-//        if(spinnerDialogView.getParent() != null) {
-//            ((ViewGroup)spinnerDialogView.getParent()).removeView(spinnerDialogView);
-//        }
-//    }
-//
-//    private void addProFeature(String f) {
-//        Feature mFeature = new Feature(f);
-//        myProFeatureList.add(mFeature);
-//    }
-//
-//    private void addConsFeature(String f) {
-//        Feature mFeature = new Feature(f);
-//        myConsFeatureList.add(mFeature);
-//    }
-//
-//    private void createDSpinnerDialog() {
-//        spinnerDialogBuilder = new AlertDialog.Builder(context);
-//        LayoutInflater featureInflater = getLayoutInflater();
-//        spinnerDialogView = featureInflater.inflate(R.layout.add_feature_layout, null);
-//        spinnerDialogBuilder.setView(spinnerDialogView);
-//        spinnerDialogBuilder.setTitle("Please tell us your feelings!");
-//        spinnerDialogBuilder.setMessage("");
-//    }
-//
-//    private void setFeatureSpinnerItem (Button button){
-//        String[] entry;
-//        ArrayAdapter<String> spinnerAdapter;
-//        switch (button.getId()) {
-//            case R.id.btnAddPros:
-//                entry = getResources().getStringArray(R.array.feature_pros);
-//                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
-//                feature.setAdapter(spinnerAdapter);
-//                break;
-//            case R.id.btnAddCons:
-//                entry = getResources().getStringArray(R.array.feature_cons);
-//                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
-//                feature.setAdapter(spinnerAdapter);
-//                break;
-//        }
-//    }
+    private void populateProList() {
+        addProFeature(sltFeature);
+        lvProFeature = (ListView)context.findViewById(R.id.lvProsFeature);
+        proAdapter = new FeatureAdapter(context, myProFeatureList);
+        lvProFeature.setAdapter(proAdapter);
+    }
+
+    private void populateConsList() {
+        addConsFeature(sltFeature);
+        lvConFeature = (ListView)context.findViewById(R.id.lvConsFeature);
+        consAdapter = new FeatureAdapter(context, myConsFeatureList);
+        lvConFeature.setAdapter(consAdapter);
+    }
+
+
+
+    private void proSpinnerDialogHandler() {
+
+        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                populateProList();
+            }
+        });
+        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        clearSpinnerDialogView();
+        b = spinnerDialogBuilder.create();
+        b.show();
+    }
+
+    private void consSpinnerDialogHandler() {
+        spinnerDialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                populateConsList();
+            }
+        });
+        spinnerDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        clearSpinnerDialogView();
+        b = spinnerDialogBuilder.create();
+        b.show();
+    }
+
+    private void buttonClickedHandler(final Button btn) {
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        sltFeature = feature.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                setFeatureSpinnerItem(btn);
+                switch (btn.getId()) {
+                    case R.id.btnAddCons:
+                        consSpinnerDialogHandler();
+                        break;
+                    case R.id.btnAddPros:
+                        proSpinnerDialogHandler();
+                        break;
+                }
+            }
+        });
+    }
+
+    private void clearSpinnerDialogView(){
+        if(spinnerDialogView.getParent() != null) {
+            ((ViewGroup)spinnerDialogView.getParent()).removeView(spinnerDialogView);
+        }
+    }
+
+    private void addProFeature(String f) {
+        Feature mFeature = new Feature(f);
+        myProFeatureList.add(mFeature);
+    }
+
+    private void addConsFeature(String f) {
+        Feature mFeature = new Feature(f);
+        myConsFeatureList.add(mFeature);
+    }
+
+    private void createDSpinnerDialog() {
+        spinnerDialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater featureInflater = getLayoutInflater();
+        spinnerDialogView = featureInflater.inflate(R.layout.add_feature_layout, null);
+        spinnerDialogBuilder.setView(spinnerDialogView);
+        spinnerDialogBuilder.setTitle("Please tell us your feelings!");
+        spinnerDialogBuilder.setMessage("");
+    }
+
+    private void setFeatureSpinnerItem (Button button){
+        String[] entry;
+        ArrayAdapter<String> spinnerAdapter;
+        switch (button.getId()) {
+            case R.id.btnAddPros:
+                entry = getResources().getStringArray(R.array.feature_pros);
+                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+                feature.setAdapter(spinnerAdapter);
+                break;
+            case R.id.btnAddCons:
+                entry = getResources().getStringArray(R.array.feature_cons);
+                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
+                feature.setAdapter(spinnerAdapter);
+                break;
+        }
+    }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        FeatureProClickListener mProClick = new FeatureProClickListener(context, addPros);
-        FeatureConsClickListener mConsClick = new FeatureConsClickListener(context, addCons);
-        addPros.setOnClickListener(mProClick);
-        addCons.setOnClickListener(mConsClick);
+//        FeatureProClickListener mProClick = new FeatureProClickListener(context, addPros);
+//        FeatureConsClickListener mConsClick = new FeatureConsClickListener(context, addCons);
+//        addPros.setOnClickListener(mProClick);
+//        addCons.setOnClickListener(mConsClick);
     }
 
     @Override

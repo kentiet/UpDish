@@ -71,6 +71,7 @@
     <string name="editTextPasswordReg2">Retype your password</string>
     <string name="txtRegTitle">Account Registration</string>
     <string name="editTextEmail">Please Enter Your Email</string>
+    <string name="btnMapDialog">OK</string>
 
 
     <string-array name="feature_pros">
