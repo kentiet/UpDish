@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
+import com.example.ken.updish.Adapter.FeatureOutputAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
@@ -27,6 +29,7 @@ import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Listener.DetailMapDialogListener;
 import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
+import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.ImgSlideAdapter;
@@ -51,6 +54,12 @@ public class DetailActivity extends AppCompatActivity {
     private Post currentPostDetails;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    private ListView listViewFeatures_pos;
+    private ListView listviewFeatures_con;
+    FeatureOutputAdapter featureOutputAdapter;
+
+    private ArrayList<String> featureArr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +78,12 @@ public class DetailActivity extends AppCompatActivity {
         initLikePostButton();
         displayMapAndImageSlides();
         displayCommentArea();
+
+        //FEATURES
+        
+        //addFeatures();
+        //displayFeaturesPos();
+        //displayFeaturesCon();
     }
     private void initPostTitle(){
         try {
@@ -160,6 +175,27 @@ public class DetailActivity extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.viewPager);
         ImgSlideAdapter slideAdapter = new ImgSlideAdapter(this);
         viewPager.setAdapter(slideAdapter);
+    }
+
+    //Features
+    private void displayFeaturesPos(){
+        listViewFeatures_pos = (ListView)findViewById(R.id.listView_feature_pos);
+
+        //featureOutputAdapter = new FeatureOutputAdapter(this, featureArr);
+
+        //listViewFeatures_pos.setAdapter(featureOutputAdapter);
+    }
+    private void displayFeaturesCon(){
+        listviewFeatures_con = (ListView)findViewById(R.id.listView_feature_con);
+        featureOutputAdapter = new FeatureOutputAdapter(this, featureArr);
+        listviewFeatures_con.setAdapter(featureOutputAdapter);
+    }
+
+    public void addFeatures(){
+        featureArr.add("Cheap");
+        featureArr.add("Expensive");
+        featureArr.add("Good");
+        featureArr.add("Bad");
     }
 
     private void displayCommentArea()

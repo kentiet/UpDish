@@ -8,6 +8,9 @@ public class Feature {
     //private String type;
     private String feature;
 
+    public Feature(){
+        this.feature = null;
+    }
     public Feature(String _feature){
         //this.type = _type;
         this.feature = _feature;
@@ -20,4 +23,5 @@ public class Feature {
     public String getFeature(){
         return feature;
     }
+    public void setFeature(String f) {this.feature = f;}
 }
