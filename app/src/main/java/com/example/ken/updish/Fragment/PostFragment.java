@@ -107,8 +107,13 @@ public class PostFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_post, container, false);
 
-
         context = (Activity)getActivity();
+
+        /********* == START == ********
+         *                            *
+         * --------- MIJEONG -------- *
+         *                            *
+         ******************************/
 
         final Button btn_new = (Button)view.findViewById(R.id.btn_Newpost);
         final Button btn_picture = (Button)view.findViewById(R.id.btn_picture);
@@ -125,7 +130,6 @@ public class PostFragment extends Fragment {
         });
 
 
-
         //New Picture Button
         btn_picture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,8 +139,19 @@ public class PostFragment extends Fragment {
             }
         });
 
+        /********** == END == ********
+         *                            *
+         * --------- MIJEONG -------- *
+         *                            *
+         ******************************/
 
-        /* KEN */
+        //------------------------------------------------------------------------------------------
+
+        /********* == START == ********
+         *                            *
+         * ----------- KEN ---------- *
+         *                            *
+         ******************************/
 
 
         /* Maps Part */
@@ -149,29 +164,45 @@ public class PostFragment extends Fragment {
 
         createDSpinnerDialog();
 
-
-
-
-
-
-
-
         feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
         addPros = (Button)view.findViewById(R.id.btnAddPros);
         addCons = (Button)view.findViewById(R.id.btnAddCons);
 
-
-
-
         buttonClickedHandler(addCons);
         buttonClickedHandler(addPros);
+
+        /********** == END == ********
+         *                            *
+         * ----------- KEN ---------- *
+         *                            *
+         ******************************/
 
         return view;
     }
 
 
-    //------------ KEN -----------------//
+    //++START++ ------------ MIJEONG -----------------//
+
+    public void onImageGalleryClicked(View view){
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+        Uri data = Uri.parse(pictureDirectoryPath);
+        photoPickerIntent.setDataAndType(data, "image/*");
+        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
+    }
+
+    //++END++ ------------ MIJEONG -----------------//
+
+
+
+
+
+
+    
+
+    //++START++ ------------ KEN -----------------//
 
     /* Feature Part */
     private void populateProList() {
@@ -351,17 +382,7 @@ public class PostFragment extends Fragment {
 
     }
 
-    //------------ KEN -----------------//
-
-
-    public void onImageGalleryClicked(View view){
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-        Uri data = Uri.parse(pictureDirectoryPath);
-        photoPickerIntent.setDataAndType(data, "image/*");
-        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
-    }
+    //++END++------------ KEN -----------------//
 
 }
 

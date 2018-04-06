@@ -25,16 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNagivationListener bottomNagivationListener;
     private BottomNavigationView bottomNavigationView;
-    private FrameLayout mainFrame;
     private HomeFragment homeFragment;
     private PostFragment postFragment;
     private UserFragment userFragment;
+    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.e("Main activity", "onCreate", null);
         init(); // Initialization
 
         // Fetch data from server to Home fragment initially
@@ -50,18 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void init()
     {
-        mainFrame = (FrameLayout)findViewById(R.id.frameLayoutMain);
-
         homeFragment = new HomeFragment();
         postFragment = new PostFragment();
         userFragment = new UserFragment();
 
-        bottomNagivationListener = new BottomNagivationListener(this, mainFrame, homeFragment, postFragment, userFragment);
+        this.setFragment(homeFragment);
+        currentFragment = homeFragment;
+
+        bottomNagivationListener = new BottomNagivationListener(this, homeFragment, postFragment, userFragment);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationMenuMain);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView, 10, 10, 10, 10);
         BottomNavigationViewHelper.resizeItems(this, bottomNavigationView, 30, 30);
-
-
 
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNagivationListener);
     }
@@ -77,7 +77,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.e("Main activity", "onRestart", null);
-        PostListBackgroundWorker postWorker = new PostListBackgroundWorker(this);
-        postWorker.execute();
+
+        Log.e("Current Fragment: ", currentFragment.toString());
+
+        if(currentFragment == homeFragment)
+        {
+            PostListBackgroundWorker postWorker = new PostListBackgroundWorker(this);
+            postWorker.execute();
+        }
+
+    }
+
+    public void setCurrentFragment(Fragment currentFragment) {
+        this.currentFragment = currentFragment;
     }
 }

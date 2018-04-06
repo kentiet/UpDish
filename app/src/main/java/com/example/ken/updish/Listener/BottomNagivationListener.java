@@ -31,7 +31,6 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
     private MainActivity context;
     private String currentTopActivityName;
     private Intent intent;
-    private FrameLayout mainFrame;
     private HomeFragment homeFragment;
     private PostFragment postFragment;
     private UserFragment userFragment;
@@ -40,15 +39,14 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
      * Bottom Navigation Listener constructor
      * @param con Activity context
      */
-    public BottomNagivationListener(MainActivity con, FrameLayout main, HomeFragment h, PostFragment p, UserFragment u)
+    public BottomNagivationListener(MainActivity con, HomeFragment h, PostFragment p, UserFragment u)
     {
         this.context = con;
-        mainFrame = main;
         homeFragment = h;
         postFragment = p;
         userFragment = u;
 
-        context.setFragment(homeFragment);
+//        context.setFragment(homeFragment);
 
 //        ActivityManager mActivityManager =(ActivityManager)context.getSystemService(context.ACTIVITY_SERVICE);
 //        String mPackageName = mActivityManager.getRunningTasks(1).get(0).topActivity.getClassName();
@@ -59,6 +57,7 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        MainActivity mainActivity = (MainActivity)context;
         switch (item.getItemId()) {
 
             case R.id.navigation_main:
@@ -68,8 +67,9 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
 //                    context.startActivity(intent);
 //                }
 //                context.finish();
-
+                mainActivity.setCurrentFragment(homeFragment);
                 context.setFragment(homeFragment);
+
 
                 // Fetch data from server to Home fragment
                 PostListBackgroundWorker postWorker = new PostListBackgroundWorker(context);
@@ -78,9 +78,13 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
                 return true;
             case R.id.navigation_new_post:
 //                Log.e("APP_NAME", "second dashboard");
+
+                mainActivity.setCurrentFragment(postFragment);
                 context.setFragment(postFragment);
+
                 return true;
             case R.id.navigation_user_control:
+                mainActivity.setCurrentFragment(userFragment);
                 context.setFragment(userFragment);
                 return true;
         }
