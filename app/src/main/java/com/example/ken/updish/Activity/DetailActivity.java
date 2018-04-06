@@ -175,6 +175,8 @@ public class DetailActivity extends AppCompatActivity {
 
         editTextComment = (EditText)findViewById(R.id.txt_comment);
 
+//        txt_commenteditTextComment.setCompoundDrawables(R.drawable.comment, 0,0,0);
+
         //Add Comments Button
         PostCommentClickListener postCommentClickListener =
                 new PostCommentClickListener(this);

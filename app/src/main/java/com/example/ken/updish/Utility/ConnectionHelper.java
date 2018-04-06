@@ -41,7 +41,7 @@ public class ConnectionHelper {
         try
         {
             /* Create URL instance for Http connection with Post method */
-            URL url = new URL(this.urlString);
+            URL url = new URL(urlString);
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod(this.requestMethod);
 

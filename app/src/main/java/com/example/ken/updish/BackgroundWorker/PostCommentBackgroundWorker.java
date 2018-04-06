@@ -111,13 +111,14 @@ public class PostCommentBackgroundWorker extends AsyncTask<String, Void, String>
             //Notify
             ListView myListViewComments = (ListView)context.findViewById(R.id.listView_comments);
             CommentAdapter cmadapter = (CommentAdapter)myListViewComments.getAdapter();
-//            DetailActivity.setListViewHeightBasedOnItems(myListViewComments);
-//            cmadapter.notifyDataSetChanged();
+//          DetailActivity.setListViewHeightBasedOnItems(myListViewComments);
+            cmadapter.notifyDataSetChanged();
 
             //Reload Details activity - NO NEED TO RELOAD ACTIVITY
             DetailActivity detailActivity = (DetailActivity)context;
 //            detailActivity.getEditTextComment().setText("");
             detailActivity.recreate();
+
 //            Intent intent = context.getIntent();
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 //            detailActivity.startActivity(intent);

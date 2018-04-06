@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,7 +16,6 @@ import com.example.ken.updish.R;
 import com.example.ken.updish.Utility.SharedResources;
 
 public class UserLoginActivity extends AppCompatActivity {
-
     Button btnLogin;
     Button btnReg;
 
@@ -20,6 +23,9 @@ public class UserLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+
+        // Set useful variables for the application
+        setUsefulResources();
 
         // Declare
         btnLogin = (Button)findViewById(R.id.btnLogin);
@@ -48,7 +54,8 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private void setUsefulResources()
     {
-        String host = "10.0.2.2:8888";
+        String host = "10.0.2.2";
+//        String host = "10.1.122.27:8888";
 
         SharedResources sr = SharedResources.getInstance();
         sr.addStringValue(this, "appName", "Updish");

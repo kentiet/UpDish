@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +25,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -56,19 +59,22 @@ import static android.app.Activity.RESULT_OK;
 public class PostFragment extends Fragment {
 
 
+    //    View view;
     View view;
     SharedPreferences sharedPreferences;
     String postLocation;
     EditText sLocation;
 
-    public static final int IMAGE_GALLERY_REQUEST = 20;
     private Activity context;
-
     private TextView mTextMessage;
+
     private ArrayList<Bitmap> bitmapArray = new ArrayList<>();
-    private ImageView imgGallery;
     private PictureAdapter pictureAdapter;
+    private Uri data;
+    private Intent photoPickerIntent;
     private GridView gridViewPicture;
+    public static final int IMAGE_GALLERY_REQUEST = 20;
+    int clicked = 0;
 
 
     // Default current Latlng
@@ -116,26 +122,34 @@ public class PostFragment extends Fragment {
          ******************************/
 
         final Button btn_new = (Button)view.findViewById(R.id.btn_Newpost);
+
+        //New Picture Button
         final Button btn_picture = (Button)view.findViewById(R.id.btn_picture);
+
         //final TextView txtLocation = (TextView)view.findViewById(R.id.txt_map);
-        gridViewPicture = (GridView)view.findViewById(R.id.gridView_picture);
+        gridViewPicture = (GridView) view.findViewById(R.id.gridView_picture);
 
 
         //Post Button
         btn_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Clicked",Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Clicked", Toast.LENGTH_LONG).show();
             }
         });
 
 
-        //New Picture Button
+        //Gallery
         btn_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Gallery button clicked", Toast.LENGTH_LONG).show();
-                onImageGalleryClicked(btn_picture);
+                if (clicked < 5) {
+                    clicked++;
+                    onImageGalleryClicked(btn_picture);
+                } else {
+                    Toast.makeText(context, "Post can contain maximum 5 photos", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -166,8 +180,8 @@ public class PostFragment extends Fragment {
 
         feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
-        addPros = (Button)view.findViewById(R.id.btnAddPros);
-        addCons = (Button)view.findViewById(R.id.btnAddCons);
+        addPros = (Button) view.findViewById(R.id.btnAddPros);
+        addCons = (Button) view.findViewById(R.id.btnAddCons);
 
         buttonClickedHandler(addCons);
         buttonClickedHandler(addPros);
@@ -207,19 +221,38 @@ public class PostFragment extends Fragment {
     /* Feature Part */
     private void populateProList() {
         addProFeature(sltFeature);
-        lvProFeature = (ListView)context.findViewById(R.id.lvProsFeature);
+        lvProFeature = (ListView) context.findViewById(R.id.lvProsFeature);
+       justifyListViewHeightBasedOnChildren(lvProFeature);
+
         proAdapter = new FeatureAdapter(context, myProFeatureList);
         lvProFeature.setAdapter(proAdapter);
     }
-
     private void populateConsList() {
         addConsFeature(sltFeature);
         lvConFeature = (ListView)context.findViewById(R.id.lvConsFeature);
+        justifyListViewHeightBasedOnChildren(lvConFeature);
         consAdapter = new FeatureAdapter(context, myConsFeatureList);
         lvConFeature.setAdapter(consAdapter);
     }
 
-
+    //Listview not scrollable
+    public static void justifyListViewHeightBasedOnChildren (ListView listView) {
+        ListAdapter adapter = listView.getAdapter();
+        if (adapter == null) {
+            return;
+        }
+        ViewGroup vg = listView;
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, vg);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams par = listView.getLayoutParams();
+        par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(par);
+        listView.requestLayout();
+    }
 
     private void proSpinnerDialogHandler() {
 
@@ -264,7 +297,6 @@ public class PostFragment extends Fragment {
             public void onClick(View view) {
 
 
-
                 feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -289,9 +321,9 @@ public class PostFragment extends Fragment {
         });
     }
 
-    private void clearSpinnerDialogView(){
-        if(spinnerDialogView.getParent() != null) {
-            ((ViewGroup)spinnerDialogView.getParent()).removeView(spinnerDialogView);
+    private void clearSpinnerDialogView() {
+        if (spinnerDialogView.getParent() != null) {
+            ((ViewGroup) spinnerDialogView.getParent()).removeView(spinnerDialogView);
         }
     }
 
@@ -314,7 +346,13 @@ public class PostFragment extends Fragment {
         spinnerDialogBuilder.setMessage("");
     }
 
-    private void setFeatureSpinnerItem (Button button){
+//    private void setFeatureOnCall() {
+//        sltFeatureType = fType.getSelectedItem().toString();
+//        setFeatureSpinnerItem(sltFeatureType);
+//
+//
+
+    private void setFeatureSpinnerItem(Button button) {
         String[] entry;
         ArrayAdapter<String> spinnerAdapter;
         switch (button.getId()) {
@@ -330,8 +368,6 @@ public class PostFragment extends Fragment {
                 break;
         }
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -356,16 +392,16 @@ public class PostFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             InputStream inputStream;
-            try{
-                inputStream = getActivity().getContentResolver().openInputStream(imageUri);
+            try {
+                inputStream = context.getContentResolver().openInputStream(imageUri);
                 Bitmap image = BitmapFactory.decodeStream(inputStream);
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 100, 100, false);
                 bitmapArray.add(resizedBitmap);
-                //imgGallery.setImageBitmap(bitmapArray.get(bitmapArray.size()-1));
-                pictureAdapter = new PictureAdapter(getActivity(), bitmapArray);
+                pictureAdapter = new PictureAdapter(context, bitmapArray);
+                gridViewPicture = (GridView) context.findViewById(R.id.gridView_picture);
                 gridViewPicture.setAdapter(pictureAdapter);
                 gridViewPicture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -375,14 +411,12 @@ public class PostFragment extends Fragment {
                         gridViewPicture.setAdapter(pictureAdapter);
                     }
                 });
-            }catch(FileNotFoundException e){
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
 
     }
-
     //++END++------------ KEN -----------------//
-
 }
 

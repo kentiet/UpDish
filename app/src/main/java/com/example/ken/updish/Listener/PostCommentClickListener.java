@@ -36,7 +36,7 @@ public class PostCommentClickListener implements View.OnClickListener {
 
         PostCommentBackgroundWorker pcbg = new PostCommentBackgroundWorker(context);
         pcbg.execute(txtAddComment.getText().toString(), currentDate,
-                currentPostDetails.getUser().getUserName(),
+                DatabaseHelper.getInstance().getCurrentUser().getUserName(),
                 String.valueOf(currentPostDetails.getId()));
     }
 

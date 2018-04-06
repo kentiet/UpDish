@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 //        DatabaseHelper.getInstance().setCurrentUser("tan", "", new String[10]);
 //        startActivity(new Intent(MainActivity.this, MapsActivity.class));
 //        startActivity(new Intent(MainActivity.this, UserLoginActivity.class));
-
     }
 
     private void init()
