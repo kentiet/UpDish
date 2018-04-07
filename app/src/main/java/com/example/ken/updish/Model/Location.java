@@ -13,8 +13,8 @@ public class Location
     private String postalCode;
     private String city;
     private String province;
-    private long longtitude;
-    private long latitude;
+    private double longtitude;
+    private double latitude;
 
     /**
      * Empty Location - user hasn't set yet
@@ -40,7 +40,7 @@ public class Location
      * @param province
      */
     public Location(int id, String name, String streetNumber, String streetName,
-                    String postalCode, String city, String province, long lo, long la)
+                    String postalCode, String city, String province, double lo, double la)
     {
         this.id = id;
         this.name = name;
@@ -118,19 +118,19 @@ public class Location
         this.id = id;
     }
 
-    public long getLongtitude() {
+    public double getLongtitude() {
         return longtitude;
     }
 
-    public void setLongtitude(long longtitude) {
+    public void setLongtitude(double longtitude) {
         this.longtitude = longtitude;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 }

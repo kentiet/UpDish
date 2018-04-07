@@ -31,6 +31,9 @@ import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.FeatureAdapter;
 
+import com.example.ken.updish.Adapter.SpinnerFeatureAdapter;
+import com.example.ken.updish.BackgroundWorker.FeatureListBackgroundWork;
+import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Listener.StartMapsListener;
 import com.example.ken.updish.Model.Feature;
 
@@ -79,12 +82,14 @@ public class PostFragment extends Fragment {
     private AlertDialog.Builder spinnerDialogBuilder;
     private View spinnerDialogView;
     private AlertDialog b;
-    private ArrayList<Feature> myProFeatureList = new ArrayList<>();
-    private ArrayList<Feature> myConsFeatureList = new ArrayList<>();
+    ArrayList<Feature> passFeatureList;
+    private ArrayList<String> myProFeatureList = new ArrayList<>();
+    private ArrayList<String> myConsFeatureList = new ArrayList<>();
     private Spinner fType;
     private Spinner feature;
     private String sltFeatureType;
     private String sltFeature;
+    //private Feature sltFeature;
     private ListView lvProFeature;
     private ListView lvConFeature;
     FeatureAdapter proAdapter;
@@ -109,6 +114,8 @@ public class PostFragment extends Fragment {
 
 
         context = (Activity)getActivity();
+
+
 
         final Button btn_new = (Button)view.findViewById(R.id.btn_Newpost);
         final Button btn_picture = (Button)view.findViewById(R.id.btn_picture);
@@ -137,8 +144,6 @@ public class PostFragment extends Fragment {
 
 
         /* KEN */
-
-
         /* Maps Part */
         StartMapsListener sMap = new StartMapsListener(context);
         sLocation = (EditText) view.findViewById(R.id.post_location);
@@ -149,20 +154,10 @@ public class PostFragment extends Fragment {
 
         createDSpinnerDialog();
 
-
-
-
-
-
-
-
         feature = (Spinner) spinnerDialogView.findViewById(R.id.spnFeature);
 
         addPros = (Button)view.findViewById(R.id.btnAddPros);
         addCons = (Button)view.findViewById(R.id.btnAddCons);
-
-
-
 
         buttonClickedHandler(addCons);
         buttonClickedHandler(addPros);
@@ -227,17 +222,33 @@ public class PostFragment extends Fragment {
         b.show();
     }
 
+    private void isExistFeature(ArrayList<Feature> fList, Feature f) {
+        if(!fList.isEmpty()) {
+            for (int i = 0; i < fList.size(); i++) {
+                if(f.equals(fList.get(i))) {
+                    fList.remove(i);
+                }
+            }
+        }
+    }
+
     private void buttonClickedHandler(final Button btn) {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
+                passFeatureList = DatabaseHelper.getInstance().getFeatureList();
+                SpinnerFeatureAdapter sAdapter = new SpinnerFeatureAdapter(context, passFeatureList);
+                feature.setAdapter(sAdapter);
 
                 feature.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sltFeature = feature.getSelectedItem().toString();
+                        Feature slF = (Feature) feature.getSelectedItem();
+                        sltFeature = slF.getFeature();
+                        isExistFeature(passFeatureList, slF);
+
+
                     }
 
                     @Override
@@ -245,7 +256,7 @@ public class PostFragment extends Fragment {
 
                     }
                 });
-                setFeatureSpinnerItem(btn);
+                //setFeatureSpinnerItem(btn);
                 switch (btn.getId()) {
                     case R.id.btnAddCons:
                         consSpinnerDialogHandler();
@@ -265,13 +276,11 @@ public class PostFragment extends Fragment {
     }
 
     private void addProFeature(String f) {
-        Feature mFeature = new Feature(f);
-        myProFeatureList.add(mFeature);
+        myProFeatureList.add(f);
     }
 
     private void addConsFeature(String f) {
-        Feature mFeature = new Feature(f);
-        myConsFeatureList.add(mFeature);
+        myConsFeatureList.add(f);
     }
 
     private void createDSpinnerDialog() {
@@ -283,31 +292,9 @@ public class PostFragment extends Fragment {
         spinnerDialogBuilder.setMessage("");
     }
 
-    private void setFeatureSpinnerItem (Button button){
-        String[] entry;
-        ArrayAdapter<String> spinnerAdapter;
-        switch (button.getId()) {
-            case R.id.btnAddPros:
-                entry = getResources().getStringArray(R.array.feature_pros);
-                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
-                feature.setAdapter(spinnerAdapter);
-                break;
-            case R.id.btnAddCons:
-                entry = getResources().getStringArray(R.array.feature_cons);
-                spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, entry);
-                feature.setAdapter(spinnerAdapter);
-                break;
-        }
-    }
-
-
     @Override
     public void onStart() {
         super.onStart();
-//        FeatureProClickListener mProClick = new FeatureProClickListener(context, addPros);
-//        FeatureConsClickListener mConsClick = new FeatureConsClickListener(context, addCons);
-//        addPros.setOnClickListener(mProClick);
-//        addCons.setOnClickListener(mConsClick);
     }
 
     @Override
@@ -317,7 +304,6 @@ public class PostFragment extends Fragment {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         postLocation = sharedPreferences.getString("GoogleSearchName", null);
         sLocation.setText(postLocation);
-        Log.e("sharePref", "Location set text");
     }
 
     @Override

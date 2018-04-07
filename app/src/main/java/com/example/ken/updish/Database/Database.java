@@ -1,6 +1,7 @@
 package com.example.ken.updish.Database;
 
 import com.example.ken.updish.Interface.DatabaseInterface;
+import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
 
@@ -15,9 +16,11 @@ public class Database
     private User currentUser;
     private Post currentDetailsPost;
     private ArrayList<Post> postList;
+    private ArrayList<Feature> featureList;
 
     public Database()
     {
+        featureList = new ArrayList<>();
         postList = new ArrayList<>();
         currentDetailsPost = null;
     }
@@ -44,5 +47,13 @@ public class Database
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public ArrayList<Feature> getFeatureList() {
+        return featureList;
+    }
+
+    public void setFeatureList(ArrayList<Feature> featureList) {
+        this.featureList = featureList;
     }
 }
