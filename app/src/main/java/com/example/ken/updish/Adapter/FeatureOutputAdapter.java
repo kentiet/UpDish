@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.R;
 
@@ -15,28 +16,29 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 /**
- * Created by 300260935 on 4/5/2018.
+ * Created by mijeong on 4/5/2018.
  */
 
 public class FeatureOutputAdapter extends BaseAdapter {
     //Get Feature Attributes
-    ArrayList<String> featureArr = new ArrayList<>();
+    private ArrayList<Feature> featureList;
+
     Activity context;
 
-    public FeatureOutputAdapter(Activity _context, ArrayList<String> featureList) {
+    public FeatureOutputAdapter(Activity _context) {
         super();
         this.context = _context;
-        this.featureArr = featureList;
+        this.featureList = DatabaseHelper.getInstance().getFeatureList();
     }
 
     @Override
     public int getCount() {
-        return featureArr.size();
+        return featureList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return featureArr.get(i);
+        return featureList.get(i);
     }
 
     @Override
@@ -50,9 +52,12 @@ public class FeatureOutputAdapter extends BaseAdapter {
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(R.layout.feature_output_layout, null);
         }
+//        TextView featureTitle = (TextView)view.findViewById(R.id.txtView_featureTitle);
+//        featureTitle.setText(featureTitle.toString());
 
         TextView feature = (TextView)view.findViewById(R.id.txtView_feature);
-        feature.setText(featureArr.get(i));
+        feature.setText(featureList.get(i).getFeature());
+
         return view;
     }
 }

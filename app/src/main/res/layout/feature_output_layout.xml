@@ -8,6 +8,9 @@
         android:id="@+id/txtView_feature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:paddingTop="3dp"
         android:textAlignment="center"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 </LinearLayout>

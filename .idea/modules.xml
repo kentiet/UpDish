@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CSIS3175FinalProject.iml" filepath="$PROJECT_DIR$/CSIS3175FinalProject.iml" />
-      <module fileurl="file://C:\Users\300260935\Downloads\project\CSIS3175FinalProject.iml" filepath="C:\Users\300260935\Downloads\project\CSIS3175FinalProject.iml" />
       <module fileurl="file://C:\Users\300260935\Documents\CSIS3175FinalProject\CSIS3175FinalProject.iml" filepath="C:\Users\300260935\Documents\CSIS3175FinalProject\CSIS3175FinalProject.iml" />
+      <module fileurl="file://C:\Users\300260935\Downloads\project\CSIS3175FinalProject.iml" filepath="C:\Users\300260935\Downloads\project\CSIS3175FinalProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\300260935\Downloads\project\app\app.iml" filepath="C:\Users\300260935\Downloads\project\app\app.iml" />
       <module fileurl="file://C:\Users\300260935\Documents\CSIS3175FinalProject\app\app.iml" filepath="C:\Users\300260935\Documents\CSIS3175FinalProject\app\app.iml" />
+      <module fileurl="file://C:\Users\300260935\Downloads\project\app\app.iml" filepath="C:\Users\300260935\Downloads\project\app\app.iml" />
       <module fileurl="file://C:\Users\mjlee\Desktop\CSIS3175FinalProject\project.iml" filepath="C:\Users\mjlee\Desktop\CSIS3175FinalProject\project.iml" />
     </modules>
   </component>

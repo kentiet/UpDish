@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +27,7 @@ import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Listener.DetailMapDialogListener;
 import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
@@ -54,9 +56,11 @@ public class DetailActivity extends AppCompatActivity {
     private Post currentPostDetails;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private ListView listViewFeatures_pos;
-    private ListView listviewFeatures_con;
+    private ListView listViewFeatures_pro;
+    private ListView listViewFeatures_con;
     FeatureOutputAdapter featureOutputAdapter;
+    private TextView feature_pro;
+    private TextView feature_con;
 
     private ArrayList<String> featureArr;
 
@@ -80,15 +84,13 @@ public class DetailActivity extends AppCompatActivity {
         displayCommentArea();
 
         //FEATURES
-        
         //addFeatures();
-        //displayFeaturesPos();
-        //displayFeaturesCon();
+        displayFeaturesPro();
+        displayFeaturesCon();
     }
     private void initPostTitle(){
         try {
             //Get Title Data from MainActivity
-
             TextView pTitle = (TextView)findViewById(R.id.txt_postTitle);
             pTitle.setText(currentPostDetails.getTitle());
 
@@ -113,7 +115,6 @@ public class DetailActivity extends AppCompatActivity {
             Log.e("Updish", "Crashed in initPostTitle - Detail Activity", null);
         }
     }
-
     private void initLikePostButton()
     {
 
@@ -170,33 +171,45 @@ public class DetailActivity extends AppCompatActivity {
 //
 //            }
 //        });
-
         //Image slides
         viewPager = (ViewPager)findViewById(R.id.viewPager);
         ImgSlideAdapter slideAdapter = new ImgSlideAdapter(this);
         viewPager.setAdapter(slideAdapter);
     }
 
+
     //Features
-    private void displayFeaturesPos(){
-        listViewFeatures_pos = (ListView)findViewById(R.id.listView_feature_pos);
+    private void displayFeaturesPro(){
+        listViewFeatures_pro = (ListView)findViewById(R.id.listView_feature_pro);
+        featureOutputAdapter = new FeatureOutputAdapter(this);
+        listViewFeatures_pro.setAdapter(featureOutputAdapter);
+        feature_pro = new TextView(this);
+        feature_pro.setText("Pros: ");
+        feature_pro.setGravity(Gravity.CENTER);
+        listViewFeatures_pro.addHeaderView(feature_pro);
 
-        //featureOutputAdapter = new FeatureOutputAdapter(this, featureArr);
-
-        //listViewFeatures_pos.setAdapter(featureOutputAdapter);
+        PostFragment.justifyListViewHeightBasedOnChildren(listViewFeatures_pro);
     }
     private void displayFeaturesCon(){
-        listviewFeatures_con = (ListView)findViewById(R.id.listView_feature_con);
-        featureOutputAdapter = new FeatureOutputAdapter(this, featureArr);
-        listviewFeatures_con.setAdapter(featureOutputAdapter);
-    }
+        listViewFeatures_con = (ListView)findViewById(R.id.listView_feature_con);
+        featureOutputAdapter = new FeatureOutputAdapter(this);
+        listViewFeatures_con.setAdapter(featureOutputAdapter);
+        feature_con = new TextView(this);
+        feature_con.setText("Cons: ");
+        feature_con.setGravity(Gravity.CENTER);
+        listViewFeatures_con.addHeaderView(feature_con);
 
-    public void addFeatures(){
-        featureArr.add("Cheap");
-        featureArr.add("Expensive");
-        featureArr.add("Good");
-        featureArr.add("Bad");
+        PostFragment.justifyListViewHeightBasedOnChildren(listViewFeatures_con);
     }
+//
+//    //Temporary UI Test
+//    public void addFeatures(){
+//        featureArr = new ArrayList<>();
+//        featureArr.add("Cheap");
+//        featureArr.add("Expensive");
+//        featureArr.add("Good");
+//        featureArr.add("Bad");
+//    }
 
     private void displayCommentArea()
     {

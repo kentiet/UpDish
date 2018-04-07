@@ -150,6 +150,9 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
                 }
             }
 
+            //Feature
+
+
             /* === Location === */
             // location_id, name, streetNumber, streetName,
             // postalcode, city, province, longtitude, latitude

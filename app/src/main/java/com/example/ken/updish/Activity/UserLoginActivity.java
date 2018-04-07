@@ -56,8 +56,9 @@ public class UserLoginActivity extends AppCompatActivity {
     {
         String host = "10.0.2.2";
 //        String host = "10.1.122.27:8888";
+//        String host = "localhost";
 
-        SharedResources sr = SharedResources.getInstance();
+                SharedResources sr = SharedResources.getInstance();
         sr.addStringValue(this, "appName", "Updish");
         sr.addStringValue(this, "loginUrl","http://" + host + "/updish/api/v1/login");
         sr.addStringValue(this, "postUrl", "http://" + host + "/updish/api/v1/posts");

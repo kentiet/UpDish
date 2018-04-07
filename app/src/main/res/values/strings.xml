@@ -74,6 +74,8 @@
     <string name="btnMapDialog">OK</string>
     <string name="txtView_feature">Features</string>
     <string name="txtView_description">Default Description</string>
+    <string name="imgView_splashLogo">Updish Logo</string>
+    <string name="txtView_updish">UPDISH</string>
 
 
     <string-array name="feature_pros">
