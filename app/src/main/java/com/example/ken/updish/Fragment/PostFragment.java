@@ -77,11 +77,11 @@ public class PostFragment extends Fragment {
 
     //    View view;
     View view;
-    SharedPreferences sharedPreferences;
     String postLocation;
     EditText sLocation;
     EditText namePost;
     EditText txtDescription;
+    SharedResources sRc;
 
     private Activity context;
     private TextView mTextMessage;
@@ -307,9 +307,13 @@ public class PostFragment extends Fragment {
         /* KEN */
 
         /* Maps Part */
+
+
         StartMapsListener sMap = new StartMapsListener(context);
         sLocation = (EditText) view.findViewById(R.id.post_location);
+
         sLocation.setOnClickListener(sMap);
+
         // End maps
 
         /* Features Part */
@@ -581,10 +585,14 @@ public class PostFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         postLocation = null;
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        postLocation = sharedPreferences.getString("GoogleSearchName", null);
-        sLocation.setText(postLocation);
+        sRc = SharedResources.getInstance();
+        postLocation = sRc.getStringValue(context, "GoogleMapName");
+        Log.e("resume", postLocation);
+        if(!postLocation.equals("N/A")) {
+            sLocation.setText(postLocation);
+        }
     }
     //++END++------------ KEN -----------------//
 }
