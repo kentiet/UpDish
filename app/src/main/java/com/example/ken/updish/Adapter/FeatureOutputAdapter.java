@@ -11,8 +11,6 @@ import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
@@ -52,7 +50,6 @@ public class FeatureOutputAdapter extends BaseAdapter {
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(R.layout.feature_output_layout, null);
         }
-
 
         TextView feature = (TextView)view.findViewById(R.id.txtView_feature);
         feature.setText(featureList.get(i).getFeature());

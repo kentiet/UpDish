@@ -18,12 +18,15 @@ public class Database
     private Post currentDetailsPost;
     private ArrayList<Post> postList;
     private ArrayList<Feature> featureList;
+    private ArrayList<Feature> newFeatureList;
 
     public Database()
     {
+        featureList = new ArrayList<>();
         postList = new ArrayList<>();
         currentDetailsPost = null;
         featureList = new ArrayList<>();
+        newFeatureList = new ArrayList<>();
     }
 
     public Post getCurrentDetailsPost() {
@@ -50,7 +53,15 @@ public class Database
         this.currentUser = currentUser;
     }
 
-    public ArrayList<Feature> getFeatureList(){return featureList;}
+    public ArrayList<Feature> getFeatureList() {
+        return featureList;
+    }
 
-    public void setFeatureList(ArrayList<Feature> featureList){this.featureList = featureList;}
+    public void setFeatureList(ArrayList<Feature> featureList) {
+        this.featureList = featureList;
+    }
+
+    public void setNewFeatureList(ArrayList<Feature> featureList) { this.newFeatureList = featureList; }
+
+    public ArrayList<Feature> getNewFeatureList() {return newFeatureList; }
 }

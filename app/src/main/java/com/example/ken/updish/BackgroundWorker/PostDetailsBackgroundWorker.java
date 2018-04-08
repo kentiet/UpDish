@@ -14,6 +14,7 @@ import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Activity.MainActivity;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Model.Comment;
+import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
@@ -38,6 +39,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -150,7 +152,22 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
                 }
             }
 
-            //Feature
+            //Feature--------------------------------------------------------------
+//            ArrayList<Feature> featureList = new ArrayList<>();
+//
+//            JSONArray jarrayFeature = obj.getJSONArray("feature_positive");
+//            if(jarrayFeature != null){
+//                for(int i = 0; i < jarrayFeature.length(); i++){
+//                    JSONObject objFeature = jarrayFeature.getJSONObject(i);
+//                    Feature f = new Feature();
+//                    f.setFeature(obj.getString("positive_feature"));
+//                    Log.e("feature each", f.getFeature());
+//                    featureList.add(f);
+//                }
+//            }
+//
+//            DatabaseHelper.getInstance().setFeatureList(featureList);
+            // --------------------------------------------------------------------
 
 
             /* === Location === */
@@ -166,8 +183,8 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
             loc.setCity(obj.getString("city"));
             loc.setProvince(obj.getString("province"));
             // Ken
-            loc.setLatitude(obj.getLong("latitude"));
-            loc.setLongtitude(obj.getLong("longtitude"));
+            loc.setLatitude(obj.getDouble("latitude"));
+            loc.setLongtitude(obj.getDouble("longtitude"));
 
             tempPost.setLocation(loc);
 
@@ -188,6 +205,7 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
                     tempPost.getCommentList().add(tempCo);
                 }
             }
+
 
             // Set current
             DatabaseHelper.getInstance().setCurrentDetailsPost(tempPost);

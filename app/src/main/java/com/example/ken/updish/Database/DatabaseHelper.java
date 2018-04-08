@@ -115,5 +115,17 @@ public class DatabaseHelper implements DatabaseInterface {
         this.database.setCurrentUser(u);
     }
 
-    public ArrayList<Feature> getFeatureList(){return this.database.getFeatureList();}
+    public void setNewFeatureList(ArrayList<Feature> nList) {
+        database.setFeatureList(nList);
+    }
+
+    public ArrayList<Feature> getFeatureList() {
+        return this.database.getFeatureList();
+    }
+
+    public void setFeatureList(ArrayList<Feature> nList) {
+        database.setNewFeatureList(nList);
+    }
+
+    public ArrayList<Feature> getNewFeatureList() {return this.database.getNewFeatureList();}
 }
