@@ -21,9 +21,9 @@ import com.example.ken.updish.R;
 public class FeatureAdapter extends BaseAdapter {
 
     Activity context;
-    ArrayList<Feature> featureList = new ArrayList<>();
+    ArrayList<String> featureList = new ArrayList<>();
 
-    public FeatureAdapter(Activity _context, ArrayList<Feature> _featureList) {
+    public FeatureAdapter(Activity _context, ArrayList<String> _featureList) {
         super();
         this.context = _context;
         this.featureList = _featureList;
@@ -56,7 +56,7 @@ public class FeatureAdapter extends BaseAdapter {
         TextView features = (TextView) convertView.findViewById(R.id.txtFeatures);
 
         //featureTypes.setText(featureList.get(position).getType() + " :");
-        features.setText(featureList.get(position).getFeature());
+        features.setText(featureList.get(position));
 
         features.setOnClickListener(new View.OnClickListener() {
             @Override

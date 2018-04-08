@@ -28,7 +28,7 @@ public class FeatureOutputAdapter extends BaseAdapter {
     public FeatureOutputAdapter(Activity _context) {
         super();
         this.context = _context;
-        this.featureList = DatabaseHelper.getInstance().getFeatureList();
+        this.featureList = DatabaseHelper.getInstance().getNewFeatureList();
     }
 
     @Override
@@ -52,8 +52,7 @@ public class FeatureOutputAdapter extends BaseAdapter {
             LayoutInflater inflater = context.getLayoutInflater();
             view = inflater.inflate(R.layout.feature_output_layout, null);
         }
-//        TextView featureTitle = (TextView)view.findViewById(R.id.txtView_featureTitle);
-//        featureTitle.setText(featureTitle.toString());
+
 
         TextView feature = (TextView)view.findViewById(R.id.txtView_feature);
         feature.setText(featureList.get(i).getFeature());

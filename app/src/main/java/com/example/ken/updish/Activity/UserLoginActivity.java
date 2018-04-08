@@ -56,7 +56,6 @@ public class UserLoginActivity extends AppCompatActivity {
     {
         String host = "10.0.2.2";
 //        String host = "10.1.122.27:8888";
-//        String host = "localhost";
 
                 SharedResources sr = SharedResources.getInstance();
         sr.addStringValue(this, "appName", "Updish");
@@ -65,6 +64,8 @@ public class UserLoginActivity extends AppCompatActivity {
         sr.addStringValue(this, "detailsUrl", "http://" + host + "/updish/api/v1/post");
         sr.addStringValue(this, "commentUrl", "http://" + host + "/updish/api/v1/comment");
         sr.addStringValue(this, "likeUrl", "http://" + host + "/updish/api/v1/like");
+        sr.addStringValue(this, "regUrl", "http://" + host + "/updish/api/v1/register");
+        sr.addStringValue(this, "featureUrl", "http://" + host + "/updish/api/v1/feature");
 
     }
 }

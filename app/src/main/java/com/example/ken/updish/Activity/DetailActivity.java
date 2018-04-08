@@ -186,6 +186,8 @@ public class DetailActivity extends AppCompatActivity {
         feature_pro = new TextView(this);
         feature_pro.setText("Pros: ");
         feature_pro.setGravity(Gravity.CENTER);
+        feature_pro.setClickable(false);
+        feature_pro.setLongClickable(false);
         listViewFeatures_pro.addHeaderView(feature_pro);
 
         PostFragment.justifyListViewHeightBasedOnChildren(listViewFeatures_pro);
@@ -197,19 +199,12 @@ public class DetailActivity extends AppCompatActivity {
         feature_con = new TextView(this);
         feature_con.setText("Cons: ");
         feature_con.setGravity(Gravity.CENTER);
+        feature_con.setClickable(false);
+        feature_con.setLongClickable(false);
         listViewFeatures_con.addHeaderView(feature_con);
 
         PostFragment.justifyListViewHeightBasedOnChildren(listViewFeatures_con);
     }
-//
-//    //Temporary UI Test
-//    public void addFeatures(){
-//        featureArr = new ArrayList<>();
-//        featureArr.add("Cheap");
-//        featureArr.add("Expensive");
-//        featureArr.add("Good");
-//        featureArr.add("Bad");
-//    }
 
     private void displayCommentArea()
     {
@@ -220,11 +215,9 @@ public class DetailActivity extends AppCompatActivity {
 
         CommentAdapter commentAdapter = new CommentAdapter(this);
         myListViewComments.setAdapter(commentAdapter);
-        setListViewHeightBasedOnItems(myListViewComments);
-
         editTextComment = (EditText)findViewById(R.id.txt_comment);
-
 //        txt_commenteditTextComment.setCompoundDrawables(R.drawable.comment, 0,0,0);
+
 
         //Add Comments Button
         PostCommentClickListener postCommentClickListener =
@@ -232,44 +225,6 @@ public class DetailActivity extends AppCompatActivity {
         Button btnComment = (Button)findViewById(R.id.btn_postComment);
 
         btnComment.setOnClickListener(postCommentClickListener);
-    }
-
-    //https://stackoverflow.com/questions/1778485/android-listview-display-all-available-items-without-scroll-with-static-header
-    public static boolean setListViewHeightBasedOnItems(ListView listView) {
-
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter != null) {
-
-            int numberOfItems = listAdapter.getCount();
-
-            // Get total height of all items.
-            int totalItemsHeight = 0;
-            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
-                View item = listAdapter.getView(itemPos, null, listView);
-                item.measure(0,0);
-
-                Log.e("item measured", item.getMeasuredHeight() + "");
-                totalItemsHeight += item.getMeasuredHeight()+10 ;
-            }
-
-            // Get total height of all item dividers.
-            int totalDividersHeight = listView.getDividerHeight() *
-                    (numberOfItems-1);
-
-            Log.e("Total divider height", totalDividersHeight + "");
-
-            // Set list height.
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight;
-            listView.setVerticalScrollBarEnabled(false);
-            listView.setLayoutParams(params);
-            listView.requestLayout();
-
-            return true;
-
-        } else {
-            return false;
-        }
     }
 
     public void setThumbUpImageNormal()
