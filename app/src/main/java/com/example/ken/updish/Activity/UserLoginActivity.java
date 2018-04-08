@@ -65,11 +65,15 @@ public class UserLoginActivity extends AppCompatActivity {
         sr.addStringValue(this, "commentUrl", "http://" + host + "/updish/api/v1/comment");
         sr.addStringValue(this, "likeUrl", "http://" + host + "/updish/api/v1/like");
         sr.addStringValue(this, "postnew", "http://" + host + "/updish/api/v1/newpost");
+        sr.addStringValue(this, "regUrl", "http://" + host + "/updish/api/v1/register");
+        sr.addStringValue(this, "featureUrl", "http://" + host + "/updish/api/v1/feature");
 
         sr.addStringValue(this, "GoogleMapLocation", "N/A"); // Not set for google map location
         sr.addStringValue(this, "GoogleMapName", "N/A"); // Not set for google map name
         sr.addStringValue(this, "selectedLong", "N/A"); // Not set Long
         sr.addStringValue(this, "selectedLat", "N/A"); // Not set for Lat
+
+
 
     }
 }

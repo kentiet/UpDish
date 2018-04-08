@@ -8,9 +8,11 @@ public class Location
 {
     private int id;
     private String name;
+
     private String address;
-    private long longtitude;
-    private long latitude;
+    private double longtitude;
+    private double latitude;
+
 
     /**
      * Empty Location - user hasn't set yet
@@ -27,6 +29,7 @@ public class Location
      * @param name
      * @param address
      */
+
     public Location(int id, String name, String address, long lo, long la)
 {
     this.id = id;
@@ -65,19 +68,19 @@ public class Location
         this.id = id;
     }
 
-    public long getLongtitude() {
+    public double getLongtitude() {
         return longtitude;
     }
 
-    public void setLongtitude(long longtitude) {
+    public void setLongtitude(double longtitude) {
         this.longtitude = longtitude;
     }
 
-    public long getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 }

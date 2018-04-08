@@ -3,11 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/mapDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mapDialogTitle"
+        android:textSize="22sp"
+        android:background="#07000000"/>
 
     <com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mapView"
-        android:layout_width="300dp"
-        android:layout_height="200dp">
+        android:layout_width="380dp"
+        android:layout_height="380dp">
 
     </com.google.android.gms.maps.MapView>
 

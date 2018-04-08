@@ -3,6 +3,7 @@ package com.example.ken.updish.Database;
 import android.util.Log;
 
 import com.example.ken.updish.Interface.DatabaseInterface;
+import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
@@ -109,5 +110,13 @@ public class DatabaseHelper implements DatabaseInterface {
     {
         User u = new User(name, email, plist);
         this.database.setCurrentUser(u);
+    }
+
+    public void setNewFeatureList(ArrayList<Feature> nList) {
+        database.setFeatureList(nList);
+    }
+
+    public ArrayList<Feature> getFeatureList() {
+        return this.database.getFeatureList();
     }
 }

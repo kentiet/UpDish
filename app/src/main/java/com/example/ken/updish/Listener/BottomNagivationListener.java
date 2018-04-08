@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 
 import com.example.ken.updish.Activity.DetailActivity;
 import com.example.ken.updish.Activity.MainActivity;
+import com.example.ken.updish.BackgroundWorker.FeatureListBackgroundWork;
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Fragment.HomeFragment;
 import com.example.ken.updish.Fragment.PostFragment;
@@ -81,6 +82,9 @@ public class BottomNagivationListener extends FragmentActivity implements Bottom
 
                 mainActivity.setCurrentFragment(postFragment);
                 context.setFragment(postFragment);
+
+                FeatureListBackgroundWork fLGb = new FeatureListBackgroundWork(context, postFragment);
+                fLGb.execute();
 
                 return true;
             case R.id.navigation_user_control:

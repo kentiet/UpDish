@@ -160,8 +160,8 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
             loc.setAddress(obj.getString("address"));
 
             // Ken
-            loc.setLatitude(obj.getLong("latitude"));
-            loc.setLongtitude(obj.getLong("longtitude"));
+            loc.setLatitude(obj.getDouble("latitude"));
+            loc.setLongtitude(obj.getDouble("longtitude"));
 
             tempPost.setLocation(loc);
 
