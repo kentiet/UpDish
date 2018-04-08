@@ -1,3 +1,91 @@
 <resources>
     <string name="app_name">UpDish</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_main">Home</string>
+    <string name="title_post">Post</string>
+    <string name="title_setting">Setting</string>
+    <string name="txtTitle">My favorite dish in the world! </string>
+    <string name="imageView">Desc</string>
+    <string name="txt_postDate">Feburary 20, 2019</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TEST -->
+    <string-array name="stringArray">
+        <item>A</item>
+        <item>B</item>
+    </string-array>
+
+    <string name="txt_resName">Douglas College</string>
+    <string name="txt_address">700 Royal Ave, New Westminster, BC, Canada V3M 5Z5</string>
+    <string name="txt_comment">Comment</string>
+    <string name="txt_addComment">Add a comment</string>
+    <string name="btn_post">Post</string>
+    <string name="btn_back">Back to the main</string>
+    <string name="txt_title">Post title</string>
+    <string name="txt_description">Dish description</string>
+    <string name="img_foodDesc">Food Image description</string>
+    <string name="title_activity_post">PostActivity</string>
+    <string name="txt_postToolBar">NEW POST</string>
+    <string name="txt_nameOfDishes">Name of dishes</string>
+    <string name="img_picture">Picture Description</string>
+    <string name="img_mapPointer">Map Pointer Description</string>
+    <string name="txt_location">Add Location</string>
+    <string name="txt_picture">Add Picture</string>
+    <string name="btn_newPost">Post</string>
+    <string name="txt_newPostDescription">Description</string>
+    <string name="img_comment">Comment icon</string>
+    <string name="img_slidesDishes">Dishes Slide Image</string>
+    <string name="txt_slideNum">Slide Number</string>
+    <string name="btn_signOut">Sign Out</string>
+    <string name="btn_Save">Save</string>
+    <string name="txt_userName">User name</string>
+    <string name="txt_userEmail">Email</string>
+
+    <!-- KEN -->
+    <string name="txtUserNameLogin">Username</string>
+    <string name="btnLogin">LOGIN</string>
+    <string name="btnRegister">REGISTER</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="app_id">test-196819</string>
+
+    <string name="btnMapSearch">SEARCH</string>
+    <string name="addressInput">Enter the search to be searched</string>
+
+    <string name="btn_picture">Add Picture</string>
+    <string name="txtView_likeCount">0</string>
+    <string name="imgBtn_likeDesc">Like Button</string>
+    <string name="imgBtn_dislikeDesc">Dislike Button</string>
+    <string name="txtView_dislikeCount">0</string>
+
+    <string name="txtFeatureTitle">FEATURES</string>
+
+    <string name="imgView_picture">Image selected from gallery</string>
+    <string name="post_location">Search your location</string>
+    <string name="btnLocationSearch">DONE</string>
+    <string name="txtProLvTitle">Pros:</string>
+    <string name="txtConsLvTitle">Cons:</string>
+    <string name="editTextPasswordReg1">Please Enter Your Password</string>
+    <string name="editTextPasswordReg2">Retype your password</string>
+    <string name="txtRegTitle">Account Registration</string>
+    <string name="editTextEmail">Please Enter Your Email</string>
+    <string name="btnMapDialog">OK</string>
+    <string name="txtView_feature">Features</string>
+    <string name="txtView_description">Default Description</string>
+    <string name="imgView_splashLogo">Updish Logo</string>
+    <string name="txtView_updish">UPDISH</string>
+
+
+    <string-array name="feature_array">
+        <item>spicy</item>
+        <item>cheesy</item>
+        <item>sweet</item>
+        <item>sour</item>
+        <item>salty</item>
+        <item>bitter</item>
+    </string-array>
+
+
 </resources>
