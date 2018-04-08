@@ -8,11 +8,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -20,13 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
+import com.example.ken.updish.Adapter.FeatureOutputAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
 import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
 import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Listener.DetailMapDialogListener;
 import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
+import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.ImgSlideAdapter;
@@ -51,6 +56,14 @@ public class DetailActivity extends AppCompatActivity {
     private Post currentPostDetails;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    private ListView listViewFeatures_pro;
+    private ListView listViewFeatures_con;
+    FeatureOutputAdapter featureOutputAdapter;
+    private TextView feature_pro;
+    private TextView feature_con;
+
+    private ArrayList<String> featureArr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,11 +82,15 @@ public class DetailActivity extends AppCompatActivity {
         initLikePostButton();
         displayMapAndImageSlides();
         displayCommentArea();
+
+        //FEATURES
+        //addFeatures();
+        displayFeaturesPro();
+        displayFeaturesCon();
     }
     private void initPostTitle(){
         try {
             //Get Title Data from MainActivity
-
             TextView pTitle = (TextView)findViewById(R.id.txt_postTitle);
             pTitle.setText(currentPostDetails.getTitle());
 
@@ -98,7 +115,6 @@ public class DetailActivity extends AppCompatActivity {
             Log.e("Updish", "Crashed in initPostTitle - Detail Activity", null);
         }
     }
-
     private void initLikePostButton()
     {
 
@@ -155,11 +171,39 @@ public class DetailActivity extends AppCompatActivity {
 //
 //            }
 //        });
-
         //Image slides
         viewPager = (ViewPager)findViewById(R.id.viewPager);
         ImgSlideAdapter slideAdapter = new ImgSlideAdapter(this);
         viewPager.setAdapter(slideAdapter);
+    }
+
+
+    //Features
+    private void displayFeaturesPro(){
+        listViewFeatures_pro = (ListView)findViewById(R.id.listView_feature_pro);
+        featureOutputAdapter = new FeatureOutputAdapter(this);
+        listViewFeatures_pro.setAdapter(featureOutputAdapter);
+        feature_pro = new TextView(this);
+        feature_pro.setText("Pros: ");
+        feature_pro.setGravity(Gravity.CENTER);
+        feature_pro.setClickable(false);
+        feature_pro.setLongClickable(false);
+        listViewFeatures_pro.addHeaderView(feature_pro);
+
+        PostFragment.justifyListViewHeightBasedOnChildren(listViewFeatures_pro);
+    }
+    private void displayFeaturesCon(){
+        listViewFeatures_con = (ListView)findViewById(R.id.listView_feature_con);
+        featureOutputAdapter = new FeatureOutputAdapter(this);
+        listViewFeatures_con.setAdapter(featureOutputAdapter);
+        feature_con = new TextView(this);
+        feature_con.setText("Cons: ");
+        feature_con.setGravity(Gravity.CENTER);
+        feature_con.setClickable(false);
+        feature_con.setLongClickable(false);
+        listViewFeatures_con.addHeaderView(feature_con);
+
+        PostFragment.justifyListViewHeightBasedOnChildren(listViewFeatures_con);
     }
 
     private void displayCommentArea()
@@ -171,11 +215,9 @@ public class DetailActivity extends AppCompatActivity {
 
         CommentAdapter commentAdapter = new CommentAdapter(this);
         myListViewComments.setAdapter(commentAdapter);
-        setListViewHeightBasedOnItems(myListViewComments);
-
         editTextComment = (EditText)findViewById(R.id.txt_comment);
-
 //        txt_commenteditTextComment.setCompoundDrawables(R.drawable.comment, 0,0,0);
+
 
         //Add Comments Button
         PostCommentClickListener postCommentClickListener =
@@ -183,44 +225,6 @@ public class DetailActivity extends AppCompatActivity {
         Button btnComment = (Button)findViewById(R.id.btn_postComment);
 
         btnComment.setOnClickListener(postCommentClickListener);
-    }
-
-    //https://stackoverflow.com/questions/1778485/android-listview-display-all-available-items-without-scroll-with-static-header
-    public static boolean setListViewHeightBasedOnItems(ListView listView) {
-
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter != null) {
-
-            int numberOfItems = listAdapter.getCount();
-
-            // Get total height of all items.
-            int totalItemsHeight = 0;
-            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
-                View item = listAdapter.getView(itemPos, null, listView);
-                item.measure(0,0);
-
-                Log.e("item measured", item.getMeasuredHeight() + "");
-                totalItemsHeight += item.getMeasuredHeight()+10 ;
-            }
-
-            // Get total height of all item dividers.
-            int totalDividersHeight = listView.getDividerHeight() *
-                    (numberOfItems-1);
-
-            Log.e("Total divider height", totalDividersHeight + "");
-
-            // Set list height.
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight;
-            listView.setVerticalScrollBarEnabled(false);
-            listView.setLayoutParams(params);
-            listView.requestLayout();
-
-            return true;
-
-        } else {
-            return false;
-        }
     }
 
     public void setThumbUpImageNormal()

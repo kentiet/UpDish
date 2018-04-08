@@ -1,87 +1,128 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.ken.updish.Fragment.UserFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
+<android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/border_shape_top_header"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.example.ken.updish.Fragment.UserFragment"
+        >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_shape_top_header"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
-        <TextView
-            android:id="@+id/txt_userName"
-            android:layout_width="105dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/btn_signOut"
-            android:layout_alignStart="@+id/btn_signOut"
-            android:layout_below="@+id/imageView"
-            android:text="@string/txt_userName"
-            android:textSize="20dp" />
+    <TextView
+        android:id="@+id/txt_userName"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_userName"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.100000024" />
 
-        <TextView
-            android:id="@+id/txt_userNameContext"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/btn_signOut"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="235dp"
-            android:text="Mijeong Lee"
-            android:textColor="@color/colorMain"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/txt_userNameContext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Mijeong Lee"
+        android:textColor="@color/colorMain"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txt_userName"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.100000024" />
 
-        <TextView
-            android:id="@+id/txt_userEmail"
-            android:layout_width="105dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/txt_userEmailContext"
-            android:layout_alignLeft="@+id/btn_signOut"
-            android:layout_alignStart="@+id/btn_signOut"
-            android:text="@string/txt_userEmail"
-            android:textSize="20dp" />
+    <TextView
+        android:id="@+id/txt_userEmail"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_userEmail"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_userName"
+        app:layout_constraintVertical_bias="0.050000012" />
 
-        <TextView
-            android:id="@+id/txt_userEmailContext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_signOut"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginBottom="39dp"
-            android:ellipsize="end"
-            android:text="noEmailyet@changeinLoginbackgroundworker.com"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/txt_userEmailContext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_signOut"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:text="noEmailyet@changeinLoginbackgroundworker.com"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_userEmail"
+        app:layout_constraintTop_toBottomOf="@+id/txt_userNameContext"
+        app:layout_constraintVertical_bias="0.050000012" />
 
-        <Button
-            android:id="@+id/btn_signOut"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="111dp"
-            android:background="@color/colorMain"
-            android:text="@string/btn_signOut"
-            android:textColor="@color/colorBg"
-            android:textSize="26dp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/btn_signOut"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorMain"
+        android:text="@string/btn_signOut"
+        android:textColor="@color/colorBg"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_userEmailContext" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_above="@+id/txt_userNameContext"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="22dp"
-            android:src="@drawable/logo" />
-    </RelativeLayout>
-</FrameLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_above="@+id/txt_userNameContext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+</android.support.constraint.ConstraintLayout>

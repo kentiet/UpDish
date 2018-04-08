@@ -38,6 +38,7 @@ public class PostCommentClickListener implements View.OnClickListener {
         pcbg.execute(txtAddComment.getText().toString(), currentDate,
                 DatabaseHelper.getInstance().getCurrentUser().getUserName(),
                 String.valueOf(currentPostDetails.getId()));
-    }
 
+        txtAddComment.setText("");
+    }
 }

@@ -150,6 +150,9 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
                 }
             }
 
+            //Feature
+
+
             /* === Location === */
             // location_id, name, streetNumber, streetName,
             // postalcode, city, province, longtitude, latitude
@@ -160,8 +163,8 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
             loc.setAddress(obj.getString("address"));
 
             // Ken
-            loc.setLatitude(obj.getDouble("latitude"));
-            loc.setLongtitude(obj.getDouble("longtitude"));
+            loc.setLatitude(obj.getLong("latitude"));
+            loc.setLongtitude(obj.getLong("longtitude"));
 
             tempPost.setLocation(loc);
 

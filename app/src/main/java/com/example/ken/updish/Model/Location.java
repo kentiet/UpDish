@@ -72,7 +72,7 @@ public class Location
         return longtitude;
     }
 
-    public void setLongtitude(double longtitude) {
+    public void setLongtitude(long longtitude) {
         this.longtitude = longtitude;
     }
 
@@ -80,7 +80,7 @@ public class Location
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(long latitude) {
         this.latitude = latitude;
     }
 }

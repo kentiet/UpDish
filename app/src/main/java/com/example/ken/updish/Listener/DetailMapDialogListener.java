@@ -59,7 +59,6 @@ public class DetailMapDialogListener implements AdapterView.OnItemClickListener,
 
     private void createDialog() {
         mapDialog = new Dialog(context);
-        mapDialog.setTitle("Map");
 
         LayoutInflater featureInflater = context.getLayoutInflater();
         mapDialogView = featureInflater.inflate(R.layout.detail_map_dialog, null);
@@ -67,7 +66,8 @@ public class DetailMapDialogListener implements AdapterView.OnItemClickListener,
         mapDialog.show();
     }
 
-    public void initMap() {mLocationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+    public void initMap() {
+        mLocationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
        mMapView = (MapView) mapDialogView.findViewById(R.id.mapView);
        MapsInitializer.initialize(context);
        mMapView.onCreate(mapDialog.onSaveInstanceState());
@@ -83,7 +83,7 @@ public class DetailMapDialogListener implements AdapterView.OnItemClickListener,
                markerOptions.title("Current position");
                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
                mCurrentLocationMarker = gMap.addMarker(markerOptions);
-               gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.2f));
+               gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
            }
 
 

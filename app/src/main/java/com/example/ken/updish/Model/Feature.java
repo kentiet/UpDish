@@ -8,20 +8,20 @@ public class Feature {
     //private String type;
     private String feature;
 
-    public Feature() {
+    public Feature(){
         this.feature = null;
     }
-
     public Feature(String _feature){
         //this.type = _type;
         this.feature = _feature;
     }
 
-    public void setFeature(String f) {
-        this.feature = f;
-    }
+//    public String getType(){
+//        return type;
+//    }
 
     public String getFeature(){
         return feature;
     }
+    public void setFeature(String f) {this.feature = f;}
 }

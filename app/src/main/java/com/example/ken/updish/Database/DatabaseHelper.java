@@ -116,7 +116,5 @@ public class DatabaseHelper implements DatabaseInterface {
         database.setFeatureList(nList);
     }
 
-    public ArrayList<Feature> getFeatureList() {
-        return this.database.getFeatureList();
-    }
+    public ArrayList<Feature> getFeatureList(){return this.database.getFeatureList();}
 }

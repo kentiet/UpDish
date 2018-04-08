@@ -5,6 +5,7 @@ import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.Model.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class Database
 
     public Database()
     {
-        featureList = new ArrayList<>();
         postList = new ArrayList<>();
         currentDetailsPost = null;
+        featureList = new ArrayList<>();
     }
 
     public Post getCurrentDetailsPost() {
@@ -49,11 +50,7 @@ public class Database
         this.currentUser = currentUser;
     }
 
-    public ArrayList<Feature> getFeatureList() {
-        return featureList;
-    }
+    public ArrayList<Feature> getFeatureList(){return featureList;}
 
-    public void setFeatureList(ArrayList<Feature> featureList) {
-        this.featureList = featureList;
-    }
+    public void setFeatureList(ArrayList<Feature> featureList){this.featureList = featureList;}
 }

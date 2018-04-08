@@ -411,8 +411,7 @@ public class PostFragment extends Fragment {
     private void populateProList() {
         addProFeature(sltFeature);
         lvProFeature = (ListView) context.findViewById(R.id.lvProsFeature);
-       justifyListViewHeightBasedOnChildren(lvProFeature);
-
+        justifyListViewHeightBasedOnChildren(lvProFeature);
         proAdapter = new FeatureAdapter(context, myProFeatureList);
         lvProFeature.setAdapter(proAdapter);
     }
@@ -504,6 +503,7 @@ public class PostFragment extends Fragment {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         Feature slF = (Feature) feature.getSelectedItem();
                         sltFeature = slF.getFeature();
+                        //Check if selected feature exists
                         isExistFeature(passFeatureList, slF);
 
 
