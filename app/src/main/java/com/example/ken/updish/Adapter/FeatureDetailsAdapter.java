@@ -19,16 +19,24 @@ import java.util.ArrayList;
  * Created by mijeong on 4/5/2018.
  */
 
-public class FeatureOutputAdapter extends BaseAdapter {
+public class FeatureDetailsAdapter extends BaseAdapter {
+
     //Get Feature Attributes
-    private ArrayList<Feature> featureList;
+    private ArrayList<String> featureList;
 
     Activity context;
 
-    public FeatureOutputAdapter(Activity _context) {
+    public FeatureDetailsAdapter(Activity _context, String type) {
         super();
         this.context = _context;
-        this.featureList = DatabaseHelper.getInstance().getFeatureList();
+        if(type.equals("positive"))
+        {
+            this.featureList = DatabaseHelper.getInstance().getCurrentDetailsPost().getPositiveRate();
+        }else
+        {
+            this.featureList = DatabaseHelper.getInstance().getCurrentDetailsPost().getNegativeRate();
+        }
+
     }
 
     @Override
@@ -53,9 +61,8 @@ public class FeatureOutputAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.feature_output_layout, null);
         }
 
-
         TextView feature = (TextView)view.findViewById(R.id.txtView_feature);
-        feature.setText(featureList.get(i).getFeature());
+        feature.setText(featureList.get(i));
 
         return view;
     }

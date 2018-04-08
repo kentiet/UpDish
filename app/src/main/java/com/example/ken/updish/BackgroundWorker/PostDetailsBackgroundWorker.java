@@ -150,8 +150,20 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
                 }
             }
 
-            //Feature
+            /* === Feature === */
+            JSONArray jfeature = obj.getJSONArray("feature");
+            for(int j = 0; j < jfeature.length(); j++)
+            {
+                JSONObject jobjFeature = jfeature.getJSONObject(j);
+                if(jobjFeature.getString("type").equals("positive"))
+                {
+                    tempPost.getPositiveRate().add(jobjFeature.getString("feature_name"));
+                }else
+                {
+                    tempPost.getNegativeRate().add(jobjFeature.getString("feature_name"));
+                }
 
+            }
 
             /* === Location === */
             // location_id, name, streetNumber, streetName,

@@ -1,7 +1,6 @@
 package com.example.ken.updish.Activity;
 
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -10,28 +9,20 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ken.updish.Adapter.CommentAdapter;
-import com.example.ken.updish.Adapter.FeatureOutputAdapter;
+import com.example.ken.updish.Adapter.FeatureDetailsAdapter;
 import com.example.ken.updish.Adapter.MapAdapter;
-import com.example.ken.updish.BackgroundWorker.LikePostBackgroundWorker;
-import com.example.ken.updish.BackgroundWorker.PostListBackgroundWorker;
 import com.example.ken.updish.Database.DatabaseHelper;
 import com.example.ken.updish.Fragment.PostFragment;
 import com.example.ken.updish.Listener.DetailMapDialogListener;
 import com.example.ken.updish.Listener.LikePostListener;
 import com.example.ken.updish.Listener.PostCommentClickListener;
-import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Post;
 import com.example.ken.updish.R;
 import com.example.ken.updish.Adapter.ImgSlideAdapter;
@@ -58,7 +49,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private ListView listViewFeatures_pro;
     private ListView listViewFeatures_con;
-    FeatureOutputAdapter featureOutputAdapter;
+    FeatureDetailsAdapter featureDetailsAdapter;
     private TextView feature_pro;
     private TextView feature_con;
 
@@ -181,8 +172,8 @@ public class DetailActivity extends AppCompatActivity {
     //Features
     private void displayFeaturesPro(){
         listViewFeatures_pro = (ListView)findViewById(R.id.listView_feature_pro);
-        featureOutputAdapter = new FeatureOutputAdapter(this);
-        listViewFeatures_pro.setAdapter(featureOutputAdapter);
+        featureDetailsAdapter = new FeatureDetailsAdapter(this, "positive");
+        listViewFeatures_pro.setAdapter(featureDetailsAdapter);
         feature_pro = new TextView(this);
         feature_pro.setText("Pros: ");
         feature_pro.setGravity(Gravity.CENTER);
@@ -194,8 +185,8 @@ public class DetailActivity extends AppCompatActivity {
     }
     private void displayFeaturesCon(){
         listViewFeatures_con = (ListView)findViewById(R.id.listView_feature_con);
-        featureOutputAdapter = new FeatureOutputAdapter(this);
-        listViewFeatures_con.setAdapter(featureOutputAdapter);
+        featureDetailsAdapter = new FeatureDetailsAdapter(this, "negative");
+        listViewFeatures_con.setAdapter(featureDetailsAdapter);
         feature_con = new TextView(this);
         feature_con.setText("Cons: ");
         feature_con.setGravity(Gravity.CENTER);
