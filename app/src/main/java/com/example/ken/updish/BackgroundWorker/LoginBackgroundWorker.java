@@ -150,6 +150,9 @@ public class LoginBackgroundWorker extends AsyncTask<String,Void,String> {
             }catch(JSONException jsonex)
             {
                 Log.e("JSONex postex loginbgwk", jsonex.getMessage());
+                alertDialog.setTitle("Error!");
+                alertDialog.setMessage("Cannot login. Please try again.");
+                alertDialog.show();
             }
 
         }

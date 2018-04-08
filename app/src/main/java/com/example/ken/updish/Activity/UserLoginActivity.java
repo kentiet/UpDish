@@ -46,10 +46,10 @@ public class UserLoginActivity extends AppCompatActivity {
         });
 
         //Hard code username password for dev
-        EditText usernameLogin = (EditText)findViewById(R.id.editTextUserNameLogin);
-        EditText passwordLogin = (EditText)findViewById(R.id.editTextPassword);
-        usernameLogin.setText("tan");
-        passwordLogin.setText("tan");
+//        EditText usernameLogin = (EditText)findViewById(R.id.editTextUserNameLogin);
+//        EditText passwordLogin = (EditText)findViewById(R.id.editTextPassword);
+//        usernameLogin.setText("tan");
+//        passwordLogin.setText("tan");
     }
 
     private void setUsefulResources()

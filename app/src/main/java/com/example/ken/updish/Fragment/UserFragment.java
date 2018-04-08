@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ken.updish.Database.DatabaseHelper;
+import com.example.ken.updish.Listener.SignoutListener;
 import com.example.ken.updish.Model.User;
 import com.example.ken.updish.R;
 
@@ -39,6 +41,10 @@ public class UserFragment extends Fragment {
         User currentUser = DatabaseHelper.getInstance().getCurrentUser();
         userDisplay.setText(currentUser.getUserName());
         emailDisplay.setText(currentUser.getEmail());
+
+        SignoutListener snlistener = new SignoutListener(context);
+        Button signoutBtn = (Button)view.findViewById(R.id.btn_signOut);
+        signoutBtn.setOnClickListener(snlistener);
 
         return view;
     }

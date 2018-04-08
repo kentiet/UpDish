@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
@@ -61,9 +63,17 @@ public class DetailMapDialogListener implements AdapterView.OnItemClickListener,
         mapDialog = new Dialog(context);
 
         LayoutInflater featureInflater = context.getLayoutInflater();
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(mapDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
         mapDialogView = featureInflater.inflate(R.layout.detail_map_dialog, null);
         mapDialog.setContentView(mapDialogView);
         mapDialog.show();
+        mapDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
     }
 
     public void initMap() {
@@ -83,7 +93,7 @@ public class DetailMapDialogListener implements AdapterView.OnItemClickListener,
                markerOptions.title("Current position");
                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
                mCurrentLocationMarker = gMap.addMarker(markerOptions);
-               gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
+               gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.2f));
            }
 
 
