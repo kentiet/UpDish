@@ -90,4 +90,36 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrentFragment(Fragment currentFragment) {
         this.currentFragment = currentFragment;
     }
+
+    public HomeFragment getHomeFragment() {
+        return homeFragment;
+    }
+
+    public void setHomeFragment(HomeFragment homeFragment) {
+        this.homeFragment = homeFragment;
+    }
+
+    public PostFragment getPostFragment() {
+        return postFragment;
+    }
+
+    public void setPostFragment(PostFragment postFragment) {
+        this.postFragment = postFragment;
+    }
+
+    public UserFragment getUserFragment() {
+        return userFragment;
+    }
+
+    public void setUserFragment(UserFragment userFragment) {
+        this.userFragment = userFragment;
+    }
+
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
+
+    public void setBottomNavigationView(BottomNavigationView bottomNavigationView) {
+        this.bottomNavigationView = bottomNavigationView;
+    }
 }

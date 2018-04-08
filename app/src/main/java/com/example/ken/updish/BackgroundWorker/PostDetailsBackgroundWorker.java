@@ -157,11 +157,8 @@ public class PostDetailsBackgroundWorker extends AsyncTask<String, Void, String>
 
             loc.setId(Integer.parseInt(obj.getString("votedown")));
             loc.setName(obj.getString("name"));
-            loc.setStreetNumber(obj.getString("streetNumber"));
-            loc.setStreetName(obj.getString("streetName"));
-            loc.setPostalCode(obj.getString("postalcode"));
-            loc.setCity(obj.getString("city"));
-            loc.setProvince(obj.getString("province"));
+            loc.setAddress(obj.getString("address"));
+
             // Ken
             loc.setLatitude(obj.getLong("latitude"));
             loc.setLongtitude(obj.getLong("longtitude"));

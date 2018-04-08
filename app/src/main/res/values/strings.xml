@@ -74,20 +74,13 @@
     <string name="btnMapDialog">OK</string>
 
 
-    <string-array name="feature_pros">
-        <item>$ - Cheap</item>
-        <item>$$ - Acceptable</item>
-        <item>Yummy</item>
-        <item>Closed</item>
-        <item>Well Services</item>
-        <item>Take reservations</item>
-    </string-array>
-
-    <string-array name="feature_cons">
-        <item>Awful Food</item>
-        <item>Too Far</item>
-        <item>Low Services</item>
-        <item>So Crowded</item>
+    <string-array name="feature_array">
+        <item>spicy</item>
+        <item>cheesy</item>
+        <item>sweet</item>
+        <item>sour</item>
+        <item>salty</item>
+        <item>bitter</item>
     </string-array>
 
 

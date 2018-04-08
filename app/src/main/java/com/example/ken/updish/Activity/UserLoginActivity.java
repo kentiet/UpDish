@@ -54,7 +54,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private void setUsefulResources()
     {
-        String host = "10.0.2.2";
+        String host = "10.0.2.2:8888";
 //        String host = "10.1.122.27:8888";
 
         SharedResources sr = SharedResources.getInstance();
@@ -64,6 +64,12 @@ public class UserLoginActivity extends AppCompatActivity {
         sr.addStringValue(this, "detailsUrl", "http://" + host + "/updish/api/v1/post");
         sr.addStringValue(this, "commentUrl", "http://" + host + "/updish/api/v1/comment");
         sr.addStringValue(this, "likeUrl", "http://" + host + "/updish/api/v1/like");
+        sr.addStringValue(this, "postnew", "http://" + host + "/updish/api/v1/newpost");
+
+        sr.addStringValue(this, "GoogleMapLocation", "N/A"); // Not set for google map location
+        sr.addStringValue(this, "GoogleMapName", "N/A"); // Not set for google map name
+        sr.addStringValue(this, "selectedLong", "N/A"); // Not set Long
+        sr.addStringValue(this, "selectedLat", "N/A"); // Not set for Lat
 
     }
 }

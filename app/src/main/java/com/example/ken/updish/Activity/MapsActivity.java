@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.ken.updish.Listener.MapsDoneButtonListener;
 
 import com.example.ken.updish.R;
+import com.example.ken.updish.Utility.SharedResources;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
@@ -45,10 +46,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener,
+        GoogleMap.OnMyLocationButtonClickListener{
 
     PlaceAutocompleteFragment autocompleteFragment;
     private GoogleMap mMap;
@@ -58,12 +62,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationRequest mLocationRequest;
     Location mLastLocation;
     GoogleApiClient mGoogleApiClient;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     Button mapsDone;
+    private boolean cameraMovable;
     // Default current Latlng
-    private double currentLong = -122.084;
-    private double currentLat = 37.4219983;
+    private double currentLong = -123.0062645;
+    private double currentLat = 49.22641;
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -79,19 +82,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         Log.e("MAP", "Oncreate", null);
 
-        mapsDone = (Button) findViewById(R.id.btnLocationSearch);
-        MapsDoneButtonListener mDone = new MapsDoneButtonListener(this);
-        mapsDone.setOnClickListener(mDone);
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = sharedPreferences.edit();
-
         //Call location service
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         // Add the autocompletefragmant UI into fragment
         autocompleteFragment= (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete_search_input);
-        View autocompleteView = autocompleteFragment.getView();
+//        View autocompleteView = autocompleteFragment.getView();
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -100,6 +96,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         buildGoogleApiClient();
+        mapsDone = (Button) findViewById(R.id.btnLocationSearch);
+        MapsDoneButtonListener mDone = new MapsDoneButtonListener(this, mGoogleApiClient);
+        mapsDone.setOnClickListener(mDone);
 
 
     }
@@ -117,6 +116,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 Log.e("onRdy", "Map Ready 1st");
                 mMap.setMyLocationEnabled(true);
+                cameraMovable = true;
 
                 LatLng latLng = new LatLng(currentLat, currentLong);
                 MarkerOptions markerOptions = new MarkerOptions();
@@ -159,22 +159,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
+        if(cameraMovable)
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.2f));
+        cameraMovable = false;
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
+                Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_LONG).show();
 
-                Toast.makeText(MapsActivity.this, place.getAddress(), Toast.LENGTH_SHORT).show();
+                // Split String address
+                // Format : 700 Royal Ave, New Westminster, BC V3M 5Z5, Canada
                 currentLong = place.getLatLng().longitude;
                 currentLat = place.getLatLng().latitude;
-                editor.putString("GoogleSearchName", place.getName().toString());
-                editor.commit();
+                SharedResources sr = SharedResources.getInstance();
+                sr.addStringValue(MapsActivity.this, "GoogleMapName", place.getName().toString());
+                sr.addStringValue(MapsActivity.this, "GoogleMapLocation", place.getAddress().toString());
+                sr.addStringValue(MapsActivity.this,"selectedLong", String.valueOf(currentLong));
+                sr.addStringValue(MapsActivity.this, "selectedLat", String.valueOf(currentLat));
+                cameraMovable = true;
+
             }
 
             @Override
             public void onError(Status status) {
-
             }
 
 
@@ -244,10 +252,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
+    public boolean onMyLocationButtonClick() {
+        Log.e("Button My location", "Clicked", null);
+        return false;
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
         Log.e("ON START", "Connected");
     }
+
 
 }

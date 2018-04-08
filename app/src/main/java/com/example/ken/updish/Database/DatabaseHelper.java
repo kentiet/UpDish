@@ -76,10 +76,7 @@ public class DatabaseHelper implements DatabaseInterface {
     public String getCurrentPostFullAddress()
     {
         Location tempLoc = this.database.getCurrentDetailsPost().getLocation();
-        String output = "";
-        output += tempLoc.getStreetNumber() + " " + tempLoc.getStreetName() +
-            ", " + tempLoc.getCity() + ", " + tempLoc.getProvince() + " " +
-        tempLoc.getPostalCode();
+        String output = tempLoc.getAddress();
         return output;
     }
 
