@@ -6,7 +6,7 @@ package com.example.ken.updish.Database;
 
 import android.util.Log;
 
-import com.example.ken.updish.Interface.DatabaseInterface;
+//import com.example.ken.updish.Interface.DatabaseInterface;
 import com.example.ken.updish.Model.Feature;
 import com.example.ken.updish.Model.Location;
 import com.example.ken.updish.Model.Post;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by tanthinh on 3/19/18.
  */
 
-public class DatabaseHelper implements DatabaseInterface {
+public class DatabaseHelper {
 
     /* Include CRUD operation */
     private static DatabaseHelper databaseHelper = null;
