@@ -109,13 +109,13 @@ public class LikePostBackgroundWorker extends AsyncTask<String, Void, String> {
                 {
                     if(typeChoice.equalsIgnoreCase("like"))
                     {
-                        incrementThumbUpAction(currentPostDt, voteUp, detailActivity);
                         decrementThumbDownAction(currentPostDt, voteDown, detailActivity);
+                        incrementThumbUpAction(currentPostDt, voteUp, detailActivity);
 
                     }else if(typeChoice.equalsIgnoreCase("dislike"))
                     {
-                        incrementThumbDownAction(currentPostDt, voteDown, detailActivity);
                         decrementThumbUpAction(currentPostDt, voteUp, detailActivity);
+                        incrementThumbDownAction(currentPostDt, voteDown, detailActivity);
                     }
 
                 // Modify or delete
@@ -123,13 +123,13 @@ public class LikePostBackgroundWorker extends AsyncTask<String, Void, String> {
                 {
                     if(typeChoice.equalsIgnoreCase("like"))
                     {
-                        incrementThumbUpAction(currentPostDt, voteUp, detailActivity);
                         decrementThumbDownAction(currentPostDt, voteDown, detailActivity);
+                        incrementThumbUpAction(currentPostDt, voteUp, detailActivity);
 
                     }else if(typeChoice.equalsIgnoreCase("dislike"))
                     {
-                        incrementThumbDownAction(currentPostDt, voteDown, detailActivity);
                         decrementThumbUpAction(currentPostDt, voteUp, detailActivity);
+                        incrementThumbDownAction(currentPostDt, voteDown, detailActivity);
                     }
 
                 } else if(method.equalsIgnoreCase("delete"))

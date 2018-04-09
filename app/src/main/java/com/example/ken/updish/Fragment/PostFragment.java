@@ -279,8 +279,8 @@ public class PostFragment extends Fragment {
         btn_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (clicked < 5) {
-                    clicked++;
+                if (bitmapArrayNormal.size() < 5 && bitmapArrayGrid.size() < 5) {
+//                    clicked++;
                     onImageGalleryClicked(btn_picture);
                 } else {
                     Toast.makeText(context, "Post can contain maximum 5 photos", Toast.LENGTH_SHORT).show();
@@ -575,6 +575,22 @@ public class PostFragment extends Fragment {
                 feature.setAdapter(spinnerAdapter);
                 break;
         }
+    }
+
+    public ArrayList<Bitmap> getBitmapArrayGrid() {
+        return bitmapArrayGrid;
+    }
+
+    public void setBitmapArrayGrid(ArrayList<Bitmap> bitmapArrayGrid) {
+        this.bitmapArrayGrid = bitmapArrayGrid;
+    }
+
+    public ArrayList<Bitmap> getBitmapArrayNormal() {
+        return bitmapArrayNormal;
+    }
+
+    public void setBitmapArrayNormal(ArrayList<Bitmap> bitmapArrayNormal) {
+        this.bitmapArrayNormal = bitmapArrayNormal;
     }
 
     @Override

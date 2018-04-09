@@ -108,6 +108,7 @@ public class DetailActivity extends AppCompatActivity {
     }
     private void initLikePostButton()
     {
+        Log.e("Init like post button", currentPostDetails.getLikeStatus()+"",null);
 
         thumbup = this.getResources().getDrawable(R.drawable.thumb_up);
         thumbupCor = this.getResources().getDrawable(R.drawable.thumb_up_colored);
@@ -124,6 +125,10 @@ public class DetailActivity extends AppCompatActivity {
         }else if(currentPostDetails.getLikeStatus().equalsIgnoreCase("dislike"))
         {
             dislikePostImgBtn.setImageDrawable(thumbdownCor);
+        }else
+        {
+            likePostImgBtn.setImageDrawable(thumbup);
+            dislikePostImgBtn.setImageDrawable(thumbdown);
         }
 
         LikePostListener lpbgLike = new LikePostListener(this, "like");
