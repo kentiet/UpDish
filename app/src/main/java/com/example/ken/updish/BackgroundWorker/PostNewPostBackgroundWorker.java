@@ -86,9 +86,10 @@ public class PostNewPostBackgroundWorker extends AsyncTask<JSONObject, Void, Str
             if(success.equals("true"))
             {
                 MainActivity mainActivity = (MainActivity)context;
-                PostFragment pf = new PostFragment();
-                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.navigation_main);
-//                mainActivity.getPostFragment();
+
+                //Reset the Pictures
+                mainActivity.getPostFragment().getBitmapArrayGrid().clear();
+                mainActivity.getPostFragment().getBitmapArrayNormal().clear();
 
                 //Reset ShareResources
                 SharedResources sr = SharedResources.getInstance();
@@ -96,6 +97,10 @@ public class PostNewPostBackgroundWorker extends AsyncTask<JSONObject, Void, Str
                 sr.addStringValue(context, "GoogleMapLocation", "N/A");
                 sr.addStringValue(context,"selectedLong","N/A");
                 sr.addStringValue(context,"selectedLat","N/A");
+
+                PostFragment pf = new PostFragment();
+                mainActivity.getBottomNavigationView().setSelectedItemId(R.id.navigation_main);
+//                mainActivity.getPostFragment();
             }else
             {
                 Toast.makeText(context, "Cannot post a new dish. Please try again later", Toast.LENGTH_LONG);
