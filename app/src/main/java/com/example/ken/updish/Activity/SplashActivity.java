@@ -1,3 +1,6 @@
+/*
+    This activity is for splash screen in the beginning of the application
+ */
 package com.example.ken.updish.Activity;
 
 import android.content.Intent;

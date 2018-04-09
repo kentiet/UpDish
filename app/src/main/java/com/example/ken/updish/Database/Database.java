@@ -1,3 +1,7 @@
+/*
+    This Database class will hold the data necessary for the application
+ */
+
 package com.example.ken.updish.Database;
 
 import com.example.ken.updish.Interface.DatabaseInterface;

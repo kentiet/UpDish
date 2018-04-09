@@ -1,3 +1,7 @@
+/*
+    This DatabaseHelper class is used to wrap method to access the Database class
+ */
+
 package com.example.ken.updish.Database;
 
 import android.util.Log;

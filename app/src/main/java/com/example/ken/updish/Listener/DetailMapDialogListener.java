@@ -1,3 +1,7 @@
+/*
+    This Listener is fired when user clicks on the address displayed in Details Activity
+ */
+
 package com.example.ken.updish.Listener;
 
 import android.app.Activity;

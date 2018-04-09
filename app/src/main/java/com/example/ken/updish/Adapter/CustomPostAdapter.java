@@ -1,3 +1,6 @@
+/*
+    This Adapter is used for single item post in the Home Fragments
+ */
 package com.example.ken.updish.Adapter;
 
 import android.app.Activity;

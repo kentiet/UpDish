@@ -1,3 +1,6 @@
+/*
+    This Asynctask Class is used to send request to get all the posts in the Home Fragment
+ */
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;

@@ -1,3 +1,7 @@
+/*
+    This class is used to adjust the height of the List view in comment
+ */
+
 package com.example.ken.updish;
 import android.content.Context;
 import android.util.AttributeSet;

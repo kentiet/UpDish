@@ -1,3 +1,6 @@
+/*
+    This helper class is used to connect with the Background Worker classes for simplicity
+ */
 package com.example.ken.updish.Utility;
 
 import android.app.Activity;

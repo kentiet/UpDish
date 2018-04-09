@@ -1,3 +1,9 @@
+/*
+    This activity is for the Main activity screen when user has just logged in
+    and it will navigate to this activity. This activity contains 3 fragments screen
+    and a bottom navigation menu
+ */
+
 package com.example.ken.updish.Activity;
 
 import android.content.Intent;

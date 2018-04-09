@@ -1,3 +1,7 @@
+/*
+    This activity is for user registration
+ */
+
 package com.example.ken.updish.Activity;
 
 import android.support.v7.app.AppCompatActivity;

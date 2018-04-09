@@ -1,3 +1,6 @@
+/*
+    This Asynctask Class is used to send request to get feature list from the server
+ */
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;

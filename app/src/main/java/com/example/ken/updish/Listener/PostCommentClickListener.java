@@ -1,3 +1,7 @@
+/*
+    This Listener is fired when user clicks on the Post button when he wants to post new comments
+ */
+
 package com.example.ken.updish.Listener;
 
 import android.app.Activity;

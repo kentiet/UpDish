@@ -1,3 +1,6 @@
+/*
+    This Asynctask Class is used to send request to like or dislike post
+ */
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;

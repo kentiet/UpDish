@@ -1,3 +1,7 @@
+/*
+    This User Fragment class is used to display user's information
+ */
+
 package com.example.ken.updish.Fragment;
 
 

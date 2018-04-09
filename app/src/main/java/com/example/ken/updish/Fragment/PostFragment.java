@@ -1,3 +1,8 @@
+/*
+    This Post Fragment class is for Second menu item in Main Activity, it will allow users to upload
+    Post
+ */
+
 package com.example.ken.updish.Fragment;
 
 

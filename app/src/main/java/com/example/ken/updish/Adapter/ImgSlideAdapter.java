@@ -1,3 +1,6 @@
+/*
+    This adapter is used to slide the images in Details Activity
+ */
 package com.example.ken.updish.Adapter;
 
 import android.content.Context;

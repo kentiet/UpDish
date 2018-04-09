@@ -1,3 +1,7 @@
+/*
+    This Listener is fired when user clicks on the DONE button when finish choosing the location
+ */
+
 package com.example.ken.updish.Listener;
 
 import android.Manifest;

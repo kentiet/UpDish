@@ -1,3 +1,6 @@
+/*
+    This activity is for the Google Map screen, which use google api
+ */
 package com.example.ken.updish.Activity;
 
 import android.Manifest;

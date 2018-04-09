@@ -1,3 +1,7 @@
+/*
+    This Home Fragment class is for First menu item in Main Activity
+ */
+
 package com.example.ken.updish.Fragment;
 
 import android.app.Activity;

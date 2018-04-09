@@ -18,7 +18,9 @@ import java.util.ArrayList;
 /**
  * Created by mijeong on 4/5/2018.
  */
-
+/*
+    This adapter is used to display features in Details activity
+ */
 public class FeatureDetailsAdapter extends BaseAdapter {
 
     //Get Feature Attributes

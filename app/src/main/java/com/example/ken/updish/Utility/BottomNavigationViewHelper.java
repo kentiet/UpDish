@@ -1,3 +1,7 @@
+/*
+    This class is a helper class to helper with the navigation view menu look and feel
+ */
+
 package com.example.ken.updish.Utility;
 
 import android.app.Activity;

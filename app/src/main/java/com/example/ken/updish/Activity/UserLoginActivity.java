@@ -1,3 +1,7 @@
+/*
+    This activity is for the login screen
+ */
+
 package com.example.ken.updish.Activity;
 
 import android.content.Intent;

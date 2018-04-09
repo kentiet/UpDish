@@ -1,3 +1,7 @@
+/*
+    This Asynctask Class is used to post comments
+ */
+
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;

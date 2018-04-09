@@ -16,7 +16,9 @@ import com.example.ken.updish.R;
 
 import java.util.ArrayList;
 
-
+/*
+    This adapter is used to display Map for details activity
+ */
 public class MapAdapter extends BaseAdapter {
 
     Activity context;

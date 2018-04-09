@@ -1,3 +1,7 @@
+/*
+    This Listener is fired when user clicks LIKE or DISLIKE Post
+ */
+
 package com.example.ken.updish.Listener;
 
 import android.app.Activity;

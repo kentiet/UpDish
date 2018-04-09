@@ -1,3 +1,6 @@
+/*
+    This adapter is used to display features in Post Fragment
+ */
 package com.example.ken.updish.Adapter;
 
 import android.app.Activity;

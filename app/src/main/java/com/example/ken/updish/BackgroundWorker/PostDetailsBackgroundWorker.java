@@ -1,3 +1,7 @@
+/*
+    This Asynctask Class is used to get all information for a single Post
+ */
+
 package com.example.ken.updish.BackgroundWorker;
 
 import android.app.Activity;

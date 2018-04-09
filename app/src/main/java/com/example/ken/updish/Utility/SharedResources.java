@@ -1,3 +1,7 @@
+/*
+    This class is a wrapper class for SharePreferences - simple use
+ */
+
 package com.example.ken.updish.Utility;
 
 import android.content.Context;

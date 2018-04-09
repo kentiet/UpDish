@@ -1,3 +1,6 @@
+/*
+    This adapter is used to display small picture for choosing pictures in Details Activity
+ */
 package com.example.ken.updish.Adapter;
 
 import android.app.Activity;

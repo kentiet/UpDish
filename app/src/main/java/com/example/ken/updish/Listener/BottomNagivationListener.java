@@ -1,3 +1,7 @@
+/*
+    This Listener is fired when user clicks on the menu item on BottomNagvigationView
+ */
+
 package com.example.ken.updish.Listener;
 
 import android.app.Activity;

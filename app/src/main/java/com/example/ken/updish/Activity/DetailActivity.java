@@ -1,3 +1,7 @@
+/*
+    This activity is for the details activity screen when user chooses a specific
+    post from the Home Screen
+ */
 package com.example.ken.updish.Activity;
 
 import android.graphics.drawable.Drawable;
