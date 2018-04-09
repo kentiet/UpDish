@@ -28,7 +28,7 @@
     <string name="txt_description">Dish description</string>
     <string name="img_foodDesc">Food Image description</string>
     <string name="title_activity_post">PostActivity</string>
-    <string name="txt_postToolBar">NEW POST</string>
+    <string name="txt_postToolBar">Upload Post</string>
     <string name="txt_nameOfDishes">Name of dishes</string>
     <string name="img_picture">Picture Description</string>
     <string name="img_mapPointer">Map Pointer Description</string>

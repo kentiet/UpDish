@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="text_post_size">20dp</dimen>
     <dimen name="text_desc_post_Size">15dp</dimen>
+    <dimen name="text_title_size">25dp</dimen>
 
     <!-- Margin -->
     <dimen name="mainMarginLeft">15dp</dimen>

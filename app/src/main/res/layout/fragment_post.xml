@@ -28,8 +28,8 @@
                 android:layout_centerInParent="true"
                 android:gravity="center_vertical"
                 android:text="@string/txt_postToolBar"
-                android:textColor="@color/colorMain"
-                android:textSize="18sp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_title_size"
                 android:textStyle="bold" />
 
             <Button
@@ -43,7 +43,7 @@
                 android:drawableLeft="@drawable/ic_post_new_24dp"
                 android:text="@string/btn_newPost"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
+                android:textColor="@android:color/holo_red_dark"
                 android:background="@android:color/transparent"
                 android:textSize="18sp"
                 android:textStyle="bold"

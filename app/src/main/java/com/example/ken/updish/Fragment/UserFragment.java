@@ -40,7 +40,7 @@ public class UserFragment extends Fragment {
 
         User currentUser = DatabaseHelper.getInstance().getCurrentUser();
         userDisplay.setText(currentUser.getUserName());
-        emailDisplay.setText(currentUser.getEmail());
+        emailDisplay.setText(currentUser.getUserName() + "@gmail.com");
 
         SignoutListener snlistener = new SignoutListener(context);
         Button signoutBtn = (Button)view.findViewById(R.id.btn_signOut);

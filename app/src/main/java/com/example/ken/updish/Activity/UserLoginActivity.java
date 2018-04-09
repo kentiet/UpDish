@@ -54,7 +54,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     private void setUsefulResources()
     {
-        String host = "10.0.2.2:8888";
+        String host = "10.0.2.2";
 //        String host = "10.1.122.27:8888";
 
         SharedResources sr = SharedResources.getInstance();
